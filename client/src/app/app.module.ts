@@ -7,8 +7,10 @@ import {MdInputModule,MdButtonModule,MdToolbarModule,MdIconModule}from '@angular
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import { AuthenticationService } from './authentication/authentication.service';
+import { AppConfig } from './app.config';
 
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './authentication/login/login.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,10 @@ import { LoginComponent } from './login/login.component';
     MdIconModule    
 
   ],
-  providers: [],
+  providers: [
+    AppConfig,
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

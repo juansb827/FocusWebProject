@@ -2,26 +2,26 @@
   <div class="login-box mat-elevation-z10" style="background-color:white;">
 
     <md-toolbar color="primary">
-      <span>Iniciar Sesion</span>
+      <span>{{title}}</span>
     </md-toolbar>
-   
-    <div style="padding:40px">
+    <p>{{logged}}</p>
+    <form name="form" style="padding:40px" #f="ngForm">
       <md-input-container style="width:100%">
         <!-- <md-icon mdPrefix>home</md-icon>      
         <md-icon mdSuffix>home</md-icon>      
         -->
-        <input mdInput placeholder="Empresa">
+        <input mdInput placeholder="Empresa" [(ngModel)]="model.company"  name="company">
       </md-input-container>
-      <md-input-container style="width:100%">
-        <input mdInput placeholder="Usuario">
+      <md-input-container style="width:100%" >
+        <input mdInput placeholder="Usuario" [(ngModel)]="model.username" name="username">
       </md-input-container>
 
       <md-input-container style="width:100%">
-        <input mdInput placeholder="Contraseña">
+        <input mdInput placeholder="Contraseña" [(ngModel)]="model.password" name="password">
       </md-input-container>
 
       <button md-raised-button color="primary">Iniciar</button>
   
-    </div>
+    </form>
   </div>
 </div>
