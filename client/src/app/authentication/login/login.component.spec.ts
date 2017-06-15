@@ -92,8 +92,8 @@ describe('LoginComponent', () => {
     expect(el.textContent).toEqual('true');
     //expect(component.logged).toEqual(true);
   })
-  /*
-  it("should do whatever async",fakeAsync (()=>{
+  
+  it("should do whatever fakesync",fakeAsync (()=>{
     component.logged=true;
     component.model.username="pepe";
     component.model.password="pepepassword";
@@ -120,6 +120,33 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
     expect(el.textContent).toEqual('false');    
   }));
+
+  it("should do whatever esync",async (()=>{
+    component.logged=true;
+    component.model.username="pepe";
+    component.model.password="pepepassword";
+    
+   
+
+    spyOn(authService,'login')
+      .and.callFake(()=>{
+         var foo = Observable.create(function (observer) {          
+              observer.error("sdadas");           
+        });
+        return foo;
+      });
+        
+        
+         
+
+    const el=de.query(By.css('p')).nativeElement;
+    component.login();
+    
+    fixture.whenStable().then(()=>{
+      fixture.detectChanges();
+      expect(el.textContent).toEqual('false');  
+    });  
+  }));
   
-*/
+
 });

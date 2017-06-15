@@ -1,11 +1,12 @@
 <div class="login-component">
+  
   <div class="login-box mat-elevation-z10" style="background-color:white;">
-
+  <md-progress-bar mode="indeterminate" ></md-progress-bar>
     <md-toolbar color="primary">
-      <span>{{title}}</span>
+      <span>Iniciar Sesión</span>
     </md-toolbar>
-    <p>{{logged}}</p>
-    <form name="form" style="padding:40px" #f="ngForm">
+   
+    <form name="form" (ngSubmit)="login()" style="padding:40px" >
       <md-input-container style="width:100%">
         <!-- <md-icon mdPrefix>home</md-icon>      
         <md-icon mdSuffix>home</md-icon>      
@@ -13,15 +14,12 @@
         <input mdInput placeholder="Empresa" [(ngModel)]="model.company"  name="company">
       </md-input-container>
       <md-input-container style="width:100%" >
-        <input mdInput placeholder="Usuario" [(ngModel)]="model.username" name="username">
+        <input mdInput placeholder="Correo" [(ngModel)]="model.email" name="email">
       </md-input-container>
-
       <md-input-container style="width:100%">
         <input mdInput placeholder="Contraseña" [(ngModel)]="model.password" name="password">
       </md-input-container>
-
-      <button md-raised-button color="primary">Iniciar</button>
-  
+      <button type="submit" md-raised-button color="primary">Iniciar</button>  
     </form>
   </div>
 </div>

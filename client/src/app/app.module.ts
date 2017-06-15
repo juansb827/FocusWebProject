@@ -3,19 +3,25 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MdInputModule,MdButtonModule,MdToolbarModule,MdIconModule}from '@angular/material';
+import {MaterialModule}from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
-import { AuthenticationService } from './authentication/authentication.service';
 import { AppConfig } from './app.config';
 
+import { AuthenticationService } from './authentication/authentication.service';
+import { AuthGuard } from './authentication/authentication.guard';
+
 import { LoginComponent } from './authentication/login/login.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent   
+    LoginComponent,
+    NavbarComponent,
+    HomeComponent   
   ],
   imports: [
     BrowserModule,
@@ -23,15 +29,12 @@ import { LoginComponent } from './authentication/login/login.component';
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MdInputModule,
-    MdButtonModule,
-    MdToolbarModule,
-    MdIconModule    
-
+    MaterialModule
   ],
   providers: [
     AppConfig,
-    AuthenticationService
+    AuthenticationService,    
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

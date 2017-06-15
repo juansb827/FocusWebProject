@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
  
 import { AppConfig } from '../app.config';
+
+
+
  
 @Injectable()
 export class AuthenticationService {
+    subject = new  Subject<any>();
+
     constructor(private http: Http, private config: AppConfig) { }
  
     login(username: string, password: string) {
@@ -24,5 +30,17 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+    }
+
+     notifyLogin(user:any){
+         this.subject.next(user);
+     }
+
+     notifyLogout(){
+         this.subject.next();
+     }
+
+     getUser(): Observable<any> {
+        return this.subject.asObservable();
     }
 }
