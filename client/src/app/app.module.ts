@@ -11,7 +11,7 @@ import { AppConfig } from './app.config';
 
 import { AuthenticationService } from './authentication/authentication.service';
 import { AuthGuard } from './authentication/authentication.guard';
-
+import {StickyModule} from 'ng2-sticky-kit/ng2-sticky-kit';
 import { LoginComponent } from './authentication/login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
@@ -29,7 +29,8 @@ import { HomeComponent } from './home/home.component';
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    StickyModule
   ],
   providers: [
     AppConfig,

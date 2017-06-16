@@ -1,0 +1,38 @@
+
+
+@mixin app-navbar-theme($theme) {
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .user-actions:hover{
+    background-color:mat-color($primary, 400);
+  } 
+    
+
+}
+
+/*
+ md-menu width only changes if this is placed here
+ ()
+*/
+$user-actions-width:280px;
+$user-actions-padding:30px;
+.user-actions{   
+    display: table;
+    position:absolute;
+    right:0px;
+    height: inherit;    
+    
+    width:$user-actions-width;
+    padding-left:$user-actions-padding;
+    padding-right:$user-actions-padding;
+    cursor: pointer; cursor: hand;
+}
+.user-dropdown{
+    $mat-menu-width:$user-actions-width+2*$user-actions-padding;
+    min-width: $mat-menu-width !important ;  
+    max-width: $mat-menu-width !important ; 
+  }
+

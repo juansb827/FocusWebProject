@@ -1,9 +1,42 @@
 @import '../node_modules/@angular/material/theming';
+@import './app/navbar/navbar.theme.scss';
+//@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 @include mat-core();
-
-$custom-theme-primary: mat-palette($mat-light-blue);
+$custom-theme-primary: mat-palette($mat-blue);
 $custom-theme-accent: mat-palette($mat-lime, A200, A100, A400);
 $custom-theme-warn: mat-palette($mat-deep-orange);
+
+// Creates the map object with the palettes we defined
+
 $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+
+
+/* 
+    executes all theme mix-ins for our custom components, 
+    the same way Angular Material does it with angular-material-theme
+*/
+@mixin custom-theme($theme) {
+    @include app-navbar-theme($theme) ;
+}
+
+ 
+// Loads our theme map to angular-material components
+
 @include angular-material-theme($custom-theme);
+@include custom-theme($custom-theme);
+
+
+
+/* this is what mat-light-theme does
+@function mat-light-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: false,
+    foreground: $mat-light-theme-foreground,
+    background: $mat-light-theme-background,
+  );
+}
+*/
