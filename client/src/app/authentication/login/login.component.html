@@ -1,34 +1,35 @@
 <div class="login-component">
-  
+
   <div class="login-box mat-elevation-z10" style="background-color:white;">
-  <md-progress-bar mode="indeterminate" color="warn" *ngIf="loading">    
-  </md-progress-bar>
+    <md-progress-bar mode="indeterminate" color="warn" *ngIf="loading">
+    </md-progress-bar>
     <md-toolbar color="primary">
       <span>Iniciar Sesión</span>
     </md-toolbar>
-   
-    <form name="form" (ngSubmit)="login()" style="padding:40px" >
-      <md-input-container style="width:100%">
-        <!-- <md-icon mdPrefix>home</md-icon>      
+
+    <form name="form" (ngSubmit)="login()" style="padding:40px" novalidate>
+
+      <!-- <md-icon mdPrefix>home</md-icon>      
         <md-icon mdSuffix>home</md-icon>      
         -->
-        
-        <input mdInput placeholder="Empresa" [(ngModel)]="model.company"  name="company" #company="ngModel" required>
-        <md-error *ngIf="company.errors.required">Error fdsfsfs</md-error>
-      </md-input-container>
-      <md-input-container style="width:100%" >
-        <input mdInput placeholder="Correo" [(ngModel)]="model.email" name="email" #email="ngModel" type="email" (click)="test(email)" email>
-        <md-error *ngIf="email.errors.required">
-          This field is required
-        </md-error>
-        <md-error *ngIf="email.hasError('pattern')">
-          Please enter a valid email address
-        </md-error>
+      <md-input-container style="width:100%">
+        <input class="mat-display-1" mdInput placeholder="Empresa" [(ngModel)]="model.company" name="company" #company="ngModel" maxlength="10" required>
+        <md-error *ngIf="company.errors && company.errors.required">Por favor ingrese la empresa</md-error>
       </md-input-container>
       <md-input-container style="width:100%">
-        <input mdInput placeholder="Contraseña" [(ngModel)]="model.password" name="password">
+        <input mdInput placeholder="Correo" [(ngModel)]="model.email" name="email" #email="ngModel" type="email" (click)="test(email)"
+          email required>
+        <md-error *ngIf="email.errors">
+          Porfavor ingrese una direccion de correo valida
+        </md-error>      
       </md-input-container>
-      <button type="submit" md-raised-button color="primary">Iniciar</button>  
+      <md-input-container style="width:100%">
+        <input mdInput placeholder="Contraseña" [(ngModel)]="model.password" name="password" #password="ngModel" required> 
+        <md-error *ngIf="password.errors && password.errors.required">
+          Porfavor ingrese su contraseña
+        </md-error>              
+      </md-input-container>
+      <button type="submit" md-raised-button color="primary">Iniciar</button>
     </form>
   </div>
 </div>
