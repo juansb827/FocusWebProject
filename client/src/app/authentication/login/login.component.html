@@ -1,7 +1,8 @@
 <div class="login-component">
   
   <div class="login-box mat-elevation-z10" style="background-color:white;">
-  <md-progress-bar mode="indeterminate" ></md-progress-bar>
+  <md-progress-bar mode="indeterminate" color="warn" *ngIf="loading">    
+  </md-progress-bar>
     <md-toolbar color="primary">
       <span>Iniciar Sesión</span>
     </md-toolbar>
@@ -11,10 +12,18 @@
         <!-- <md-icon mdPrefix>home</md-icon>      
         <md-icon mdSuffix>home</md-icon>      
         -->
-        <input mdInput placeholder="Empresa" [(ngModel)]="model.company"  name="company">
+        
+        <input mdInput placeholder="Empresa" [(ngModel)]="model.company"  name="company" #company="ngModel" required>
+        <md-error *ngIf="company.errors.required">Error fdsfsfs</md-error>
       </md-input-container>
       <md-input-container style="width:100%" >
-        <input mdInput placeholder="Correo" [(ngModel)]="model.email" name="email">
+        <input mdInput placeholder="Correo" [(ngModel)]="model.email" name="email" #email="ngModel" type="email" (click)="test(email)" email>
+        <md-error *ngIf="email.errors.required">
+          This field is required
+        </md-error>
+        <md-error *ngIf="email.hasError('pattern')">
+          Please enter a valid email address
+        </md-error>
       </md-input-container>
       <md-input-container style="width:100%">
         <input mdInput placeholder="Contraseña" [(ngModel)]="model.password" name="password">

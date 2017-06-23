@@ -3,11 +3,26 @@
     width:100%;
     overflow:auto;
     
+    
  
+}
+.test{
+display:inline;
+}
+$box-width:150px;
+.grid-wrapper{
+    
+/*use repeat(# of times, measurement)     */
+margin: 0 auto;
+width: $box-width*5;
+display: grid;
+  grid-template-columns: repeat(5,$box-width);
+  grid-gap:20px;
+  
 }
 .app-box{
     cursor: pointer; cursor: hand;
-    margin:20px;
+    
     padding-top: 20px;
     border:1px solid transparent;
     border-radius:15px;

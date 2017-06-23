@@ -1,5 +1,6 @@
 @import '../node_modules/@angular/material/theming';
 @import './app/navbar/navbar.theme.scss';
+@import './app/messages/snackbar.theme.scss';
 //@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 @include mat-core();
@@ -18,6 +19,7 @@ $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $cus
 */
 @mixin custom-theme($theme) {
     @include app-navbar-theme($theme) ;
+    @include app-snackbar-theme($theme) ;
 }
 
  

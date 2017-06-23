@@ -11,17 +11,21 @@ import { AppConfig } from './app.config';
 
 import { AuthenticationService } from './authentication/authentication.service';
 import { AuthGuard } from './authentication/authentication.guard';
-import {StickyModule} from 'ng2-sticky-kit/ng2-sticky-kit';
 import { LoginComponent } from './authentication/login/login.component';
+import { SnackbarComponent } from './messages/toaster.service';
+import { ToasterService } from './messages/toaster.service';
 import { NavbarComponent } from './navbar/navbar.component';
+
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,    
     LoginComponent,
     NavbarComponent,
-    HomeComponent   
+    HomeComponent,
+    SnackbarComponent   
+    
   ],
   imports: [
     BrowserModule,
@@ -29,13 +33,18 @@ import { HomeComponent } from './home/home.component';
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
-    StickyModule
+    MaterialModule    
+    
+    
   ],
   providers: [
     AppConfig,
     AuthenticationService,    
-    AuthGuard
+    AuthGuard,
+    ToasterService
+  ],
+  entryComponents:[
+    SnackbarComponent   
   ],
   bootstrap: [AppComponent]
 })

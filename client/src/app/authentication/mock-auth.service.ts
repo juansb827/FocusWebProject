@@ -11,6 +11,7 @@ let credentials={
 let user={
     company:"ICPAR",
     email:"whatever@test.com",
+    name: "Rani Ranenses",
     token: "asdfdjfakñ"        
 }
 
@@ -29,8 +30,11 @@ export const MockAuth={
             && creds.password===credentials.password
             && creds.company===credentials.company){
                 localStorage.setItem('currentUser', JSON.stringify(user));
-                observer.next(user);
-                notifyLogin(user);
+                setTimeout(()=>{
+                    observer.next(user);
+                    notifyLogin(user);
+                },1500);
+                
             }else{
                 observer.error("Wrong credentials");
             }

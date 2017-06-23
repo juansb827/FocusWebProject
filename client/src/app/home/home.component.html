@@ -1,90 +1,98 @@
 <div class="home-component" style="padding-top:60px">    
-  <table style="margin:0 auto">
-    <tr>
-      <td>
+
+  <div class="grid-wrapper">
+    <div  class="app-box" *ngFor="let app of userApps">
+          <md-icon  class="app-icon" >{{app.icon}}</md-icon>
+          <span class="app-text">
+              {{app.name}}
+          </span>
+        </div>
+      
+      <!--
         <div  class="app-box">
           <md-icon  class="app-icon" >home</md-icon>
           <span class="app-text">
               Contabilidad
           </span>
         </div>
-      </td>
-      <td>
+      
+      
         <div  class="app-box">
           <md-icon  class="app-icon" >warning</md-icon>
           <span class="app-text">
               Bancos
           </span>
         </div>
-      </td>
-      <td>
+      
+      
         <div  class="app-box">
           <md-icon  class="app-icon" >add_circle</md-icon>
           <span class="app-text">
               Ventas
           </span>
         </div>
-      </td>
-      <td>
+      
+      
         <div  class="app-box">
           <md-icon  class="app-icon" >shopping_basket</md-icon>
           <span class="app-text">
               Ventas
           </span>
         </div>
-      </td>
-      <td>
+      
+      
         <div  class="app-box">
           <md-icon  class="app-icon" >thumb_up</md-icon>
           <span class="app-text">
               Ejemplos
           </span>
         </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
+      
+    
+    
+      
         <div  class="app-box">
           <md-icon  class="app-icon" >verified_user</md-icon>
           <span class="app-text">
               Contabilidad
           </span>
         </div>
-      </td>
-      <td>
+      
+      
         <div  class="app-box">
           <md-icon  class="app-icon" >work</md-icon>
           <span class="app-text">
               Bancos
           </span>
         </div>
-      </td>
-      <td>
+      
+      
         <div  class="app-box">
           <md-icon  class="app-icon" >new_releases</md-icon>
           <span class="app-text">
               Ventas
           </span>
         </div>
-      </td>
-      <td>
+      
+      
         <div  class="app-box">
           <md-icon  class="app-icon" >favorite</md-icon>
           <span class="app-text">
               Ventas
           </span>
         </div>
-      </td>
-      <td>
+      
+      
         <div  class="app-box">
           <md-icon  class="app-icon" >extension</md-icon>
           <span class="app-text">
               Ejemplos y Bancos
           </span>
         </div>
-      </td>
-    </tr>
-
-  </table>
+      
+    
+-->
+  
+  </div>
   
 </div>

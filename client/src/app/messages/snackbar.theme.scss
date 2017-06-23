@@ -1,0 +1,20 @@
+
+@mixin app-snackbar-theme($theme) {
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+  $accent: map-get($theme, accent);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .snackbar{
+    color:mat-color($primary, 100);
+    
+  } 
+    
+    
+}
+
+snack-bar-container{
+        max-width: 800px !important;
+
+    }
