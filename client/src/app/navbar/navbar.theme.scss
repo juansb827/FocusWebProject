@@ -6,9 +6,10 @@
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  .user-actions:hover{
+  .user-actions:hover, .app-option:hover, .goback:hover{
     background-color:mat-color($primary, 400);
   } 
+  
     
 
 }
@@ -34,5 +35,10 @@ $user-actions-padding:30px;
     $mat-menu-width:$user-actions-width+2*$user-actions-padding;
     min-width: $mat-menu-width !important ;  
     max-width: $mat-menu-width !important ; 
-  }
+}
+.toolbar{
+  padding-left:0px !important;
+}
+
+  
 

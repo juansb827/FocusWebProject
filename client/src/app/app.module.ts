@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app.routing';
 import { AppConfig } from './app.config';
 
 import { AuthenticationService } from './authentication/authentication.service';
+import { MenuService } from './menu/mock-menu.service';
 import { AuthGuard } from './authentication/authentication.guard';
 import { LoginComponent } from './authentication/login/login.component';
 import { SnackbarComponent } from './messages/toaster.service';
@@ -41,7 +42,8 @@ import { HomeComponent } from './home/home.component';
     AppConfig,
     AuthenticationService,    
     AuthGuard,
-    ToasterService
+    ToasterService,
+    MenuService
   ],
   entryComponents:[
     SnackbarComponent   
