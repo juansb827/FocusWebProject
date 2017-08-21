@@ -18,6 +18,10 @@ import { ToasterService } from './messages/toaster.service';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import { HomeComponent } from './home/home.component';
+import { FormsComponent } from './forms/forms.component';
+
+/**/
+import { Ing001 } from './forms/templates/ing-001';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     NavbarComponent,
     HomeComponent,
-    SnackbarComponent   
+    SnackbarComponent,Ing001,
+    FormsComponent   
     
   ],
   imports: [
@@ -46,7 +51,8 @@ import { HomeComponent } from './home/home.component';
     MenuService
   ],
   entryComponents:[
-    SnackbarComponent   
+    SnackbarComponent, Ing001   
+     
   ],
   bootstrap: [AppComponent]
 })

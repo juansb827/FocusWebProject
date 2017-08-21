@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit {
     this.mockAuth.loadUser();
    
     this.menuService.getAppOptions().subscribe(currentApp=>{
+      //makes the tabs change, everytime a user selects a new app
       this.currentApp=currentApp;
       console.log("current are",currentApp);
     });   
@@ -32,6 +33,9 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  loadOption(index){    
+    this.menuService.loadAppOption(index);
+  }
   goHome(){
     this.menuService.goHome();
   }

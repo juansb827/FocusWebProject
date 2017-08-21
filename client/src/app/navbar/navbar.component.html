@@ -5,7 +5,7 @@
     </div>
     <span class="app-name">{{currentApp.name}}</span>
     <div class="app-options">
-      <div class="app-option" *ngFor="let option of currentApp.options;let i=index;">
+      <div class="app-option" *ngFor="let option of currentApp.options;let i=index;" (click)="loadOption(i)">
         {{option.name}}
       </div>     
     </div>
