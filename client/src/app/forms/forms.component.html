@@ -1,4 +1,13 @@
+ <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div *ngFor="let field of fields" >
+      <form-field [field]="field" [form]="form"></form-field>
+    </div>
+ </form>
+
+ 
+<!--
 <div class="form-component">   
     dfjslf           
   <ng-template ad-host></ng-template>
 </div>
+-->

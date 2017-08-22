@@ -8,11 +8,13 @@ import {Ing001} from './templates/ing-001'
   styleUrls: ['./forms.component.scss']
 })
 export class FormsComponent implements OnInit,AfterViewInit {
-
+  //TODO inject form service and test if the dyamic form works
   private sub: any;
 
+   /*
    @ViewChild(MyFormDirective) formHost: MyFormDirective;
    //@ViewChild("hue") formHost2: FormDirective;
+   */
 
   constructor(private route:ActivatedRoute,private componentFactoryResolver: ComponentFactoryResolver) { }
 
@@ -35,7 +37,8 @@ export class FormsComponent implements OnInit,AfterViewInit {
   }
 
   loadForm(){
-    console.log("1st",this.formHost);
+    
+    //console.log("1st",this.formHost);
     /*
     console.log("1st",this.formHost);
     console.log("sec",this.formHost2);
