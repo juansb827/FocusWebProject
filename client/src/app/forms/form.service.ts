@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class FormService{
     //TODO create classes like in the docs example
     getFields(){
-        return ['campo1','campo2'];
+        return ['campo1','campo2','campo3'];
     }
 
     toFormGroup(){
