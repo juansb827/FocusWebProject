@@ -18,7 +18,7 @@ import { ToasterService } from './messages/toaster.service';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import { HomeComponent } from './home/home.component';
-import { FormsComponent } from './forms/forms.component';
+import { DynamicFormComponent } from './forms/dynamic-form.component';
 import { DynamicFormFieldComponent } from './forms/dynamic-form-field.component';
 
 /**/
@@ -30,8 +30,8 @@ import { Ing001 } from './forms/templates/ing-001';
     LoginComponent,
     NavbarComponent,
     HomeComponent,
-    SnackbarComponent,Ing001,
-    FormsComponent,  DynamicFormFieldComponent 
+    SnackbarComponent,
+    DynamicFormComponent,  DynamicFormFieldComponent 
     
   ],
   imports: [
@@ -53,7 +53,7 @@ import { Ing001 } from './forms/templates/ing-001';
     MenuService
   ],
   entryComponents:[
-    SnackbarComponent, Ing001   
+    SnackbarComponent  
      
   ],
   bootstrap: [AppComponent]

@@ -5,14 +5,13 @@ import {FormService} from './form.service'
 import {Ing001} from './templates/ing-001'
 import { FormGroup } from '@angular/forms';
 @Component({
-  selector: 'app-forms',
-  templateUrl: './forms.component.html',  //<ng-template ad-host></ng-template>
-  styleUrls: ['./forms.component.scss'],
+  selector: 'dynamic-form',
+  templateUrl: './dynamic-form.component.html',  //<ng-template ad-host></ng-template>
+  styleUrls: ['./dynamic-form.component.scss'],
   providers:  [FormService]
 })
-export class FormsComponent implements OnInit,AfterViewInit {
-  //TODO inject form service and test if the dyamic form works
-  //rename everthing to dynamic forms
+export class DynamicFormComponent implements OnInit,AfterViewInit {
+  
   private sub: any;
   private fields;
   form: FormGroup;
