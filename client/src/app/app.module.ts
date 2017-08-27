@@ -16,10 +16,13 @@ import { LoginComponent } from './authentication/login/login.component';
 import { SnackbarComponent } from './messages/toaster.service';
 import { ToasterService } from './messages/toaster.service';
 import { NavbarComponent } from './navbar/navbar.component';
-
 import { HomeComponent } from './home/home.component';
+ 
+ //dynamic forms
 import { DynamicFormComponent } from './forms/dynamic-form.component';
 import { DynamicFormFieldComponent } from './forms/dynamic-form-field.component';
+import { FormControlService } from './forms/form-control.service';
+import { DynamicFormService } from './forms/dynamic-form.service';
 
 /**/
 import { Ing001 } from './forms/templates/ing-001';
@@ -50,7 +53,9 @@ import { Ing001 } from './forms/templates/ing-001';
     AuthenticationService,    
     AuthGuard,
     ToasterService,
-    MenuService
+    MenuService,
+    FormControlService,
+    DynamicFormService
   ],
   entryComponents:[
     SnackbarComponent  

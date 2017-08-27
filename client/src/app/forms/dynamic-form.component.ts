@@ -1,14 +1,16 @@
 import { Component, OnInit,AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import {  ActivatedRoute } from '@angular/router';
-import {MyFormDirective} from './forms.directive'
-import {FormService} from './form.service'
-import {Ing001} from './templates/ing-001'
 import { FormGroup } from '@angular/forms';
+import {  ActivatedRoute } from '@angular/router';
+
+import {MyFormDirective} from './forms.directive'
+import {FormControlService} from './form-control.service'
+import {DynamicFormService} from './dynamic-form.service'
+
+
 @Component({
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',  //<ng-template ad-host></ng-template>
-  styleUrls: ['./dynamic-form.component.scss'],
-  providers:  [FormService]
+  styleUrls: ['./dynamic-form.component.scss']  
 })
 export class DynamicFormComponent implements OnInit,AfterViewInit {
   
@@ -23,7 +25,8 @@ export class DynamicFormComponent implements OnInit,AfterViewInit {
 
   constructor(private route:ActivatedRoute,
               private componentFactoryResolver: ComponentFactoryResolver,
-              private formService:FormService) { }
+              private fcService:FormControlService,
+              private dfService:DynamicFormService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params=>{
@@ -33,8 +36,8 @@ export class DynamicFormComponent implements OnInit,AfterViewInit {
         console.log('option', optionId);
     })
     //this.loadForm();
-    this.fields=this.formService.getFields();
-    this.form=this.formService.toFormGroup();
+    this.fields=this.fcService.getFields();
+    this.form=this.fcService.toFormGroup();
   }
 
   ngAfterViewInit(){

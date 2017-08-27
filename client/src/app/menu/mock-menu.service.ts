@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { Injectable } from '@angular/core';
 
 
-
+// Todo: get from a remote source of forms metadata
 let userMenu=[
     {name:'Contabilidad',icon:'home',options:[
         {name:'Opcion1',icon:'warning'},
