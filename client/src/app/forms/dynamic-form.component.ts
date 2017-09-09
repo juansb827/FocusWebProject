@@ -1,68 +1,50 @@
-import { Component, OnInit,AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import {  ActivatedRoute } from '@angular/router';
-
-import {MyFormDirective} from './forms.directive'
-import {FormControlService} from './form-control.service'
-import {DynamicFormService} from './dynamic-form.service'
+import { MyFormDirective } from './forms.directive'
+import { FormControlService } from './form-control.service'
+import { FormService } from './form.service'
+import { Form } from './form'
+import { FieldBase } from './field-base'
 
 
 @Component({
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',  //<ng-template ad-host></ng-template>
-  styleUrls: ['./dynamic-form.component.scss']  
+  styleUrls: ['./dynamic-form.component.scss'],
+  providers : [FormControlService]
 })
-export class DynamicFormComponent implements OnInit,AfterViewInit {
-  
-  private sub: any;
+export class DynamicFormComponent implements OnInit {
+
+  @Input() form: Form;
+
+
   private fields;
-  form: FormGroup;
+  formGroup: FormGroup;
+  formData: any;
 
-   /*
-   @ViewChild(MyFormDirective) formHost: MyFormDirective;
-   //@ViewChild("hue") formHost2: FormDirective;
-   */
 
-  constructor(private route:ActivatedRoute,
-              private componentFactoryResolver: ComponentFactoryResolver,
-              private fcService:FormControlService,
-              private dfService:DynamicFormService) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+    private fcService: FormControlService) {
+  }
 
   ngOnInit() {
-    this.route.params.subscribe(params=>{
-        const appId = +params['appId']; // (+) converts string 'id' to a number
-        const optionId = +params['optionId'];
-        console.log('app', appId);
-        console.log('option', optionId);
-    })
-    //this.loadForm();
-    this.fields=this.fcService.getFields();
-    this.form=this.fcService.toFormGroup();
+    this.formGroup = this.fcService.toFormGroup(this.form);
+    console.log("formGroup",this.formGroup);
   }
 
-  ngAfterViewInit(){
-    this.loadForm();
+  resetForm() {
+    this.formGroup.reset();
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
-  loadForm(){
+  onSubmit(){
+    const newField=new FieldBase<String>({value:"campo3",id:"003"});
+    this.form.fields.push(newField);
+    this.ngOnInit();
     
-    //console.log("1st",this.formHost);
-    /*
-    console.log("1st",this.formHost);
-    console.log("sec",this.formHost2);
-    let componentFactory=
-    this.componentFactoryResolver.resolveComponentFactory(Ing001);
-    
-    let viewContainerRef= this.formHost2.viewContainerRef;
-    viewContainerRef.clear();
-
-    let componentRef = viewContainerRef.createComponent(componentFactory);
-    */
   }
+
+
+
 
 }
 

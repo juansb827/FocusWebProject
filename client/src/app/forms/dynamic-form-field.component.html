@@ -1,8 +1,8 @@
-<div [formGroup]="form">
-  <label [attr.for]="field">{{field}}</label>  
+<div [formGroup]="formGroup">
+  <label [attr.for]="field.id">{{field.id}}</label>  
 
-  <input [formControlName]="field"
-            [id]="field" [type]="text">    
+  <input [formControlName]="field.id" [id]="field.id" 
+      type="text" >    
 
   
 </div>

@@ -1,11 +1,21 @@
- Form componenet works
- <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    <div *ngFor="let field of fields" >
-      <form-field [field]="field" [form]="form"></form-field>
+<h1>{{form.title}}</h1>
+ <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+    <div *ngFor="let field of form.fields" >
+      <form-field [field]="field" [formGroup]="formGroup"></form-field>
     </div>
+
+    <div>
+      <button type="submit" [disabled]="!formGroup.valid">Save</button>
+      <button type="revert" [disabled]="formGroup.pristine" (click)="resetForm()">Revert</button>
+    </div>
+    
+    <div>
+      Contenido: {{formGroup.value| json}}
+      Estado: {{formGroup.status| json}}
+     <!-- FormStatus: {{formGroup.get('001').pristine| json}} -->
+    </div>  
  </form>
-saasasas
- 
+
 <!--
 <div class="form-component">   
     dfjslf           

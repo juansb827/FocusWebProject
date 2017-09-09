@@ -3,7 +3,7 @@
      an angular FormGroup
 */
 import { Injectable }       from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { Form } from './form';
 import { FieldBase } from './field-base';
 
@@ -15,9 +15,10 @@ export class FormControlService{
         const fields: FieldBase<any>[]=form.fields;
         let formControls: any={};
         fields.forEach(field=>{
-            formControls[""]= new FormControl(field);
+            formControls[field.id]= field.required? new FormControl(field.value, Validators.required)
+                                    :    new FormControl(field.value); 
         });
-        //return new FormGroup(controls);
+        return new FormGroup(formControls);
     }
 
 

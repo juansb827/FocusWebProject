@@ -19,13 +19,16 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
  
  //dynamic forms
+ import { FormDisplayerComponent } from './forms/form-displayer.component';
 import { DynamicFormComponent } from './forms/dynamic-form.component';
 import { DynamicFormFieldComponent } from './forms/dynamic-form-field.component';
 import { FormControlService } from './forms/form-control.service';
-import { DynamicFormService } from './forms/dynamic-form.service';
+import { FormService } from './forms/form.service';
+
 
 /**/
 import { Ing001 } from './forms/templates/ing-001';
+import { FormEditorComponent } from './forms/form-editor/form-editor.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,7 @@ import { Ing001 } from './forms/templates/ing-001';
     NavbarComponent,
     HomeComponent,
     SnackbarComponent,
-    DynamicFormComponent,  DynamicFormFieldComponent 
+    FormDisplayerComponent, DynamicFormComponent,  DynamicFormFieldComponent, FormEditorComponent 
     
   ],
   imports: [
@@ -54,8 +57,7 @@ import { Ing001 } from './forms/templates/ing-001';
     AuthGuard,
     ToasterService,
     MenuService,
-    FormControlService,
-    DynamicFormService
+        FormService
   ],
   entryComponents:[
     SnackbarComponent  
