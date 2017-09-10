@@ -26,9 +26,11 @@ import { FormControlService } from './forms/form-control.service';
 import { FormService } from './forms/form.service';
 
 
+
 /**/
 
 import { FormEditorComponent } from './forms/form-editor/form-editor.component';
+import { DialogValidaciones } from './forms/form-editor/form-editor.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,7 @@ import { FormEditorComponent } from './forms/form-editor/form-editor.component';
     LoginComponent,
     NavbarComponent,
     HomeComponent,
-    SnackbarComponent,
+    SnackbarComponent, DialogValidaciones,
     FormDisplayerComponent, DynamicFormComponent,  DynamicFormFieldComponent, FormEditorComponent 
     
   ],
@@ -60,7 +62,9 @@ import { FormEditorComponent } from './forms/form-editor/form-editor.component';
         FormService
   ],
   entryComponents:[
-    SnackbarComponent  
+    SnackbarComponent,
+    DialogValidaciones
+
      
   ],
   bootstrap: [AppComponent]

@@ -1,0 +1,13 @@
+<h2 md-dialog-title>Validaciones del Campo</h2>
+<md-dialog-content>
+        <md-radio-group>
+                <md-radio-button value="1">Alfanumerico</md-radio-button>
+                <md-radio-button value="2">Sólo Texto</md-radio-button>
+                <md-radio-button value="3">Sólo Números</md-radio-button>
+              </md-radio-group>
+              <md-checkbox >Carácteres Especiales</md-checkbox>
+              <md-checkbox  >Correo</md-checkbox>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button [md-dialog-close]="true" tabindex="1">Aceptar</button>
+  <button md-button md-dialog-close tabindex="-1">Cancel</button>

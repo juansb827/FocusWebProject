@@ -1,8 +1,10 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import {MdButtonModule} from '@angular/material';
+import { Component,Inject, OnInit,ViewChild } from '@angular/core';
 import { FormGroup }        from '@angular/forms';
 import { Form } from '../form'
 import { FieldBase } from '../field-base'
 import { FormControlService } from '../form-control.service'
+import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-form-editor',
@@ -15,7 +17,7 @@ export class FormEditorComponent implements OnInit {
   fields : FieldBase<any>[];
   formGroup : FormGroup;
   @ViewChild('formPreview') formPreview;
-  constructor(private fcService:FormControlService) { 
+  constructor(private fcService:FormControlService,public dialog: MdDialog) { 
     this.fields= [] as FieldBase<any>[];    
     this.form = new Form("newForm","", this.fields);
     
@@ -29,12 +31,34 @@ export class FormEditorComponent implements OnInit {
    counter=0;
   agregarCampo(){
     
+    
+    
     let field=new FieldBase<String>({id:this.counter+"",label:""});
     this.fcService.addFormControl(this.formGroup,field);    
     //console.log("prev",this.formGroup);
     this.form.fields.push(field);
     this.formPreview.updateFormGroup  ();
     this.counter++;
+  }
+
+  openDialogValidaciones(){
+    this.dialog.open(DialogValidaciones, {width: '80%'});
+  }
+
+}
+
+@Component({
+  selector: 'dialog-validaciones',
+  templateUrl: 'validaciones.html',
+})
+export class DialogValidaciones {
+
+  constructor(
+    public dialogRef: MdDialogRef<DialogValidaciones>,
+    @Inject(MD_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

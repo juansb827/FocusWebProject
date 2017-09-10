@@ -1,55 +1,116 @@
-<div style="white-space:nowrap">
+<div style="background-color:white;">
+    <h1 style="width:100">Creador de formularios</h1>
+    
+    <md-form-field >
+        <input mdInput  placeholder="Titulo del Formulario" [(ngModel)]="form.title">
+    </md-form-field>
+    <md-form-field >
+        <input mdInput  placeholder="# Filas" >
+    </md-form-field>
+    <md-form-field >
+        <input mdInput  placeholder="# Columnas" >
+    </md-form-field>
+  <div class="" style="width:100%;display:inline-block;vertical-align:top;overflow:auto">
   
-  <div class="" style="width:50%;display:inline-block;vertical-align:top">
-      <h1>Creador de formularios</h1>
-    Titulo: <input placeholder="Titulo del Formulario" [(ngModel)]="form.title">
-    <form >
-      <table>
+    <form>
+      <table style="width:100%">
+        <tr>
+          <th colspan="8" style="text-align:center">Atributos Visuales</th>
+          <th colspan="4" style="text-align:center">Configuración en Base de Datos</th>
+
+
+        </tr>
         <tr>
           <th>Id</th>
           <th>Etiqueta</th>
           <th>Tipo</th>
-          <th>Placeholder</th>
+          <th>Pista</th>
           <th>Obligatorio</th>
           <th>Validaciones</th>
+          <th colspan="2">Posición</th>
+          <th>Tabla Origen</th>
+          <th>Tabla Destino</th>
+          <th>Campo Orígen</th>
+          <th>Campo Destino</th>
 
         </tr>
 
-      
+
         <tr *ngFor="let field of form.fields;let i=index">
           <td>
             {{field.id}}
           </td>
           <td>
-             <input placeholder="Nombre Campo" [(ngModel)]="field.label" name="field-{{i}}">
+            <md-form-field>
+              <input mdInput [(ngModel)]="field.label" name="label-{{i}}">
+            </md-form-field>
+          </td>
+          <td>
+
+            <md-select name="ds">
+              <md-option value="1">Texto</md-option>
+              <md-option value="2">Lista Desplegable</md-option>
+            </md-select>
+
+          </td>
+          <td>
+            <md-form-field>
+              <input mdInput [(ngModel)]="field.placeholder" name="placeholder-{{i}}">
+            </md-form-field>
+          </td>
+          <td>
+            <md-checkbox [(ngModel)]="field.required" name="required-{{i}}"> </md-checkbox>
           </td>
 
+          <td>
+            <button md-button (click)="openDialogValidaciones()">Ver</button>
+          </td>
+
+          <td>
+            <md-form-field >
+              <input mdInput placeholder="fila" name="row-{{i}}">
+            </md-form-field>
+          </td>
+          <td>
+            <md-form-field ><input mdInput placeholder="columna" name="column-{{i}}">
+            </md-form-field>
+          </td>
+          <td>
+            <md-form-field>
+              <input mdInput value="TB_CARROS" name="row-{{i}}">
+            </md-form-field>
+          </td>
+          <td>
+              <md-form-field>
+                <input mdInput value="TB_BUSES" name="row-{{i}}">
+              </md-form-field>
+            </td>
+            <td>
+                <md-form-field>
+                  <input mdInput value="NOMBRE_CARRO" name="row-{{i}}">
+                </md-form-field>
+              </td>
+          
+              <td>
+                  <md-form-field>
+                    <input mdInput value="NOMBRE_BUS" name="row-{{i}}">
+                  </md-form-field>
+                </td>
         </tr>
-        
-      
+
+
+
+
       </table>
 
 
-      <md-table #table [dataSource]="fields">
-          
-              <!--- Note that these columns can be defined in any order.
-                    The actual rendered columns are set as a property on the row definition" -->
-          
-              <!-- ID Column -->
-              <ng-container mdColumnDef="userId">
-                <md-header-cell *mdHeaderCellDef> ID </md-header-cell>
-                <md-cell *mdCellDef="let row"> {{row.id}} </md-cell>
-              </ng-container>
-          
-              
-            </md-table>
 
-     
+
     </form>
 
     <button (click)="agregarCampo()">Agregar Campo</button>
-  </div>  
-  <div class="" style="width:50%;display:inline-block;vertical-align:top">
+  </div>
+  <div class="" style="width:100%;text-align:center">
     <dynamic-form #formPreview [form]="form">
     </dynamic-form>
   </div>
