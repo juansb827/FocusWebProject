@@ -1,12 +1,12 @@
-<h1>{{form.title}}</h1>
+<h1>{{form.title || "sin titulo"}}</h1>
  <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
     <div *ngFor="let field of form.fields" >
       <form-field [field]="field" [formGroup]="formGroup"></form-field>
     </div>
 
     <div>
-      <button type="submit" [disabled]="!formGroup.valid">Save</button>
-      <button type="revert" [disabled]="formGroup.pristine" (click)="resetForm()">Revert</button>
+      <button type="submit" [disabled]="!formGroup.valid">Guardar</button>
+      <button type="revert" [disabled]="formGroup.pristine" (click)="resetForm()">Reiniciar</button>
     </div>
     
     <div>

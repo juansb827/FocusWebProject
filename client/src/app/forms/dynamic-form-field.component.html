@@ -1,5 +1,6 @@
-<div [formGroup]="formGroup">
-  <label [attr.for]="field.id">{{field.id}}</label>  
+
+<div  *ngIf="formGroup.get(field.id)" [formGroup]="formGroup">    
+  <label [attr.for]="field.id">{{field.label}}</label>  
 
   <input [formControlName]="field.id" [id]="field.id" 
       type="text" >    

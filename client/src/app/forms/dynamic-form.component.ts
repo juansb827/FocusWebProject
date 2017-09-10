@@ -27,19 +27,19 @@ export class DynamicFormComponent implements OnInit {
     private fcService: FormControlService) {
   }
 
-  ngOnInit() {
-    this.formGroup = this.fcService.toFormGroup(this.form);
-    console.log("formGroup",this.formGroup);
+  ngOnInit() {    
+    this.updateFormGroup();
   }
 
   resetForm() {
     this.formGroup.reset();
   }
 
-  onSubmit(){
-    const newField=new FieldBase<String>({value:"campo3",id:"003"});
-    this.form.fields.push(newField);
-    this.ngOnInit();
+  updateFormGroup(){
+    this.formGroup = this.fcService.toFormGroup(this.form);
+  }
+
+  onSubmit(){   
     
   }
 

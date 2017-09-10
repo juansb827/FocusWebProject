@@ -1,3 +1,56 @@
-<p>
-  form-editor works!
-</p>
+<div style="white-space:nowrap">
+  
+  <div class="" style="width:50%;display:inline-block;vertical-align:top">
+      <h1>Creador de formularios</h1>
+    Titulo: <input placeholder="Titulo del Formulario" [(ngModel)]="form.title">
+    <form >
+      <table>
+        <tr>
+          <th>Id</th>
+          <th>Etiqueta</th>
+          <th>Tipo</th>
+          <th>Placeholder</th>
+          <th>Obligatorio</th>
+          <th>Validaciones</th>
+
+        </tr>
+
+      
+        <tr *ngFor="let field of form.fields;let i=index">
+          <td>
+            {{field.id}}
+          </td>
+          <td>
+             <input placeholder="Nombre Campo" [(ngModel)]="field.label" name="field-{{i}}">
+          </td>
+
+        </tr>
+        
+      
+      </table>
+
+
+      <md-table #table [dataSource]="fields">
+          
+              <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+          
+              <!-- ID Column -->
+              <ng-container mdColumnDef="userId">
+                <md-header-cell *mdHeaderCellDef> ID </md-header-cell>
+                <md-cell *mdCellDef="let row"> {{row.id}} </md-cell>
+              </ng-container>
+          
+              
+            </md-table>
+
+     
+    </form>
+
+    <button (click)="agregarCampo()">Agregar Campo</button>
+  </div>  
+  <div class="" style="width:50%;display:inline-block;vertical-align:top">
+    <dynamic-form #formPreview [form]="form">
+    </dynamic-form>
+  </div>
+</div>

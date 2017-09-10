@@ -27,7 +27,7 @@ import { FormService } from './forms/form.service';
 
 
 /**/
-import { Ing001 } from './forms/templates/ing-001';
+
 import { FormEditorComponent } from './forms/form-editor/form-editor.component';
 
 @NgModule({

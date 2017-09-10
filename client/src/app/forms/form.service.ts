@@ -7,8 +7,8 @@ import { FieldBase }       from './field-base';
 
 let forms={
     "form1": new Form("form1", "Form1", [
-        new FieldBase<String>({value:"campo1",id:"001",required:true}),
-        new FieldBase<String>({value:"campo2",id:"002"})
+        new FieldBase<String>({value:"DefaultData",id:"001",required:true,label:"Campo1"}),
+        new FieldBase<String>({value:"DefaultData",id:"002",label:"Campo1"})
     ] )
     /*,
      "form2": new Form("form2",  [

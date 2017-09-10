@@ -21,5 +21,13 @@ export class FormControlService{
         return new FormGroup(formControls);
     }
 
+    addFormControl(formGroup:FormGroup, field: FieldBase<any>){
+        let control= field.required? new FormControl(field.value, Validators.required)
+        :    new FormControl(field.value); 
+        formGroup.addControl(field.id,control);        
+    }
+
+
+
 
 }
