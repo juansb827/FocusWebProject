@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Component, OnInit,ViewEncapsulation} from '@angular/core';
 
 let snackBarMessage :string;
 @Injectable()
 export class ToasterService {
 
-    constructor(private snackBar: MdSnackBar) {
+    constructor(private snackBar: MatSnackBar) {
     }
 
     showToaster(msg: string,_duration=3000) {

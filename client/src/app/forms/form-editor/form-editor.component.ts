@@ -1,10 +1,10 @@
-import {MdButtonModule} from '@angular/material';
+
 import { Component,Inject, OnInit,ViewChild } from '@angular/core';
 import { FormGroup }        from '@angular/forms';
 import { Form } from '../form'
 import { FieldBase } from '../field-base'
 import { FormControlService } from '../form-control.service'
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import { MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-form-editor',
@@ -17,7 +17,7 @@ export class FormEditorComponent implements OnInit {
   fields : FieldBase<any>[];
   formGroup : FormGroup;
   @ViewChild('formPreview') formPreview;
-  constructor(private fcService:FormControlService,public dialog: MdDialog) { 
+  constructor(private fcService:FormControlService,public dialog: MatDialog) { 
     this.fields= [] as FieldBase<any>[];    
     this.form = new Form("newForm","", this.fields);
     
@@ -54,8 +54,8 @@ export class FormEditorComponent implements OnInit {
 export class DialogValidaciones {
 
   constructor(
-    public dialogRef: MdDialogRef<DialogValidaciones>,
-    @Inject(MD_DIALOG_DATA) public data: any) { }
+    public dialogRef: MatDialogRef<DialogValidaciones>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onNoClick(): void {
     this.dialogRef.close();

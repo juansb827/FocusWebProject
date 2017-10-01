@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MaterialModule}from '@angular/material';
+import {MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
+import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -49,7 +50,7 @@ import { DialogValidaciones } from './forms/form-editor/form-editor.component';
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule    
+    MaterialModule
     
     
   ],
@@ -59,7 +60,9 @@ import { DialogValidaciones } from './forms/form-editor/form-editor.component';
     AuthGuard,
     ToasterService,
     MenuService,
-        FormService
+        FormService,
+        {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
+        
   ],
   entryComponents:[
     SnackbarComponent,

@@ -1,7 +1,7 @@
-<md-toolbar class="toolbar" color="primary" *ngIf="user">
+<mat-toolbar class="toolbar" color="primary" *ngIf="user">
   <div class="app-area" *ngIf="currentApp">
     <div class="goback" (click)="goHome()">
-      <md-icon class="btn-goback">keyboard_arrow_left</md-icon>
+      <mat-icon class="btn-goback">keyboard_arrow_left</mat-icon>
     </div>
     <span class="app-name">{{currentApp.name}}</span>
     <div class="app-options">
@@ -10,30 +10,30 @@
       </div>     
     </div>
   </div>
-  <div class="user-actions" [mdMenuTriggerFor]="appMenu">
+  <div class="user-actions" [matMenuTriggerFor]="appMenu">
 
-    <md-icon class="user-icon">person</md-icon>
+    <mat-icon class="user-icon">person</mat-icon>
     <span class="space"></span>
     <div class="username">
       {{user.email}}
     </div>
     <span class="space"></span>
-    <md-icon class="dropdown-icon">arrow_drop_down</md-icon>
+    <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
   </div>
-</md-toolbar>
+</mat-toolbar>
 
 
-<md-menu #appMenu="mdMenu" class="user-dropdown" [overlapTrigger]="false">
-  <button md-menu-item>
-    <md-icon>dialpad</md-icon>
+<mat-menu #appMenu="matMenu" class="user-dropdown" [overlapTrigger]="false">
+  <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
     <span>Redial</span>
   </button>
-  <button md-menu-item>
-    <md-icon>voicemail</md-icon>
+  <button mat-menu-item>
+    <mat-icon>voicemail</mat-icon>
     <span>Check voicemail</span>
   </button>
-  <button md-menu-item>
-    <md-icon>notifications_off</md-icon>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
     <span>Disable alerts</span>
   </button>
-</md-menu>
+</mat-menu>
