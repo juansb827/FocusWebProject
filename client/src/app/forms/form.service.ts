@@ -1,14 +1,14 @@
 import { Injectable }       from '@angular/core';
 import { Form }       from './form';
-import { FieldBase }       from './field-base';
+import { FieldBase, TextboxField,DropdownField }       from './field-base';
 
 // Todo: get from a remote source of forms metadata
   // Todo: make asynchronous
 
 let forms={
     "form1": new Form("form1", "Form1", [
-        new FieldBase<String>({value:"DefaultData",id:"001",required:true,label:"Campo1"}),
-        new FieldBase<String>({value:"DefaultData",id:"002",label:"Campo1"})
+        new TextboxField({value:"DefaultDa",id:"001",required:true,label:"Campo1"}),
+        new DropdownField({value:"DefaultData",id:"002",label:"Campo1"})
     ] )
     /*,
      "form2": new Form("form2",  [

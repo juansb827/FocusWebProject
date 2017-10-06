@@ -2,8 +2,12 @@
 <div  *ngIf="formGroup.get(field.id)" [formGroup]="formGroup">    
   <label [attr.for]="field.id">{{field.label}}</label>  
 
-  <input [formControlName]="field.id" [id]="field.id" 
-      type="text" placeholder="{{field.placeholder}}">    
+  <div [ngSwitch]="field.controlType">
+    <input *ngSwitchCase="'textbox'"  [formControlName]="field.id" [id]="field.id" placeholder="{{field.placeholder}}" >
+    
+    <select *ngSwitchCase="'dropdown'" [formControlName]="field.id" [id]="field.id"></select>
+  </div>
+      
 
   
-</div>
+</div> 

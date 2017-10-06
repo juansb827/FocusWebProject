@@ -33,7 +33,7 @@ export class FormEditorComponent implements OnInit {
     
     
     
-    let field=new FieldBase<String>({id:this.counter+"",label:""});
+    let field=new FieldBase<String>({id:this.counter+"",label:"",controlType:"textbox"});
     this.fcService.addFormControl(this.formGroup,field);    
     //console.log("prev",this.formGroup);
     this.form.fields.push(field);

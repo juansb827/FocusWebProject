@@ -1,117 +1,118 @@
 <div style="background-color:white;">
-    <h1 style="width:100">Creador de formularios</h1>
-    
-    <mat-form-field>
-      <input matInput  placeholder="Titulo del Formulario" [(ngModel)]="form.title">
+  <h1 style="width:100">Creador de formularios</h1>
+
+  <mat-form-field>
+    <input matInput placeholder="Titulo del Formulario" [(ngModel)]="form.title">
   </mat-form-field>
-  <mat-form-field >
-      <input matInput  placeholder="# Filas" >
+  <mat-form-field>
+    <input matInput placeholder="# Filas">
   </mat-form-field>
-  <mat-form-field >
-      <input matInput  placeholder="# Columnas" >
+  <mat-form-field>
+    <input matInput placeholder="# Columnas">
   </mat-form-field>
   <div class="" style="width:100%;display:inline-block;vertical-align:top;overflow:auto">
-    
-      <form>
-        <table style="width:100%">
-          <tr>
-            <th colspan="8" style="text-align:center">Atributos Visuales</th>
-            <th colspan="4" style="text-align:center">Configuración en Base de Datos</th>
-    
-    
-          </tr>
-          <tr>
-            <th>Id</th>
-            <th>Etiqueta</th>
-            <th>Tipo</th>
-            <th>Pista</th>
-            <th>Obligatorio</th>
-            <th>Validaciones</th>
-            <th colspan="2">Posición</th>
-            <th>Tabla Origen</th>
-            <th>Tabla Destino</th>
-            <th>Campo Orígen</th>
-            <th>Campo Destino</th>
-    
-          </tr>
-    
-    
-          <tr *ngFor="let field of form.fields;let i=index">
-            <td>
-              {{field.id}}
-            </td>
-            <td>
-              <mat-form-field>
-                <input matInput [(ngModel)]="field.label" name="label-{{i}}">
-              </mat-form-field>
-            </td>
-            <td>
-    
-              <mat-select name="ds">
-                <mat-option value="1">Texto</mat-option>
-                <mat-option value="2">Lista Desplegable</mat-option>
-              </mat-select>
-    
-            </td>
-            <td>
-              <mat-form-field>
-                <input matInput [(ngModel)]="field.placeholder" name="placeholder-{{i}}">
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-checkbox [(ngModel)]="field.required" name="required-{{i}}"> </mat-checkbox>
-            </td>
-    
-            <td>
-              <button mat-button (click)="openDialogValidaciones()">Ver</button>
-            </td>
-    
-            <td>
-              <mat-form-field >
-                <input matInput placeholder="fila" name="row-{{i}}">
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field ><input matInput placeholder="columna" name="column-{{i}}">
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <input matInput value="TB_CARROS" name="row-{{i}}">
-              </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field>
-                  <input matInput value="TB_BUSES" name="row-{{i}}">
-                </mat-form-field>
-              </td>
-              <td>
-                  <mat-form-field>
-                    <input matInput value="NOMBRE_CARRO" name="row-{{i}}">
-                  </mat-form-field>
-                </td>
-            
-                <td>
-                    <mat-form-field>
-                      <input matInput value="NOMBRE_BUS" name="row-{{i}}">
-                    </mat-form-field>
-                  </td>
-          </tr>
-    
-    
-    
-    
-        </table>
-    
-    
-    
-    
-      </form>
-    
-      <button (click)="agregarCampo()">Agregar Campo</button>
-    </div>
-<div class="" style="width:100%;text-align:center">
-  <dynamic-form #formPreview [form]="form">
-  </dynamic-form>
-</div>
+
+    <form>
+      <table style="width:100%">
+        <tr>
+          <th colspan="8" style="text-align:center">Atributos Visuales</th>
+          <th colspan="4" style="text-align:center">Configuración en Base de Datos</th>
+
+
+        </tr>
+        <tr>
+          <th>Id</th>
+          <th>Etiqueta</th>
+          <th>Tipo</th>
+          <th>Pista</th>
+          <th>Obligatorio</th>
+          <th>Validaciones</th>
+          <th colspan="2">Posición</th>
+          <th>Tabla Origen</th>
+          <th>Tabla Destino</th>
+          <th>Campo Orígen</th>
+          <th>Campo Destino</th>
+
+        </tr>
+
+
+        <tr *ngFor="let field of form.fields;let i=index">
+          <td>
+            {{field.id}}
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput [(ngModel)]="field.label" name="label-{{i}}">
+            </mat-form-field>
+          </td>
+          <td>
+
+            <mat-select name="ds" [(ngModel)]="field.controlType" name="controlType-{{i}}">
+              <mat-option value="textbox">Texto</mat-option>
+              <mat-option value="dropdown">Lista Desplegable</mat-option>
+            </mat-select>
+
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput [(ngModel)]="field.placeholder" name="placeholder-{{i}}">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="field.required" name="required-{{i}}"> </mat-checkbox>
+          </td>
+
+          <td>
+            <button mat-button (click)="openDialogValidaciones()">Ver</button>
+          </td>
+
+          <td>
+            <mat-form-field>
+              <input matInput placeholder="fila" name="row-{{i}}">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field><input matInput placeholder="columna" name="column-{{i}}">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput value="TB_CARROS" name="row-{{i}}">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput value="TB_BUSES" name="row-{{i}}">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput value="NOMBRE_CARRO" name="row-{{i}}">
+            </mat-form-field>
+          </td>
+
+          <td>
+            <mat-form-field>
+              <input matInput value="NOMBRE_BUS" name="row-{{i}}">
+            </mat-form-field>
+          </td>
+        </tr>
+
+
+
+
+      </table>
+
+
+
+
+    </form>
+
+    <button (click)="agregarCampo()">Agregar Campo</button>
+  </div>
+  <!-- Vista previa del formulario -->
+  <div class="" style="width:100%;text-align:center">
+    <dynamic-form #formPreview [form]="form">
+    </dynamic-form>
+  </div>
 </div>

@@ -22,3 +22,19 @@ export class FieldBase<T>{
     this.controlType = options.controlType || '';
   }
 }
+
+export class TextboxField extends FieldBase<String>{
+  controlType = 'textbox';
+  constructor(options: {} ={}){
+      super(options);        
+  }
+
+}
+
+export class DropdownField extends FieldBase<String>{
+  controlType = 'dropdown';
+  constructor(options: {} ={}){
+      super(options);        
+  }
+
+}
