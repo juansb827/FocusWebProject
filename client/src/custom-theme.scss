@@ -2,6 +2,7 @@
 @import './app/navbar/navbar.theme.scss';
 @import './app/messages/snackbar.theme.scss';
 @import './app/authentication/login/login.theme.scss';
+@import '~dragula/dist/dragula.css';
 //@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 @include mat-core();

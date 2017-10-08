@@ -17,6 +17,14 @@ export class LoginComponent implements OnInit{
   model: any = {};  
   returnUrl: string;
   mockAuth=MockAuth;
+
+  selectedValue: string;
+  
+    foods = [
+      {value: 'steak-0', viewValue: 'Steak'},
+      {value: 'pizza-1', viewValue: 'Pizza'},
+      {value: 'tacos-2', viewValue: 'Tacos'}
+    ];
   
 
   constructor( private authenticationService: AuthenticationService,

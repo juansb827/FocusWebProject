@@ -10,7 +10,7 @@ import { FormService } from './form.service'
 @Component({  //<ng-template ad-host></ng-template>
   selector: 'form-displayer',
   template:
-  `<div class="form-wrapper" style="text-align:center">
+  `<div style="text-align:center">
     <dynamic-form [form]="form">
     </dynamic-form>
   </div>`,

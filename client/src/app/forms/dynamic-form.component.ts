@@ -5,13 +5,14 @@ import { FormControlService } from './form-control.service'
 import { FormService } from './form.service'
 import { Form } from './form'
 import { FieldBase } from './field-base'
+import { DragulaService } from 'ng2-dragula';
 
 
 @Component({
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',  //<ng-template ad-host></ng-template>
   styleUrls: ['./dynamic-form.component.scss'],
-  providers : [FormControlService]
+  providers: [FormControlService]
 })
 export class DynamicFormComponent implements OnInit {
 
@@ -24,10 +25,19 @@ export class DynamicFormComponent implements OnInit {
 
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
-    private fcService: FormControlService) {
+    private fcService: FormControlService,
+    private dragService: DragulaService) {
+    dragService.setOptions('nested-bag', {
+      moves: function (el: any, container: any, handle: any): any {
+        console.log(el, container);
+        console.log("ha", handle.className);
+        return handle.className.indexOf('handle')!==-1;//handle.className === 'handle';
+      }
+    });
+
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.updateFormGroup();
   }
 
@@ -35,12 +45,12 @@ export class DynamicFormComponent implements OnInit {
     this.formGroup.reset();
   }
 
-  updateFormGroup(){
+  updateFormGroup() {
     this.formGroup = this.fcService.toFormGroup(this.form);
   }
 
-  onSubmit(){   
-    
+  onSubmit() {
+
   }
 
 

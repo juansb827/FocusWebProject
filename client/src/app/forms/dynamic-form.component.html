@@ -1,24 +1,46 @@
 <h1>{{form.title || "sin titulo"}}</h1>
- <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
-    <div *ngFor="let field of form.fields" >
-      <form-field [field]="field" [formGroup]="formGroup"></form-field>
+<div style="position:absolute;top:300px;left:0px;display:grid;width:80%;height:1300px;
+grid-template-columns:repeat(3,1fr);grid-gap: 40px;
+grid-template-rows:repeat(6,1fr);">
+  <div  style="border:3px solid black;height:50%"></div>
+
+</div>
+
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup" 
+      style="position:absolute;top:300px;left:0px;
+      display:grid;width:80%;height:1300px;
+           grid-template-columns:repeat(3,1fr);grid-gap: 40px;
+           grid-template-rows:repeat(6,1fr);" [dragula]='"nested-bag"'>
+            
+  <div *ngFor="let field of form.fields;let i=index" style="border:3px solid red" [ngStyle]="{'grid-column-end': 'span '+field.appearance.colspan,
+                 'grid-row-end': 'span '+field.appearance.rowspan }">
+
+    <div style="text-align:right">
+      <mat-icon class="handle" style="font-size:2em;margin-right:0.5em">zoom_out_map</mat-icon>
+      <mat-icon style="font-size:2em;margin-right:0.5em">settings</mat-icon>
+      <mat-icon style="font-size:2em;margin-right:0.5em">close</mat-icon>
     </div>
 
-    <div>
-      <button type="submit" [disabled]="!formGroup.valid">Enviar</button>
-      <button type="revert" [disabled]="formGroup.pristine" (click)="resetForm()">Limpiar</button>
-    </div>
-    
-    <div>
-      Contenido: {{formGroup.value| json}}
-      Estado: {{formGroup.status| json}}
-     <!-- FormStatus: {{formGroup.get('001').pristine| json}} -->
-    </div>  
- </form>
+    <form-field [field]="field" [formGroup]="formGroup"></form-field>
+  </div>
 
-<!--
-<div class="form-component">   
-    dfjslf           
-  <ng-template ad-host></ng-template>
+
+  <div style="grid-column-end: span 3;grid-row-end:span 4">
+
+    <button mat-raised-button color="primary" [disabled]="!formGroup.valid" type="submit">Enviar</button>
+    <button mat-raised-button color="warn" [disabled]="formGroup.pristine" (click)="resetForm()">Limpiar</button>
+  </div>
+
+  <div>
+    Contenido: {{formGroup.value| json}} Estado: {{formGroup.status| json}}
+    <!-- FormStatus: {{formGroup.get('001').pristine| json}} -->
+  </div>
+</form>
+
+
+<!-- FormStatus: {{formGroup.get('001').pristine| json}} 
+<h1>JSON</h1>
+<div>
+  {{form| json}}  
 </div>
 -->

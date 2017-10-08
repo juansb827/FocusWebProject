@@ -1,13 +1,40 @@
-
-<div  *ngIf="formGroup.get(field.id)" [formGroup]="formGroup">    
-  <label [attr.for]="field.id">{{field.label}}</label>  
-
-  <div [ngSwitch]="field.controlType">
-    <input *ngSwitchCase="'textbox'"  [formControlName]="field.id" [id]="field.id" placeholder="{{field.placeholder}}" >
+<div *ngIf="formGroup.get(field.id)" [formGroup]="formGroup">
     
-    <select *ngSwitchCase="'dropdown'" [formControlName]="field.id" [id]="field.id"></select>
-  </div>
-      
 
-  
-</div> 
+    <div [ngSwitch]="field.controlType" style="width:100%" >
+        <mat-form-field *ngSwitchCase="'textbox'"  style="width:100%">
+            <input matInput [formControlName]="field.id" [id]="field.id" placeholder="{{field.placeholder}}" [required]="field.required" >
+            
+        </mat-form-field>
+
+        
+        <mat-form-field *ngSwitchCase="'dropdown'"  style="width:100%">
+            <mat-select [formControlName]="field.id" [id]="field.id" placeholder="{{field.placeholder}}" [required]="field.required">
+                <mat-option value="1">
+                    Option1
+                </mat-option>
+                <mat-option value="2">
+                    Option2
+                </mat-option>
+            </mat-select>
+
+            
+        </mat-form-field>
+
+        <div *ngSwitchCase="'autocomplete'" >
+                <mat-form-field style="width:100%" >
+            <input type="text" matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [matAutocomplete]="auto" [required]="field.required" >
+        </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions |async" [value]="option">
+                   {{option}}
+                </mat-option>              
+             </mat-autocomplete>
+         </div>
+    
+    
+    </div>
+
+
+
+</div>

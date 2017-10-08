@@ -27,7 +27,11 @@ export class FormEditorComponent implements OnInit {
 
   ngOnInit() {
     this.formGroup= this.fcService.toFormGroup(this.form);  
+    this.openDialogValidaciones();
+    
   }
+
+  
    counter=0;
   agregarCampo(){
     

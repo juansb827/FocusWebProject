@@ -13,6 +13,7 @@ import {
   MatCheckboxModule,
   MatRadioModule,
   MatSnackBarModule,
+  MatAutocompleteModule
   
 } from '@angular/material';
 
@@ -24,13 +25,14 @@ import {
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
-    MatDialogModule,MatFormFieldModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
     MatRadioModule,
     MatSnackBarModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule {}

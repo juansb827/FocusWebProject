@@ -15,7 +15,7 @@ export class FormControlService{
         const fields: FieldBase<any>[]=form.fields;
         let formControls: any={};
         fields.forEach(field=>{
-            formControls[field.id]= field.required? new FormControl(field.value, Validators.required)
+            formControls[field.id]= field.required? new FormControl({value:field.value,disabled:false}, Validators.required)
                                     :    new FormControl(field.value); 
         });
         return new FormGroup(formControls);
