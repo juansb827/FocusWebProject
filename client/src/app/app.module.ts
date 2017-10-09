@@ -22,7 +22,7 @@ import { HomeComponent } from './home/home.component';
  
  //dynamic forms
  import { FormDisplayerComponent } from './forms/form-displayer.component';
-import { DynamicFormComponent } from './forms/dynamic-form.component';
+import { DynamicFormComponent,TimesPipe } from './forms/dynamic-form.component';
 import { DynamicFormFieldComponent } from './forms/dynamic-form-field.component';
 import { FormControlService } from './forms/form-control.service';
 import { FormService } from './forms/form.service';
@@ -41,7 +41,8 @@ import { DialogValidaciones } from './forms/form-editor/form-editor.component';
     NavbarComponent,
     HomeComponent,
     SnackbarComponent, DialogValidaciones,
-    FormDisplayerComponent, DynamicFormComponent,  DynamicFormFieldComponent, FormEditorComponent 
+    FormDisplayerComponent, DynamicFormComponent,  DynamicFormFieldComponent, FormEditorComponent,
+    TimesPipe 
     
   ],
   imports: [
