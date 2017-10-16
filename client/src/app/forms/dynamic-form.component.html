@@ -11,27 +11,32 @@ grid-template-rows:repeat(10,1fr);">
 
 -->
 
-<form (ngSubmit)="onSubmit()" [formGroup]="formGroup" 
-      style="position:absolute;top:300px;left:0px;
-      display:grid;width:80%;
-           grid-template-columns:repeat(3,1fr);grid-gap: 40px;
-           grid-template-rows:repeat(10,1fr);" [dragula]='"nested-bag"'>
-           
-           
-  <div *ngFor="let field of form.fields;let i=index" style="border:0px solid blue;" [ngStyle]="{'grid-column-end': 'span '+field.appearance.colspan,
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup" style="display:grid;width:80%;margin-left:10%;
+            margin-bottom:200px;grid-gap: 10px " [ngStyle]="{
+             'grid-template-columns': 'repeat('+form.columns  +', 1fr)',
+             'grid-template-rows': 'repeat('+form.rows  +', 1fr)' 
+           }" [dragula]='"nested-bag"'>
+
+
+  <div *ngFor="let field of form.fields;let i=index" 
+  style="padding: 10px 10px 0px 10px;border:1px solid gray;border-radius:1px;" [style.visibility]="field.appearance.visible? 'visible':'visible'"
+    [ngStyle]="{'grid-column-end': 'span '+field.appearance.colspan,
                  'grid-row-end': 'span '+field.appearance.rowspan }">
 
-               
-                 <div style="text-align:right">
-                    <i class="handle material-icons">zoom_out_map</i>
-                    <i class="material-icons">settings</i>
-                    <i class="material-icons">close</i>     
-                  
-                </div>
-    <form-field [field]="field" [formGroup]="formGroup" ></form-field>
+           <!-- -->
+    <div style="text-align:right;width:100%" *ngIf="editMode">
+
+      <i class="handle material-icons">zoom_out_map</i>
+      <i class="material-icons">settings</i>
+      <i class="material-icons">close</i>
+
+    </div>
+    
+    <form-field  [field]="field" [formGroup]="formGroup"></form-field>
+    
   </div>
 
-<!--
+  <!--
   <div style="grid-column-end: span 3;grid-row-end:span 4">
 
     <button mat-raised-button color="primary" [disabled]="!formGroup.valid" type="submit">Enviar</button>
@@ -43,7 +48,12 @@ grid-template-rows:repeat(10,1fr);">
    FormStatus: {{formGroup.get('001').pristine| json}} 
   </div>
 -->
+
 </form>
+
+<div>
+
+</div>
 
 
 <!-- FormStatus: {{formGroup.get('001').pristine| json}} 

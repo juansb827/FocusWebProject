@@ -1,38 +1,76 @@
-<div *ngIf="formGroup.get(field.id)" [formGroup]="formGroup">
-    
+<div *ngIf="formGroup.get(field.id)" [formGroup]="formGroup" >
+    <!-- FormItems composite -->   
+    <div *ngIf="field.subItems;ngElseBlock">
+            <form-field 
+                *ngFor="let child of field.subItems;let i=index" 
+            [field]="child" [formGroup]="formGroup" ></form-field>
+    </div>
 
-    <div [ngSwitch]="field.controlType" style="width:100%" >
-        <mat-form-field *ngSwitchCase="'textbox'"  style="width:100%">
-            <input matInput [formControlName]="field.id" [id]="field.id" placeholder="{{field.placeholder}}" [required]="field.required" >
+    <div #ngElseBlock [ngSwitch]="field.controlType" style="width:100%">
+        <!-- Empty Space-->   
+        <div *ngSwitchCase="'empty'" style="width:100%"></div>
+        
+        <!-- Text Input-->   
+        <mat-form-field *ngSwitchCase="'textbox'" style="width:100%">
+            <input matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [required]="field.required"
+            [value]="field.value" maxlength="10">
+            <mat-hint align="end">{{ formGroup.get(field.id).value.length || 0}}/10</mat-hint>
             
+
+        </mat-form-field>
+
+        <!-- TextArea-->   
+        <mat-form-field *ngSwitchCase="'textarea'" style="width:100%">
+                <textarea matInput placeholder="Textarea" style=""
+                [formControlName]="field.id" placeholder="{{field.placeholder}}" ></textarea>
+                <mat-hint align="end">{{ formGroup.get(field.id).value.length || 0}}/100</mat-hint>
         </mat-form-field>
 
         
-        <mat-form-field *ngSwitchCase="'dropdown'"  style="width:100%">
-            <mat-select [formControlName]="field.id" [id]="field.id" placeholder="{{field.placeholder}}" [required]="field.required">
-                <mat-option value="1">
-                    Option1
-                </mat-option>
-                <mat-option value="2">
-                    Option2
-                </mat-option>
-            </mat-select>
-
-            
-        </mat-form-field>
-
-        <div *ngSwitchCase="'autocomplete'" >
-                <mat-form-field style="width:100%" >
-            <input type="text" matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [matAutocomplete]="auto" [required]="field.required" >
-        </mat-form-field>
+        <!-- TextInput AutoComplete-->   
+        <div *ngSwitchCase="'autocomplete'">
+            <mat-form-field style="width:100%">
+                <input type="text" matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [matAutocomplete]="auto" [required]="field.required">
+            </mat-form-field>
             <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let option of filteredOptions |async" [value]="option">
-                   {{option}}
-                </mat-option>              
-             </mat-autocomplete>
-         </div>
-    
-    
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+
+
+         <!-- Dropdown List-->   
+         <mat-form-field *ngSwitchCase="'dropdown'" style="width:100%">
+                <mat-select [formControlName]="field.id" [id]="field.id" placeholder="{{field.placeholder}}" [required]="field.required">
+                    <mat-option value="1">
+                        Option1
+                    </mat-option>
+                    <mat-option value="2">
+                        Option2
+                    </mat-option>
+                </mat-select>
+        </mat-form-field>
+
+        <!-- Radio Group-->
+        <mat-radio-group  *ngSwitchCase="'radioGroup'" [formControlName]="field.id" [(ngModel)]="favoriteSeason"
+                    style="display: inline-flex; flex-direction: column;text-align:left">
+                
+                <mat-radio-button  *ngFor="let option of field.optionList" [value]="option" 
+                        style="margin: 5px;">
+                    {{option}}
+                </mat-radio-button>
+                
+        </mat-radio-group> 
+        
+       
+
+
+
+
+
+
+
     </div>
 
 

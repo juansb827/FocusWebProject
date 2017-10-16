@@ -33,7 +33,7 @@ export class FormDisplayerComponent implements OnInit, AfterViewInit {
       console.log('option', optionId);
     })
 
-    this.form = this.formService.getForm('form1');
+    this.form = this.formService.getForm('form2');
 
   }
 

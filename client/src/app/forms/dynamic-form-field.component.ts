@@ -17,7 +17,8 @@ export class DynamicFormFieldComponent implements OnInit {
   get isValid() { return this.formGroup.controls[this.field.id].valid; }
 
   ngOnInit(){
-    console.log("form",this.formGroup);
+    console.log(this.field.label,this.field);
+    
     if(this.field.controlType==='autocomplete'){
       this.initAutoComplete();
     }

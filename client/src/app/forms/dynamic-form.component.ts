@@ -22,11 +22,11 @@ export class DynamicFormComponent implements OnInit {
   private fields;
   formGroup: FormGroup;
   formData: any;
-
+  editMode: boolean=false;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
     private fcService: FormControlService,
-    private dragService: DragulaService) {
+    private dragService: DragulaService) {      
     dragService.setOptions('nested-bag', {
       moves: function (el: any, container: any, handle: any): any {
         console.log(el, container);
@@ -38,6 +38,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("formObject",this.form);
     this.updateFormGroup();
   }
 
