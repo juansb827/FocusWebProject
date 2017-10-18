@@ -22,7 +22,7 @@ export class DynamicFormComponent implements OnInit {
   private fields;
   formGroup: FormGroup;
   formData: any;
-  editMode: boolean=false;
+  editMode: boolean=true;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
     private fcService: FormControlService,
