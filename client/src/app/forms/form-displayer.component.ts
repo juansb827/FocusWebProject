@@ -3,7 +3,6 @@ import { Component, OnInit, AfterViewInit, ViewChild, ComponentFactoryResolver }
 import { ActivatedRoute } from '@angular/router';
 import { Form } from './form'
 import { MyFormDirective } from './forms.directive'
-import { FormControlService } from './form-control.service'
 import { FormService } from './form.service'
 
 
@@ -18,7 +17,7 @@ import { FormService } from './form.service'
 })
 export class FormDisplayerComponent implements OnInit, AfterViewInit {
 
-  private sub: any;
+  //private sub: any;
   form: Form;
 
   constructor(private route: ActivatedRoute,
@@ -42,7 +41,7 @@ export class FormDisplayerComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+  //  this.sub.unsubscribe();
   }
 
   loadForm() {

@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
 import { MaterialModule } from './material.module';
-import {DragulaModule} from 'ng2-dragula'
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -19,20 +19,23 @@ import { SnackbarComponent } from './messages/toaster.service';
 import { ToasterService } from './messages/toaster.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+
+import {DynamicFormsModule} from './forms/forms.module'
  
  //dynamic forms
+ /*
  import { FormDisplayerComponent } from './forms/form-displayer.component';
 import { DynamicFormComponent,TimesPipe } from './forms/dynamic-form.component';
 import { DynamicFormFieldComponent } from './forms/dynamic-form-field.component';
 import { FormControlService } from './forms/form-control.service';
 import { FormService } from './forms/form.service';
-
+*/
 
 
 /**/
 
-import { FormEditorComponent } from './forms/form-editor/form-editor.component';
-import { DialogValidaciones } from './forms/form-editor/form-editor.component';
+
+
 
 @NgModule({
   declarations: [
@@ -40,9 +43,8 @@ import { DialogValidaciones } from './forms/form-editor/form-editor.component';
     LoginComponent,
     NavbarComponent,
     HomeComponent,
-    SnackbarComponent, DialogValidaciones,
-    FormDisplayerComponent, DynamicFormComponent,  DynamicFormFieldComponent, FormEditorComponent,
-    TimesPipe 
+    SnackbarComponent,     
+    
     
   ],
   imports: [
@@ -53,7 +55,8 @@ import { DialogValidaciones } from './forms/form-editor/form-editor.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    DragulaModule
+    DynamicFormsModule.forRoot()
+    
     
     
   ],
@@ -62,14 +65,12 @@ import { DialogValidaciones } from './forms/form-editor/form-editor.component';
     AuthenticationService,    
     AuthGuard,
     ToasterService,
-    MenuService,
-        FormService,
-        {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
+    MenuService,        
+    {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
         
   ],
   entryComponents:[
-    SnackbarComponent,
-    DialogValidaciones
+    SnackbarComponent,  
 
      
   ],

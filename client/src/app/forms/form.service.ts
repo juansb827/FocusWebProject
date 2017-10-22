@@ -44,7 +44,7 @@ let itemGroup=[
     new DropdownField({value:"",id:"002",name:"Grupo",colspan:2}),
     new Autocomplete({value:"",id:"065",name:"Linea Naviera" ,colspan:4}, ["EVG - Evergreen","PPP - Pepe"]),
     new TextboxField({value:"",name:"Contenedor",colspan:4}),    
-    new ItemGroup({colspan:2,rowspan:3},itemGroup),
+    new ItemGroup({colspan:1,rowspan:3},itemGroup),
     new TextboxField({value:"",name:"Cedula Conductor",colspan:2}),
     new TextboxField({value:"",name:"Nombre Conductor",colspan:3}),
     new TextboxField({value:"",name:"Celular",colspan:2}),
