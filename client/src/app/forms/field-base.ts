@@ -1,5 +1,5 @@
 export class FieldBase<T>{ //todo col and row span
-  value: T;
+  value;
   id: string;
   label: string;
   name: string;
@@ -29,13 +29,14 @@ export class FieldBase<T>{ //todo col and row span
     colspan?: number
   } = {}) {
     
-    this.value = options.value;
+    this.value = options.value || '';    
     this.id = options.id || options.name || '';
     this.label = options.label || '';
+    this.name= options.name || '';
     this.required = !!options.required;
     this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || '';
-    this.placeholder = options.placeholder || options.name; 
+    this.placeholder = options.placeholder || options.name || ''; 
     this.appearance={
       colspan:options.colspan || 1,
       rowspan:options.rowspan || 1,
