@@ -1,15 +1,17 @@
-export class FieldBase<T>{ //todo col and row span
-  value;
+export class FieldBase<T>{
+  
   id: string;
   label: string;
   name: string;
-  required: boolean;
-  order: number;
+  value?;
+  required?: boolean;
+  order?: number;
   controlType: string;
-  placeholder: string;
+  placeholder?: string;
+  datasetName? : string;
   
 
-  appearance: {
+  appearance?: {
     colspan:number,
     rowspan: number,
     visible: boolean
@@ -64,7 +66,7 @@ export class ItemGroup extends FieldBase<null>{
 }
 export class TextboxField extends FieldBase<String>{
   controlType = 'textbox';
-
+  
   constructor(options: {}) {
     super(options);
   }
@@ -88,20 +90,20 @@ export class DropdownField extends FieldBase<String>{
 
 export class Autocomplete extends FieldBase<String>{
   controlType = 'autocomplete';
-  optionList: any[];
-  constructor(options: {} = {}, optionList: any[]) {
+  
+  constructor(options: {} = {}, datasetName) {
     super(options);
-    this.optionList = optionList;
+    this.datasetName = datasetName;
   }
 
 }
 
 export class RadioGroup extends FieldBase<String>{
   controlType = 'radioGroup';
-  optionList: any[];
-  constructor(options: {} = {}, optionList: any[]) {
+  
+  constructor(options: {} = {}, datasetName) {
     super(options);
-    this.optionList = optionList;
+    this.datasetName = datasetName;
   }
 
 }

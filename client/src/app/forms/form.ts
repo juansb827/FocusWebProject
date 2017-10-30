@@ -4,7 +4,7 @@ export class Form{
     title: String;
     columns: number;
     rows :number;
-    fields: FieldBase<any>[];
+    fields: any[];
 
     constructor(id:String, 
                 title:String,
@@ -13,4 +13,22 @@ export class Form{
         this.fields=fields;
         this.title=title;
     }
+}
+
+export interface DataSetItem{
+    value: any;
+    label: string;
+}
+
+export interface DataSet{
+    items: DataSetItem[];
+    
+}
+
+export class FormError extends Error {
+    constructor(m: string) {
+        super(m);
+        Object.setPrototypeOf(this, FormError.prototype);
+    }
+
 }

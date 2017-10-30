@@ -20,8 +20,8 @@ grid-template-rows:repeat(10,1fr);">
 
   <div *ngFor="let field of form.fields;let i=index" 
   style="padding: 10px 10px 0px 10px;border:1px solid gray;border-radius:10px;" [style.visibility]="field.appearance.visible? 'visible':'visible'"
-    [ngStyle]="{'grid-column-end': 'span '+field.appearance.colspan,
-                 'grid-row-end': 'span '+field.appearance.rowspan }">
+    [ngStyle]="{'grid-column-end': 'span '+field.appearance.colspan || 1, 
+                 'grid-row-end': 'span '+field.appearance.rowspan || 1}">
 
            <!-- -->
     <div style="text-align:right;width:100%" *ngIf="editMode">
