@@ -4,7 +4,7 @@ export class Form{
     title: String;
     columns: number;
     rows :number;
-    fields: any[];
+    fields: FieldBase<any>[];
 
     constructor(id:String, 
                 title:String,

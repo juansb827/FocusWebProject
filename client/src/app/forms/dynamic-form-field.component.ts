@@ -28,9 +28,8 @@ export class DynamicFormFieldComponent implements OnInit {
 
   get isValid() { return this.formGroup.controls[this.field.id].valid; }
 
-  ngOnInit() {
-    //    console.log(this.field.label, this.field);
-
+  ngOnInit() {   
+    
     if (this.field.datasetName) {      
       this.loadDataset();
     }
@@ -113,7 +112,11 @@ export class DynamicFormFieldComponent implements OnInit {
         control.setValue(this.lastFilter[0]);
     }
     //TODO: make the control invalid;
-    if (typeof control.value !== 'object') console.log("invalidValue", control.value);
+    if (typeof control.value !== 'object') {
+      control.setValue("");
+      //console.log("invalidValue", control.value);
+    }
+    
 
 
 

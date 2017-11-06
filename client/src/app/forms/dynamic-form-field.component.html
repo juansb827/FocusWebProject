@@ -1,41 +1,40 @@
-<div *ngIf="formGroup.get(field.id)" [formGroup]="formGroup" >
-    <!-- FormItems composite, creates all of it's children -->   
+<div  > <!-- *ngIf="formGroup.get(field.id)" TODO:-->
+    <!-- FormItems composite, creates all of it's children -->
     <div *ngIf="field.subItems;ngElseBlock">
-            <form-field 
-                *ngFor="let child of field.subItems;let i=index" 
-            [field]="child" [formGroup]="formGroup" ></form-field>
+            <form-field *ngFor="let child of field.subItems;let i=index" [field]="child" [formGroup]="formGroup"></form-field>        
     </div>
 
-    <div #ngElseBlock [ngSwitch]="field.controlType" style="width:100%">
-        <!-- Empty Space-->   
+    <div #ngElseBlock [ngSwitch]="field.controlType" style="width:100%" [formGroup]="formGroup">
+        <!-- Empty Space-->
         <div *ngSwitchCase="'empty'" style="width:100%"></div>
-        
-        <!-- Text Input-->   
+
+        <!-- Text Input-->
         <mat-form-field *ngSwitchCase="'textbox'" style="width:100%">
-            <input matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [required]="field.required"
-            [value]="field.value" [maxlength]="field.maxlength">
-            <mat-hint align="end" *ngIf="field.maxlength">
-                {{ formGroup.get(field.id).value.length || 0}}/{{field.maxlength}}
+            <input matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [required]="field.required" [value]="field.value"
+                [maxlength]="field.maxLength">
+            <mat-hint align="end" *ngIf="field.maxLength ">
+                {{ formGroup.get(field.id).value.length || 0}}/{{field.maxLength}}
             </mat-hint>
-            
+
 
         </mat-form-field>
 
-        <!-- TextArea-->   
+        <!-- TextArea-->
         <mat-form-field *ngSwitchCase="'textarea'" style="width:100%">
-                <textarea matInput placeholder="Textarea" style=""
-                [formControlName]="field.id" placeholder="{{field.placeholder}}" ></textarea>
-                <mat-hint align="end">{{ formGroup.get(field.id).value.length || 0}}/100</mat-hint>
+            <textarea matInput placeholder="Textarea" style="" [formControlName]="field.id" placeholder="{{field.placeholder}}"></textarea>
+            <mat-hint align="end" *ngIf="true">
+                {{ formGroup.get(field.id).value.length || 0}}/100
+            </mat-hint>
         </mat-form-field>
 
-        
-        <!-- TextInput AutoComplete-->   
+
+        <!-- TextInput AutoComplete-->
         <div *ngSwitchCase="'autocomplete'">
             <mat-form-field style="width:100%">
                 <input type="text" matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [matAutocomplete]="auto" [required]="field.required"
-                    (blur)="onBlurMethod()" > 
+                    (blur)="onBlurMethod()">
             </mat-form-field>
-            <mat-autocomplete #auto="matAutocomplete"  [displayWith]="displayFn" >
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                 <mat-option *ngFor="let option of filteredOptions |async" [value]="option">
                     {{option.value}} - {{option.label}}
                 </mat-option>
@@ -43,30 +42,26 @@
         </div>
 
 
-         <!-- Dropdown List-->   
-         <mat-form-field *ngSwitchCase="'dropdown'" style="width:100%">
-                <mat-select [formControlName]="field.id" [id]="field.id" placeholder="{{field.placeholder}}" [required]="field.required">
-                    <mat-option value="1">
-                        Option1
-                    </mat-option>
-                    <mat-option value="2">
-                        Option2
-                    </mat-option>
-                </mat-select>
+        <!-- Dropdown List-->
+        <mat-form-field *ngSwitchCase="'dropdown'" style="width:100%">
+            <mat-select [formControlName]="field.id" [id]="field.id" placeholder="{{field.placeholder}}" [required]="field.required">
+                <mat-option value="1" *ngFor="let option of optionList" [value]="option">
+                    {{option.label}}
+                </mat-option>
+
+            </mat-select>
         </mat-form-field>
 
         <!-- Radio Group-->
-        <mat-radio-group  *ngSwitchCase="'radioGroup'" [formControlName]="field.id" [(ngModel)]="favoriteSeason"
-                    style="display: inline-flex; flex-direction: column;text-align:left">
-                
-                <mat-radio-button  *ngFor="let option of optionList" [value]="option" 
-                        style="margin: 5px;">
-                    {{option.label}}
-                </mat-radio-button>
-                
-        </mat-radio-group> 
-        
-       
+        <mat-radio-group *ngSwitchCase="'radioGroup'" [formControlName]="field.id" [(ngModel)]="favoriteSeason" style="display: inline-flex; flex-direction: column;text-align:left">
+
+            <mat-radio-button *ngFor="let option of optionList" [value]="option" style="margin: 5px;">
+                {{option.label}}
+            </mat-radio-button>
+
+        </mat-radio-group>
+
+
 
 
 

@@ -1,15 +1,16 @@
 export class FieldBase<T>{
-  
+  controlType: string;
   id: string;
   label: string;
   name: string;
   value?;
   required?: boolean;
   order?: number;
-  controlType: string;
+  
   placeholder?: string;
   datasetName? : string;
-  
+  maxLength? :number;
+  subItems?: FieldBase<any>[];
 
   appearance?: {
     colspan:number,
@@ -28,7 +29,8 @@ export class FieldBase<T>{
     controlType?: string,
     placeholder?: string,
     rowspan?: number,
-    colspan?: number
+    colspan?: number,
+    
   } = {}) {
     
     this.value = options.value || '';    
@@ -57,18 +59,19 @@ export class EmptySpace extends FieldBase<null>{
 }
 export class ItemGroup extends FieldBase<null>{
   controlType = 'itemgroup';
-  subItems: FieldBase<any>[];
+  
   constructor(options: {},subItems:FieldBase<any>[]) {    
     super(options);
     this.subItems=subItems;
     
   }
 }
-export class TextboxField extends FieldBase<String>{
+export class Textbox extends FieldBase<String>{
   controlType = 'textbox';
   
+  
   constructor(options: {}) {
-    super(options);
+    super(options);    
   }
 }
 
@@ -80,10 +83,11 @@ export class TextArea extends FieldBase<String>{
   }
 }
 
-export class DropdownField extends FieldBase<String>{
+export class Dropdown extends FieldBase<String>{
   controlType = 'dropdown';
-  constructor(options: {} = {}) {
+  constructor(options: {} = {},datasetName) {
     super(options);
+    this.datasetName=datasetName;
   }
 
 }
@@ -98,7 +102,7 @@ export class Autocomplete extends FieldBase<String>{
 
 }
 
-export class RadioGroup extends FieldBase<String>{
+export class Radiogroup extends FieldBase<String>{
   controlType = 'radioGroup';
   
   constructor(options: {} = {}, datasetName) {

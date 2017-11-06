@@ -21,10 +21,11 @@ export class DynamicFormComponent implements OnInit {
 
   private fields;
   formGroup: FormGroup;
-  formData: any;
-  editMode: boolean=true;
+  
+  editMode: boolean=false;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+  constructor(
+    private formService : FormService,
     private fcService: FormControlService,
     private dragService: DragulaService) {      
     dragService.setOptions('nested-bag', {
@@ -38,11 +39,12 @@ export class DynamicFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("formObject",this.form);
+   // console.log("formObject",this.form);
     this.updateFormGroup();
   }
 
   resetForm() {
+    console.log("ds");
     this.formGroup.reset();
   }
 
@@ -57,7 +59,16 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onSubmit() {
-
+    console.log("usb,");
+    const formData=this.fcService.getFormGroupData(this.formGroup);
+    this.formService.saveFormData(formData)
+    .finally(()=>console.log("final2"))
+    .subscribe(
+      x=> console.log("success",x),
+      e=>console.log("error",e),
+      ()=>console.log("final")
+    );
+    
   }
 
 
