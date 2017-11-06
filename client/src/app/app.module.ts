@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
+
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
 import { MaterialModule } from './material.module';
@@ -51,7 +52,7 @@ import { FormService } from './forms/form.service';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -62,6 +63,7 @@ import { FormService } from './forms/form.service';
   ],
   providers: [
     AppConfig,
+    
     AuthenticationService,    
     AuthGuard,
     ToasterService,

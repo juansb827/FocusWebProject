@@ -1,0 +1,30 @@
+{
+  "db_focus": {
+    "username": "focusmng",
+    "password": "aE%$2%#wd:V",
+    "database": "db_focus",
+    "host": "198.27.127.208",
+    "dialect": "mssql",
+    "dialectOptions": {
+      "instanceName": "SQL2015"
+    },
+    "define": {
+      "timestamps": false,
+      "freezeTableName": true
+    }
+  },
+  "empresaTest": {
+    "username": "focusmng",
+    "password": "d0afd0f89sa",
+    "database": "db_pruebas",
+    "host": "198.27.127.208",
+    "dialect": "mssql",
+    "dialectOptions": {
+      "instanceName": "SQL2015"
+    },
+    "define": {
+      "timestamps": false,
+      "freezeTableName": true
+    }
+  }
+}

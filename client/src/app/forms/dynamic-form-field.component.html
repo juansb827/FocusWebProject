@@ -53,13 +53,17 @@
         </mat-form-field>
 
         <!-- Radio Group-->
-        <mat-radio-group *ngSwitchCase="'radioGroup'" [formControlName]="field.id" [(ngModel)]="favoriteSeason" style="display: inline-flex; flex-direction: column;text-align:left">
+        
+        
+        <mat-radio-group *ngSwitchCase="'radioGroup'" [formControlName]="field.id"  style="display: inline-flex; flex-direction: column;text-align:left">
 
             <mat-radio-button *ngFor="let option of optionList" [value]="option" style="margin: 5px;">
                 {{option.label}}
             </mat-radio-button>
 
         </mat-radio-group>
+
+    
 
 
 

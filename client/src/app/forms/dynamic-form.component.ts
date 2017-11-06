@@ -16,12 +16,10 @@ import { DragulaService } from 'ng2-dragula';
 })
 export class DynamicFormComponent implements OnInit {
 
-  @Input() form: Form;
-
-
-  private fields;
+  @Input() form: Form;  
   formGroup: FormGroup;
-  
+  initialValues: Object;
+  //for the form editor
   editMode: boolean=false;
 
   constructor(
@@ -41,11 +39,16 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
    // console.log("formObject",this.form);
     this.updateFormGroup();
+    if(this.formGroup){
+      this.initialValues=this.formGroup.value;
+    }
   }
 
   resetForm() {
     console.log("ds");
-    this.formGroup.reset();
+    this.formGroup.reset(
+      this.initialValues    
+    );
   }
 
   updateFormGroup() {
@@ -59,9 +62,17 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("usb,");
+    
+      
+        
+        
+    
+    
+    if(1==1) return;
+    console.log("preformData",this.formGroup.value);
     const formData=this.fcService.getFormGroupData(this.formGroup);
-    this.formService.saveFormData(formData)
+    console.log("formData",formData);
+    this.formService.saveFormData(formData)    
     .finally(()=>console.log("final2"))
     .subscribe(
       x=> console.log("success",x),

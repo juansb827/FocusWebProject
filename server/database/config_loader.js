@@ -2,12 +2,13 @@ var fs = require("fs");
 var path = require("path");
 var Sequelize = require("sequelize");
 var basename = path.basename(module.filename);
-var env = process.env.NODE_ENV || "development";
-var config = require(__dirname + '/../config/databases_config.json')[env];
+//var env = process.env.NODE_ENV || "development";
+var env= "DEV";
+var config = require(__dirname + '/../config/db_config_'+env);
 
 
 /*
-*	List all the databases for the current environment in database_config.json 
+*	List all the databases for the current db_config.json 
 */
 function getDatabases()
 {	
@@ -16,6 +17,7 @@ function getDatabases()
 	for(var m in obj) {        
 		res.push(m);        
 	}
+	
 	return res;
 }
 
@@ -27,21 +29,24 @@ function getDatabases()
 *	database_b : { name: "database_a", sequelize: Object, models : []},
 *	etc..
 * }
-*	-the sequelize Object will later be used to generate the conection, and for raw queries 
+*	-the sequelize Object will later be used to generate the conection, and for raw queries. 
 * 	-models:[], a model represents a table, used for queries
 */
-var databases={};
+var dbs_config={};
 getDatabases().forEach(function(db_name){		
 	var confDb=config[db_name];
+	
 	var seq = new Sequelize(confDb.database, confDb.username, confDb.password, confDb);	
-	var database ={name : db_name , sequelize : seq , models : [] } ;
-	databases[db_name]=database;	
+	var db_conf ={name : db_name , sequelize : seq , models : [] } ;
+	dbs_config[db_name]=db_conf;	
+	
 });
 
 
 /*
 * Loads all the models in the model folder
 */
+/*
 fs
 .readdirSync(__dirname)
 //removes this file (index.js) from the file list
@@ -67,26 +72,8 @@ Object.keys(databases).forEach(function(db_name) {
 	});
 });
 
-
-
-module.exports=databases;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
+console.log('Databases configuration Loaded, environment:'+env);
+module.exports=dbs_config;
 
 

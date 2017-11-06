@@ -5,6 +5,11 @@ var app = express();
 var routes= require('./routes');
 var jsonParser= require("body-parser").json;
 
+var db_config= require('./database/config_loader');
+var db_con_manager= require('./database/connection_manager');
+
+
+
 
 app.use(logger("dev"));
 app.use(jsonParser());
@@ -20,7 +25,7 @@ app.use(function(req, res, next){
 });
 
 
-app.use("/",routes);
+app.use("/forms",require('./controllers/forms.controller'));
 
 
 
@@ -48,6 +53,19 @@ app.use(function(err, req, res, next){
 });
 
 
- 
+app.set('port', process.env.PORT || 3000);
+
+
+/**
+* Starts the server
+*/
+function startServer(){
+	var server = app.listen(app.get('port'), function() {
+		console.log('Express server listening on port ' + server.address().port);	
+		//global.databases=databases;
+	});	
+};
+
+db_con_manager(db_config,startServer); 
 
 module.exports = app;

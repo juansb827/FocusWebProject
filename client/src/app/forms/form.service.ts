@@ -1,4 +1,5 @@
 import { Injectable }       from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import { Form, DataSet }       from './form';
 import { Observable } from 'rxjs/Observable';
 
@@ -100,6 +101,8 @@ let datasets={
 @Injectable()
 export class FormService{    
     
+  constructor(private http:HttpClient){}
+
     getForm(formId):Observable<Form>{
         return Observable.create(observer=>{
             observer.next(form4);
@@ -116,11 +119,8 @@ export class FormService{
     }
 
     saveFormData(formData:object):Observable<any>{
-      return Observable.create(observer=>{
-        observer.next();
-        observer.error();
-        observer.complete();
-    });
+      return Observable.of('');
+      //return this.http.post('http://localhost:3000/forms',{});
     }
 
     
@@ -193,7 +193,7 @@ var form4:Form=
         }
       },
       {
-        "value": "",
+        "value": tiposTurno.items[0],
         "id": "tipoTurno",
         "label": "",
         "name": "",
@@ -209,7 +209,7 @@ var form4:Form=
         "datasetName": "tiposTurno"
       },
       {
-        "value": "",
+        "value": tiposCarga.items[1],
         "id": "tipoCarga",
         "label": "",
         "name": "",
@@ -454,7 +454,7 @@ var form4:Form=
         }
       },
       {
-        "value": "",
+        "value":  "",
         "id": "sitioOrigen",
         "label": "",
         "name": "Sitio de Origen",

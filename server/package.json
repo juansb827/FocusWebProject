@@ -2,7 +2,7 @@
   "name": "focus-web",
   "version": "1.0.0",
   "scripts": {
-    "start": "node ./bin/multiple",
+    "start": "node ./bin/server_init",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

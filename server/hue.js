@@ -13,7 +13,7 @@ configFile.storage = 'db_focus';
 configFile.tables = ["SYSEMPRESAS","SYSAPLHABILITADAS","SYSMENUFOCUS"];
 configFile.directory = __dirname+"/models/";
 
-var auto = new SequelizeAuto('db_focus', 'focusmng',  'focus..6789', configFile);
+var auto = new SequelizeAuto('db_focus', 'focusmng',  '****', configFile);
 
 auto.run(function (err) {
 	console.log(__dirname );

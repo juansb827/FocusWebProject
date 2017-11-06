@@ -49,6 +49,7 @@ export class FieldBase<T>{
   
   }
 }
+  
 export class EmptySpace extends FieldBase<null>{
   controlType = 'empty';
   constructor(options: {}) {    

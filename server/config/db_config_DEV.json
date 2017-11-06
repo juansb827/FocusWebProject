@@ -1,0 +1,17 @@
+{
+  "db_focus": {
+    "username": "sa",
+    "password": "********",
+    "database": " db_pruebas2",
+    "host": "190.114.1.85",
+    "dialect": "mssql",
+    "dialectOptions": {
+      "instanceName": "SQL2016"
+    },
+    "define": {
+      "timestamps": false,
+      "freezeTableName": true
+    }
+  }
+  
+}
