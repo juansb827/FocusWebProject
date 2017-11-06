@@ -1,23 +1,19 @@
-/* jshint indent: 1 */
+/* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('CATPAGOS', {
-		Ccatpago: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' ',
-			primaryKey: true
-		},
-		Cnombre: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' '
-		},
-		Nhabilitado: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		}
-	}, {
-		tableName: 'CATPAGOS'
-	});
+  return sequelize.define('CATPAGOS', {
+    CCATPAGO: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      defaultValue: ' ',
+      primaryKey: true
+    },
+    CNOMBRE: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      defaultValue: ' '
+    }
+  }, {
+    tableName: 'CATPAGOS'
+  });
 };

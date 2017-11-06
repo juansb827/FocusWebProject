@@ -1,23 +1,18 @@
-/* jshint indent: 1 */
+/* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('PAISES', {
-		NCODPAIS: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			primaryKey: true
-		},
-		CNOMPAIS: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' '
-		},
-		BLOQUEAR: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			defaultValue: '((0))'
-		}
-	}, {
-		tableName: 'PAISES'
-	});
+  return sequelize.define('PAISES', {
+    Cnompais: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: ' '
+    },
+    Ncodpais: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
+    }
+  }, {
+    tableName: 'PAISES'
+  });
 };

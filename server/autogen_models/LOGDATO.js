@@ -1,52 +1,44 @@
-/* jshint indent: 1 */
+/* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('LOGDATO', {
-		APLIC: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' '
-		},
-		EQUIPO: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' ',
-			primaryKey: true
-		},
-		ESTRUC: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' '
-		},
-		FECHA: {
-			type: DataTypes.DATE,
-			allowNull: false,
-			defaultValue: ' ',
-			primaryKey: true
-		},
-		FISICO: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' '
-		},
-		LLAVEREG: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' '
-		},
-		SUCESO: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))',
-			primaryKey: true
-		},
-		USUARIO: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' ',
-			primaryKey: true
-		}
-	}, {
-		tableName: 'LOGDATO'
-	});
+  return sequelize.define('LOGDATO', {
+    APLIC: {
+      type: DataTypes.CHAR,
+      allowNull: false
+    },
+    EQUIPO: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      primaryKey: true
+    },
+    ESTRUC: {
+      type: DataTypes.CHAR,
+      allowNull: true
+    },
+    FECHA: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      primaryKey: true
+    },
+    FISICO: {
+      type: DataTypes.CHAR,
+      allowNull: true
+    },
+    LLAVEREG: {
+      type: DataTypes.CHAR,
+      allowNull: false
+    },
+    SUCESO: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      primaryKey: true
+    },
+    USUARIO: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      primaryKey: true
+    }
+  }, {
+    tableName: 'LOGDATO'
+  });
 };

@@ -28,11 +28,24 @@ function fin(couldConnect,dbsCount) {
 /**
 *	
 */
-var connect=function (databases,callback) {	
-	const dbsCount=Object.keys(databases).length;
+var connect=function (dbsConfiguration,callback) {	
+	const dbsCount=Object.keys(dbsConfiguration).length;
 	onFinish=callback;
-	Object.keys(databases).forEach(function (db_name, index) {
-		databases[db_name].sequelize.sync().then(function () {
+	Object.keys(dbsConfiguration).forEach(function (db_name) {
+		dbsConfiguration[db_name].sequelize
+		
+		.authenticate()
+		.then(() => {
+			console.log("Connected to " + db_name);
+			fin(true,dbsCount);
+		})
+		.catch(err => {
+			console.log("Error connecting to " + db_name);
+			console.log(err);
+			fin(false,dbsCount);
+		});
+		/*
+		dbsConfiguration[db_name].sequelize.sync().then(function () {
 			console.log("Connected to " + db_name);
 			fin(true,dbsCount);
 		}).error(function (err) {
@@ -40,7 +53,7 @@ var connect=function (databases,callback) {
 			console.log(err);
 			fin(false,dbsCount);
 		});
-
+		*/
 	});
 }
 

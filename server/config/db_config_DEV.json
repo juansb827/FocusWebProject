@@ -1,16 +1,23 @@
 {
   "db_focus": {
     "username": "sa",
-    "password": "********",
-    "database": " db_pruebas2",
+    "password": "fdjkslfjlsk",
+    "database": "db_pruebas2",
     "host": "190.114.1.85",
     "dialect": "mssql",
     "dialectOptions": {
       "instanceName": "SQL2016"
     },
-    "define": {
+    "define": { 
       "timestamps": false,
       "freezeTableName": true
+    },
+    "pool":{
+      "max": 0,
+      "min" :0,
+      "acquire" : 30000,
+      "idle" : 10000
+
     }
   }
   

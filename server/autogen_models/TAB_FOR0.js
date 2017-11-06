@@ -1,29 +1,24 @@
-/* jshint indent: 1 */
+/* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('TAB_FOR0', {
-		FOR_DESCRI: {
-			type: DataTypes.CHAR,
-			allowNull: true,
-			defaultValue: ' '
-		},
-		FORMA_IDEN: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' ',
-			primaryKey: true
-		},
-		TIPO: {
-			type: DataTypes.CHAR,
-			allowNull: true,
-			defaultValue: ' '
-		},
-		BLOQUEAR: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			defaultValue: '((0))'
-		}
-	}, {
-		tableName: 'TAB_FOR0'
-	});
+  return sequelize.define('TAB_FOR0', {
+    Tipo: {
+      type: DataTypes.CHAR,
+      allowNull: true,
+      defaultValue: ' '
+    },
+    For_descri: {
+      type: DataTypes.CHAR,
+      allowNull: true,
+      defaultValue: ' '
+    },
+    Forma_iden: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      defaultValue: ' ',
+      primaryKey: true
+    }
+  }, {
+    tableName: 'TAB_FOR0'
+  });
 };

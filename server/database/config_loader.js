@@ -5,6 +5,7 @@ var basename = path.basename(module.filename);
 //var env = process.env.NODE_ENV || "development";
 var env= "DEV";
 var config = require(__dirname + '/../config/db_config_'+env);
+var modelsFolder = __dirname+'/../models/';
 
 
 /*
@@ -46,33 +47,34 @@ getDatabases().forEach(function(db_name){
 /*
 * Loads all the models in the model folder
 */
-/*
+console.log("base",modelsFolder);
 fs
-.readdirSync(__dirname)
+.readdirSync(modelsFolder)
 //removes this file (index.js) from the file list
 .filter(function (file) {
+	
 	return (file.indexOf(".") !== 0) && (file !== basename);
 })
 .forEach(function(file) {
-	if (file.slice(-3) !== '.js') return;
-	
+	if (file.slice(-3) !== '.js') return;	
 	//After this Each Database Object will have all the models
-	Object.keys(databases).forEach(function(db_name){
-		var sequelize=databases[db_name].sequelize;
+	Object.keys(dbs_config).forEach(function(db_name){
+		var sequelize=dbs_config[db_name].sequelize;
 		//generates the model
-		var model = sequelize['import'](path.join(__dirname, file));		
-		databases[db_name].models[model.name] = model;
+		var model = sequelize['import'](path.join(modelsFolder, file));		
+		dbs_config[db_name].models[model.name] = model;
 	}) ;
 });
 
-Object.keys(databases).forEach(function(db_name) {
-	databases[db_name].models.forEach(function(model){
+/*
+Object.keys(dbs_config).forEach(function(db_name) {
+	dbs_config[db_name].models.forEach(function(model){
 		if (model.associate ) { model.associate(models); 		 	
 		}
 	});
 });
-
 */
+
 console.log('Databases configuration Loaded, environment:'+env);
 module.exports=dbs_config;
 

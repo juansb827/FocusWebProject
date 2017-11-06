@@ -1,29 +1,24 @@
-/* jshint indent: 1 */
+/* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('TBLOQUEO', {
-		CBLOQUEO: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' ',
-			primaryKey: true
-		},
-		CNOMBRE: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' '
-		},
-		NPESO: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		BLOQUEAR: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			defaultValue: '((0))'
-		}
-	}, {
-		tableName: 'TBLOQUEO'
-	});
+  return sequelize.define('TBLOQUEO', {
+    Cbloqueo: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      defaultValue: ' ',
+      primaryKey: true
+    },
+    Cnombre: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      defaultValue: ' '
+    },
+    Npeso: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    }
+  }, {
+    tableName: 'TBLOQUEO'
+  });
 };

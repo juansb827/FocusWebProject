@@ -1,231 +1,216 @@
-/* jshint indent: 1 */
+/* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('HOJACXP', {
-		Ntotdebusd: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Ini_cuota: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Tipo_pago: {
-			type: DataTypes.CHAR,
-			allowNull: true,
-			defaultValue: ' '
-		},
-		Tot_credit: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Valor_iva: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Nano: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			primaryKey: true
-		},
-		Sucursal: {
-			type: DataTypes.CHAR,
-			allowNull: true,
-			defaultValue: ' '
-		},
-		Descuentos: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Int_mora: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Val_cuota: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Ciudad: {
-			type: DataTypes.CHAR,
-			allowNull: true,
-			defaultValue: ' '
-		},
-		Num_cuotas: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Tercero: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' ',
-			primaryKey: true
-		},
-		Fecha_obl: {
-			type: DataTypes.DATE,
-			allowNull: true,
-			defaultValue: ' '
-		},
-		Tot_debito: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Numero_cpb: {
-			type: 'NUMERIC',
-			allowNull: true,
-			defaultValue: '((0))'
-		},
-		Documento: {
-			type: DataTypes.CHAR,
-			allowNull: true,
-			defaultValue: ' '
-		},
-		Mes: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' '
-		},
-		Numero_obl: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' ',
-			primaryKey: true
-		},
-		Ret_ica: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Cen_costo: {
-			type: DataTypes.CHAR,
-			allowNull: true,
-			defaultValue: ' '
-		},
-		Otros_devo: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Ret_iva: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Rte_devolu: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Tpo_muerto: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Ter_obl: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' '
-		},
-		Cen_utilid: {
-			type: DataTypes.CHAR,
-			allowNull: true,
-			defaultValue: ' '
-		},
-		Ctipodoc: {
-			type: DataTypes.CHAR,
-			allowNull: true,
-			defaultValue: ' '
-		},
-		Iva_retdev: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Cod_cuenta: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' ',
-			primaryKey: true
-		},
-		Ica_devol: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Iva_devolu: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Mcia_retvo: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Ntotcreusd: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Valor_otro: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Mcia_devol: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Tpo_cuotas: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Devoluc: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Valor_obl: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Valor_ret: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Valor_ica: {
-			type: 'NUMERIC',
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Cctelna: {
-			type: DataTypes.CHAR,
-			allowNull: false,
-			defaultValue: ' '
-		},
-		Nconceptoig: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			defaultValue: '((0))'
-		},
-		Nrevisado: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			defaultValue: '((0))'
-		}
-	}, {
-		tableName: 'HOJACXP'
-	});
+  return sequelize.define('HOJACXP', {
+    VALOR_IVA: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    COD_CUENTA: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      defaultValue: ' ',
+      primaryKey: true
+    },
+    FECHA_OBL: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: ' '
+    },
+    ICA_DEVOL: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    INT_MORA: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    CEN_UTILID: {
+      type: DataTypes.CHAR,
+      allowNull: true,
+      defaultValue: ' '
+    },
+    INI_CUOTA: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    MCIA_DEVOL: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    TIPO_PAGO: {
+      type: DataTypes.CHAR,
+      allowNull: true,
+      defaultValue: ' '
+    },
+    TOT_CREDIT: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    TOT_DEBITO: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    TPO_CUOTAS: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    DEVOLUC: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    VALOR_OBL: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    VALOR_OTRO: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    VALOR_RET: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    NTOTDEBUSD: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    NTOTCREUSD: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    VAL_CUOTA: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    CIUDAD: {
+      type: DataTypes.CHAR,
+      allowNull: true,
+      defaultValue: ' '
+    },
+    NUM_CUOTAS: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    CTIPODOC: {
+      type: DataTypes.CHAR,
+      allowNull: true,
+      defaultValue: ' '
+    },
+    NUMERO_CPB: {
+      type: DataTypes.DOUBLE,
+      allowNull: true,
+      defaultValue: '((0))'
+    },
+    DOCUMENTO: {
+      type: DataTypes.CHAR,
+      allowNull: true,
+      defaultValue: ' '
+    },
+    IVA_DEVOLU: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    MCIA_RETVO: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    MES: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      defaultValue: ' '
+    },
+    NANO: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
+    },
+    IVA_RETDEV: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    NUMERO_OBL: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      defaultValue: ' ',
+      primaryKey: true
+    },
+    RET_ICA: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    SUCURSAL: {
+      type: DataTypes.CHAR,
+      allowNull: true,
+      defaultValue: ' '
+    },
+    TER_OBL: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      defaultValue: ' '
+    },
+    TERCERO: {
+      type: DataTypes.CHAR,
+      allowNull: false,
+      defaultValue: ' ',
+      primaryKey: true
+    },
+    VALOR_ICA: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    CEN_COSTO: {
+      type: DataTypes.CHAR,
+      allowNull: true,
+      defaultValue: ' '
+    },
+    OTROS_DEVO: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    RET_IVA: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    RTE_DEVOLU: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    TPO_MUERTO: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    },
+    DESCUENTOS: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      defaultValue: '((0))'
+    }
+  }, {
+    tableName: 'HOJACXP'
+  });
 };
