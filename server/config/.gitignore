@@ -1,2 +1,3 @@
-db_config_DEV.json
-db_config_PROD.json
+*
+*/
+!.gitignore
