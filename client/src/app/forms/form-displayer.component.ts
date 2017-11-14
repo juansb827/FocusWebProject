@@ -4,17 +4,22 @@ import { ActivatedRoute } from '@angular/router';
 import { Form } from './form'
 import { MyFormDirective } from './forms.directive'
 import { FormService } from './form.service'
-
+import {HttpClient} from '@angular/common/http';
 
 @Component({  //<ng-template ad-host></ng-template>
   selector: 'form-displayer',
   template:
   `<div style="text-align:center">
-    <dynamic-form [form]="form">
+    <dynamic-form *ngIf="form" [form]="form">
     </dynamic-form>
+    <div *ngIf="!form">Cargando formulario...</div>
   </div>`,
   styleUrls: []
 })
+/*
+   
+*/
+
 export class FormDisplayerComponent implements OnInit, AfterViewInit {
 
   //private sub: any;
@@ -22,9 +27,17 @@ export class FormDisplayerComponent implements OnInit, AfterViewInit {
 
   constructor(private route: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private formService: FormService) { }
+    private formService: FormService,
+    private http:HttpClient) { }
 
   ngOnInit() {
+
+
+    this.formService.getForm("").subscribe(form=>{
+      this.form=form
+      console.log("form",this.form);
+    });
+    
     this.route.params.subscribe(params => {
       const appId = +params['appId']; // (+) converts string 'id' to a number
       const optionId = +params['optionId'];
@@ -32,7 +45,7 @@ export class FormDisplayerComponent implements OnInit, AfterViewInit {
       console.log('option', optionId);
     })
 
-    this.formService.getForm("").subscribe(form=>this.form=form);
+    
 
   }
 

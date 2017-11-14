@@ -66,6 +66,8 @@ function startServer(){
 	});	
 };
 
-db_con_manager(db_config,startServer); 
+startServer();
+
+//db_con_manager(db_config,startServer); 
 
 module.exports = app;
