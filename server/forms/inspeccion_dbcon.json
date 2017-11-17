@@ -1,27 +1,29 @@
 {
-    "cedula":{
-        "targetField" : "Ccliente"
-    },
-    "tipoDoc":{
-        "targetField" : "Ctipdoc"
-    },
-    "anio":{
-        "targetField" : "Nano"
-    },
-    "mes":{
-        "targetField" : "Nmes"
-    },
-    "dia":{
-        "targetField" : "Ndia"
-    },
-    "codCntr":{
-        "targetField" : "Ccodcntr"        
-    },
-    "atendido":{
-        "targetField" : "Natendido"        
-    },
-    "numTurno":{
-        "targetField" : "Nturno"        
+    "targetTable": "TBTURNOS",
+    "fields": {
+        "cedula": {
+            "targetField": "Ccliente"
+        },
+        "tipoDoc": {
+            "targetField": "Ctipdoc"
+        },
+        "anio": {
+            "targetField": "Nano"
+        },
+        "mes": {
+            "targetField": "Nmes"
+        },
+        "dia": {
+            "targetField": "Ndia"
+        },
+        "codCntr": {
+            "targetField": "Ccodcntr"
+        },
+        "atendido": {
+            "targetField": "Natendido"
+        },
+        "numTurno": {
+            "targetField": "Nturno"
+        }
     }
-
 }

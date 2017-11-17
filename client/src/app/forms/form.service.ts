@@ -104,14 +104,14 @@ export class FormService{
   constructor(private http:HttpClient){}
 
     getForm(formId):Observable<Form>{
-      return this.http.get<Form>('http://localhost:3000/forms/inspeccion001');
-        /*
+      //return this.http.get<Form>('http://localhost:3000/forms/inspeccion001');
+        
         return Observable.create(observer=>{
-           // observer.next(form4);
+         observer.next(form4);
             // observer.complete();
             
         });
-        */
+        
        //console.log("djskla",JSON.stringify(forms[formId]));
         //forms[formId];
     }

@@ -2,3 +2,5 @@
 find out port: -netstat -abn
 then run
 sequelize-auto -o "./models" -d db_pruebas2 -h 190.114.1.85 -u sa -x pass -p 51716 -e mssql
+
+change DATE.prototype in node modules sequelize data types
