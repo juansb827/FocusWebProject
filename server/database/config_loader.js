@@ -8,6 +8,7 @@ var config = require(__dirname + '/../config/db_config_'+env);
 var modelsFolder = __dirname+'/../models/';
 
 
+
 /*
 *	List all the databases for the current db_config.json 
 */
@@ -57,13 +58,16 @@ fs
 })
 .forEach(function(file) {
 	if (file.slice(-3) !== '.js') return;	
+	
 	//After this Each Database Object will have all the models
+	
 	Object.keys(dbs_config).forEach(function(db_name){
 		var sequelize=dbs_config[db_name].sequelize;
 		//generates the model
 		var model = sequelize['import'](path.join(modelsFolder, file));		
 		dbs_config[db_name].models[model.name] = model;
 	}) ;
+	
 });
 
 /*
@@ -75,7 +79,10 @@ Object.keys(dbs_config).forEach(function(db_name) {
 });
 */
 
+
+
 console.log('Databases configuration Loaded, environment:'+env);
+//console.log('Models Loaded:'+Object.keys(models).length)
 module.exports=dbs_config;
 
 

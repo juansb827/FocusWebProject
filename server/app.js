@@ -6,6 +6,7 @@ var routes= require('./routes');
 var jsonParser= require("body-parser").json;
 
 var db_config= require('./database/config_loader');
+global.databases= db_config;
 var db_con_manager= require('./database/connection_manager');
 
 
@@ -25,6 +26,11 @@ app.use(function(req, res, next){
 });
 
 
+function bye(req,res,next){	
+//	req.body={"d":2};
+	next();
+  }
+app.post("/forms",bye,require('./controllers/forms.controller'));
 app.use("/forms",require('./controllers/forms.controller'));
 
 
@@ -53,7 +59,7 @@ app.use(function(err, req, res, next){
 });
 
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 
 
 /**
@@ -66,8 +72,8 @@ function startServer(){
 	});	
 };
 
-startServer();
+//startServer();
 
-//db_con_manager(db_config,startServer); 
+db_con_manager(db_config,startServer); 
 
 module.exports = app;
