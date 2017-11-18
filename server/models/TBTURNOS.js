@@ -111,12 +111,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     Natendido: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0
     },
     Dfechacerrado: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Sequelize.NOW
+      type: DataTypes.DATE 
     },
     Cnumerobl: {
       type: DataTypes.CHAR,
@@ -136,7 +135,7 @@ module.exports = function(sequelize, DataTypes) {
     Npesocarga: {
       type: DataTypes.DOUBLE,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 0.0
     },
     Cgrupomov: {
       type: DataTypes.CHAR,
@@ -199,6 +198,20 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 0
     }
   }, {
-    tableName: 'TBTURNOS'
+    tableName: 'TBTURNOS',
+    setterMethods: {
+      fechaTurno(value){
+        const currentDate=new Date();
+        
+        
+        this.setDataValue('Dfechalog', currentDate+'');
+        this.setDataValue('Nano', currentDate.getFullYear());
+        this.setDataValue('Nmes', currentDate.getMonth()+1);  //January is 0!
+        this.setDataValue('Ndia', currentDate.getDate());
+        
+        
+      }
+    }
+
   });
 };

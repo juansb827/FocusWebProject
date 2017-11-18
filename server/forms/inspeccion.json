@@ -10,7 +10,7 @@
     "fields": [
       {
         "value": "TB",
-        "id": "documento",
+        "id": "tipoDocTurno",
         "label": "",
         "name": "Documento",
         "required": false,
@@ -86,7 +86,7 @@
       },
       {
         "value": "",
-        "id": "tipoCarga",
+        "id": "usoLogico",
         "label": "",
         "name": "",
         "required": false,
@@ -109,7 +109,7 @@
         "order": 1,
         "controlType": "dropdown",
         "placeholder": "Grupo",
-        "datasetName": "tiposCarga",
+        "datasetName": "grupos",
         "appearance": {
           "colspan": 2,
           "rowspan": 1,
@@ -513,7 +513,7 @@
       },
       {
         "value": "",
-        "id": "fechaArriboPuerto",
+        "id": "fechaArriboPto",
         "label": "",
         "name": "Fecha Arribo Puerto (DD/MM/AAAA)",
         "required": false,

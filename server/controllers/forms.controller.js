@@ -70,7 +70,7 @@ function parseData(formData) {
 }
 
 function getForm(req, res) {
-    if (1 == 1) res.send(req.body);
+    //if (1 == 1) res.send(req.body);
     formService.getFormById('getdsa', true)
         .then(form => {
             res.send(form);

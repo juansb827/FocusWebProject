@@ -1,29 +1,88 @@
 {
     "targetTable": "TBTURNOS",
     "fields": {
-        "cedula": {
-            "targetField": "Ccliente"
-        },
-        "tipoDoc": {
+        "tipoDocTurno": {
             "targetField": "Ctipdoc"
         },
-        "anio": {
-            "targetField": "Nano"
-        },
-        "mes": {
-            "targetField": "Nmes"
-        },
-        "dia": {
-            "targetField": "Ndia"
-        },
-        "codCntr": {
-            "targetField": "Ccodcntr"
-        },
-        "atendido": {
-            "targetField": "Natendido"
+        "fechaTurno": {
+            "targetField": "fechaTurno"
         },
         "numTurno": {
             "targetField": "Nturno"
+        },
+        "patio": {
+            "targetField": "Cen_costo"
+        },              
+        "tipoTurno": {
+            "targetField": "Ctipoturno"
+        },
+        "usoLogico": {
+            "targetField": "Cusologico"
+        }, 
+        "grupo":{
+            "targetField": "Cgrupomov"
+        },
+        "lineaNaviera":{
+            "targetField": "Cctelna"
+        },
+        "contenedor":{
+            "targetField": "Ccodcntr"
+        },
+        "cedulaConductor": {
+            "targetField": "Cdescedula"
+        },
+        "nombreConductor": {
+            "targetField": "Cdesconductor"
+        },
+        "celularConductor": {
+            "targetField": "Ccelular"
+        },
+        "empresaTransporte": {
+            "targetField": "Cdestranspor"
+        },
+        "placaVehiculo": {
+            "targetField": "Cplaca"
+        },
+        "nitClienteCarga": {
+            "targetField": "Cnitcliente"
+        },
+        "sitioOrigen": {
+            "targetField": "Cptoorigen"
+        },
+        "observaciones": {
+            "targetField": "Cobserva"
+        },
+        "numeroBl": {
+            "targetField": "Cnumerobl"
+        },
+        "contratoConmodato": {
+            "targetField": "Cnumcomodato"
+        },
+        "motonave": {
+            "targetField": "Cmotonave"
+        },
+        "viaje": {
+            "targetField": "Cviaje"
+        },
+        "sellos": {
+            "targetField": "Cnumsellos"
+        },
+        "detalleCarga": {
+            "targetField": "Cdetallecarga"
+        },
+        "pesoCarga": {
+            "targetField": "Npesocarga"
+        },
+        "pesoCargaPuerto": {
+            "targetField": "Npescarpuerto"
+        },
+        "pesoCargaBascula": {
+            "targetField": "Npescarbascula"
+        },
+        "puertoDestino": {
+            "targetField": "Cptodestino"
         }
+          
+        
     }
 }
