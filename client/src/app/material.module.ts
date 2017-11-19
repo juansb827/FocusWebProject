@@ -13,7 +13,9 @@ import {
   MatCheckboxModule,
   MatRadioModule,
   MatSnackBarModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatDatepickerModule,
+  MatNativeDateModule
   
 } from '@angular/material';
 
@@ -32,7 +34,9 @@ import {
     MatCheckboxModule,
     MatRadioModule,
     MatSnackBarModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class MaterialModule {}

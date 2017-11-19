@@ -69,7 +69,7 @@
         }
       },
       {
-        "value": "",
+        "value": "ENTRADA",
         "id": "tipoTurno",
         "label": "",
         "name": "",
@@ -82,10 +82,11 @@
           "rowspan": 1,
           "visible": true
         },
-        "datasetName": "tiposTurno"
+        "dataset": [  { "value": "ENTRADA", "label": "ENTRADA" }, { "value": "SALIDA", "label": "SALIDA" } ]
+                   
       },
       {
-        "value": "",
+        "value": "EMPTY",
         "id": "usoLogico",
         "label": "",
         "name": "",
@@ -98,10 +99,11 @@
           "rowspan": 1,
           "visible": true
         },
-        "datasetName": "tiposCarga"
+        "dataset": [  { "value": "FULL", "label": "FULL" } ,{ "value": "EMPTY", "label": "EMPTY" } ]
+      
       },
       {
-        "value": "",
+        "value": "IMPORTACION",
         "id": "grupo",
         "label": "",
         "name": "Grupo",
@@ -109,7 +111,7 @@
         "order": 1,
         "controlType": "dropdown",
         "placeholder": "Grupo",
-        "datasetName": "grupos",
+        "datasetName": "gruposMovContenedores",
         "appearance": {
           "colspan": 2,
           "rowspan": 1,
@@ -134,7 +136,7 @@
       },
       {
         "value": "",
-        "id": "contenedor",
+        "id": "codContenedor",
         "label": "",
         "name": "Contenedor",
         "required": false,
@@ -146,6 +148,9 @@
           "colspan": 4,
           "rowspan": 1,
           "visible": true
+        },
+        "triggers":{
+          "query": "infoContenedor"          
         }
       },
       {
@@ -179,7 +184,7 @@
           },
           {
             "value": "",
-            "id": "tamano",
+            "id": "tamanoContenedor",
             "label": "",
             "name": "tamanoContenedor",
             "required": false,
@@ -209,7 +214,7 @@
           },
           {
             "value": "",
-            "id": "pesoMaximoContenedor",
+            "id": "pesoMaxContenedor",
             "label": "",
             "name": "Peso Máximo",
             "required": false,
@@ -521,7 +526,7 @@
         "name": "Fecha Arribo Puerto (DD/MM/AAAA)",
         "required": false,
         "order": 1,
-        "controlType": "textbox",
+        "controlType": "datepicker",
         "placeholder": "Fecha Arribo Puerto (DD/MM/AAAA)",
         "appearance": {
           "colspan": 4,

@@ -10,7 +10,7 @@ import { FormControlService } from './form-control.service'
 import { FormService } from './form.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module'
-
+import {  MAT_DATE_LOCALE } from '@angular/material';
 
 
 
@@ -38,7 +38,7 @@ export class DynamicFormsModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: DynamicFormsModule,
-            providers: [FormControlService, FormService]
+            providers: [FormControlService, FormService, {provide:  MAT_DATE_LOCALE, useValue: 'en-GB'}]
         }
     }
 }

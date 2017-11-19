@@ -25,7 +25,7 @@
         "lineaNaviera":{
             "targetField": "Cctelna"
         },
-        "contenedor":{
+        "codContenedor":{
             "targetField": "Ccodcntr"
         },
         "cedulaConductor": {

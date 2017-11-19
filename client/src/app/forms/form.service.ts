@@ -127,8 +127,20 @@ export class FormService{
     }
 
     getDataSet(datasetName):Observable<DataSet>{
-      if(datasetName=='lineas') return this.http.get<DataSet>('http://localhost:3000/datasets/dsd');
-      return Observable.of(datasets[datasetName]);
+        return Observable.create(observer=>{
+            this.http.get<DataSet>('http://localhost:3000/datasets/'+datasetName)            
+                .subscribe(data=>{                    
+                    data.items.forEach( (item,index)=>{
+                        item.value=item.value.trim();
+                        item.label=item.label.trim();
+                    });
+                    observer.next(data);
+                })
+                
+        })
+        
+        
+      //return Observable.of(datasets[datasetName]);
       
     }
 
@@ -137,7 +149,7 @@ export class FormService{
      // return this.http.post('http://localhost:3000/forms',formData);
     }
 
-    getFieldQuery(field:FieldBase<any>,formData):Observable<any>{
+    doFieldQuery(field:FieldBase<any>,formData):Observable<any>{
         const query=field.triggers.query;
         let Params = new HttpParams();
         Params=Params.append(field.id, formData[field.id]); //91111121

@@ -20,6 +20,25 @@ export class FormControlService{
         return new FormGroup(formControls);
     }
 
+    /* Returns a JS Object containing all the form fields.*/    
+    getFields(form:Form){
+        const fields={};
+        this.addFields(form.fields,fields);
+        return fields;
+
+    }
+
+    /* Adds all the fields, and their childer(in case they have) to a JS Map.*/    
+    private addFields(fields:FieldBase<any>[], collection){
+        fields.forEach(field => {
+            if (field.subItems){
+                this.addFields(field.subItems,collection);    
+            }else{
+                collection[field.id]=field;
+            }            
+        });
+    }
+
     /*  Based on the Field Object, creates a FormControl and adds it to the formControls,*/
     addControl(field:FieldBase<any>, collection){
         // console.log("fieldid",field.id+"-"+field.controlType);
@@ -46,7 +65,7 @@ export class FormControlService{
     }
 
 
-    getFormGroupData(formGroup:FormGroup){
+    getFormGroupData(formGroup:FormGroup,formFields){
         
         const formModel=formGroup.value;
         let formData={};
@@ -55,10 +74,13 @@ export class FormControlService{
             const val=formModel[key];
             let finalValue='';
             if(val ){
-                if (typeof val == 'object' ) {
-                    finalValue=(val as DataSetItem).value.trim();                    
-                }else{
-                    finalValue=val;
+                const field:FieldBase<any> =formFields[key];
+                if (field.controlType==='datepicker') {
+                    console.log("Date",val);
+                      finalValue=(val as Date).toISOString();
+                }           
+                else{
+                    finalValue=val.trim();
                 }
             }
             

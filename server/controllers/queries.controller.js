@@ -6,21 +6,43 @@ var sequelize = require("sequelize");
 
 router.get('/:_id', doQuery);
 module.exports = router;
-var queryInfo = {
-    "where": {
-        "Cidcedula": "",
-    },
-    "attributes": [
-        ["Cidcedula", "cedulaConductor"],
-        ["Ccelular", "celularConductor"],
-        ["cdesconductor", "nombreConductor"],
-        ["cdestranspor", "empresaTransporte"],
-        ["Cplaca", "placaVehiculo"]
-    ],
-    "columnMapping": {
-         "Cidcedula": "cedulaConductor"
-    }
 
+
+var queries = {
+    "infoConductor": {
+        "modelName" : "TB26CONDUCTORES",
+        "where": {
+            "Cidcedula": "",
+        },
+        "attributes": [
+            ["Cidcedula", "cedulaConductor"],
+            ["Ccelular", "celularConductor"],
+            ["cdesconductor", "nombreConductor"],
+            ["cdestranspor", "empresaTransporte"],
+            ["Cplaca", "placaVehiculo"]
+        ],
+        "columnMapping": {
+            "Cidcedula": "cedulaConductor"
+        }
+
+    },
+    "infoContenedor": {
+        "modelName" : "TBCONTENEDORES",
+        "where": {
+            "Ccodcntr": "",
+        },
+        "attributes": [
+            ["Ctipocntr", "tipoContenedor"],
+            ["Ctamcntr", "tamanoContenedor"],
+            ["Ccodisocntr", "codIsoContenedor"],
+            ["Npesmaxcntr", "pesoMaxContenedor"],
+            ["Ntaracntr", "taraContenedor"]
+        ],
+        "columnMapping": {
+            "Ccodcntr": "codContenedor"
+        }
+
+    }
 };
 
 /**  
@@ -28,18 +50,21 @@ var queryInfo = {
     @param {string} req - Contains the Id of the query to execute, and the params for that query
     @param {string} res - Response 
 */
-function doQuery(req, res) {
-    console.log("params", req.query);
-    var dataSetId = req.params._id;
-    let dbCon = global.databases["db_focus"].models["TB26CONDUCTORES"];
-    setParamsIntoQuery(queryInfo,req.query);       
+function doQuery(req, res) {    
+    const queryId = req.params._id;
+    let queryInfo=queries[queryId];    
+    setParamsIntoQuery(queryInfo,req.query);           
+    let dbCon = global.databases["db_focus"].models[queryInfo.modelName];
     dbCon.findOne(queryInfo)
-        .then(data =>{ if(!data) data={};res.send(data)})
+        .then(data =>{ 
+            if(!data) data={};
+            res.send(data)
+        })
         .catch(err =>res.send(err));
 }
 
 /**  
-    Puts the params inside the "where" of the query info, according to the columnMapping property.
+    Puts the params inside the property "where"  of queryInfo, according to the columnMapping property.
     @param {Object} queryInfo - Options (except columnMapping) that sequelize  uses for a query
     @param {string} params - Parameters to set into the queryInfo 
     

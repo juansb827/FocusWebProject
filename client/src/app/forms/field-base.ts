@@ -9,6 +9,7 @@ export class FieldBase<T>{
   
   placeholder?: string;
   datasetName? : string;
+  dataset?:any;
   maxLength? :number;
   subItems?: FieldBase<any>[];
 

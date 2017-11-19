@@ -4,14 +4,18 @@ import { FieldBase, Autocomplete } from './field-base';
 import { DataSet, DataSetItem } from './form';
 import { FormService } from './form.service';
 import { Observable } from 'rxjs/Observable';
+import { DateAdapter } from '@angular/material';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
 
+
+
+
 @Component({
   selector: 'form-field',
-  templateUrl: './dynamic-form-field.component.html'
+  templateUrl: './dynamic-form-field.component.html',  
 })
 export class DynamicFormFieldComponent implements OnInit {
   @Input() field: FieldBase<any>;
@@ -23,8 +27,9 @@ export class DynamicFormFieldComponent implements OnInit {
   /* For controls with an options list */
   optionList : DataSetItem[];
 
-  constructor(private formService: FormService) {
-
+  constructor(private formService: FormService,
+            ) {
+             //     this.dateAdapter.setLocale('es-CO');
   }
 
   get isValid() { return this.formGroup.controls[this.field.id].valid; }
@@ -33,6 +38,8 @@ export class DynamicFormFieldComponent implements OnInit {
     
     if (this.field.datasetName) {      
       this.loadDataset();
+    }else if(this.field.dataset){
+      this.optionList=this.field.dataset    
     }
 
 
@@ -103,7 +110,7 @@ export class DynamicFormFieldComponent implements OnInit {
       
       if(this.field.triggers){
         console.log("Query triggered"); 
-        this.formService.getFieldQuery(this.field,this.formGroup.value).subscribe(data=>{
+        this.formService.doFieldQuery(this.field,this.formGroup.value).subscribe(data=>{
           console.log("data",data);
           this.formGroup.patchValue(data);  
         });
@@ -141,3 +148,5 @@ export class DynamicFormFieldComponent implements OnInit {
   }
 
 }
+
+

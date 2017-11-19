@@ -15,8 +15,6 @@
             <mat-hint align="end" *ngIf="field.maxLength ">
                 {{ formGroup.get(field.id).value.length || 0}}/{{field.maxLength}}
             </mat-hint>
-
-
         </mat-form-field>
 
         <!-- TextArea-->
@@ -46,23 +44,27 @@
         <!-- Dropdown List-->
         <mat-form-field *ngSwitchCase="'dropdown'" style="width:100%">
             <mat-select [formControlName]="field.id" [id]="field.id" placeholder="{{field.placeholder}}" [required]="field.required">
-                <mat-option value="1" *ngFor="let option of optionList" [value]="option">
+                <mat-option value="1" *ngFor="let option of optionList" [value]="option.value">
                     {{option.label}}
                 </mat-option>
 
             </mat-select>
         </mat-form-field>
 
-        <!-- Radio Group-->
-        
-        
+        <!-- Radio Group-->   
         <mat-radio-group *ngSwitchCase="'radioGroup'" [formControlName]="field.id"  style="display: inline-flex; flex-direction: column;text-align:left">
 
-            <mat-radio-button *ngFor="let option of optionList" [value]="option" style="margin: 5px;">
+            <mat-radio-button *ngFor="let option of optionList" [value]="option.value" style="margin: 5px;">
                 {{option.label}}
             </mat-radio-button>
-
         </mat-radio-group>
+
+        <!-- Datepicker-->   
+        <mat-form-field *ngSwitchCase="'datepicker'" style="width:100%">            
+                <input matInput [matDatepicker]="picker" placeholder="{{field.placeholder}}" [formControlName]="field.id">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>            
+        </mat-form-field>
 
     
 

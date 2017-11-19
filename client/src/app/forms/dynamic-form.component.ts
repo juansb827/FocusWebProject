@@ -19,6 +19,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() form: Form;
   formGroup: FormGroup;
   initialValues: Object;
+  formfields : any;
   //for the form editor
   editMode: boolean = false;
 
@@ -30,7 +31,8 @@ export class DynamicFormComponent implements OnInit {
       moves: function (el: any, container: any, handle: any): any {
         //   console.log(el, container);
         // console.log("ha", handle.className);
-        return handle.className.indexOf('handle') !== -1;//handle.className === 'handle';
+        //if(handle.className)
+        //return handle.className.indexOf('handle') !== -1;//handle.className === 'handle';
       }
     });
 
@@ -54,6 +56,7 @@ export class DynamicFormComponent implements OnInit {
   updateFormGroup() {
     try {
       this.formGroup = this.fcService.toFormGroup(this.form);
+      this.formfields= this.fcService.getFields(this.form);
     } catch (e) {
       if (e instanceof FormError) console.log("Error generando el formulario");
       else throw e;
@@ -64,7 +67,7 @@ export class DynamicFormComponent implements OnInit {
   onSubmit() {
     //if(1==1) return;
     console.log("preformData", this.formGroup.value);
-    const formData = this.fcService.getFormGroupData(this.formGroup);
+    const formData = this.fcService.getFormGroupData(this.formGroup,this.formfields);
     console.log("formData",JSON.stringify (formData ));
     this.formService.saveFormData(formData)
       .finally(() => console.log("final2"))
