@@ -11,7 +11,7 @@
         <!-- Text Input-->
         <mat-form-field *ngSwitchCase="'textbox'" style="width:100%">
             <input matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [required]="field.required" [value]="field.value"
-                [maxlength]="field.maxLength">
+                [maxlength]="field.maxLength" (blur)="onBlurInput()">
             <mat-hint align="end" *ngIf="field.maxLength ">
                 {{ formGroup.get(field.id).value.length || 0}}/{{field.maxLength}}
             </mat-hint>
@@ -32,13 +32,14 @@
         <div *ngSwitchCase="'autocomplete'">
             <mat-form-field style="width:100%">
                 <input type="text" matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [matAutocomplete]="auto" [required]="field.required"
-                    (blur)="onBlurMethod()">
+                    (blur)="onBlurAutoComplete()">
             </mat-form-field>
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" #autoComplete>
                 <mat-option *ngFor="let option of filteredOptions |async" [value]="option">
-                    {{option.value}} - {{option.label}}
+                    {{option.value.trim()}} - {{option.label.trim()}}
                 </mat-option>
             </mat-autocomplete>
+            
         </div>
 
 

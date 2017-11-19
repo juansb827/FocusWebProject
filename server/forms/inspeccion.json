@@ -252,6 +252,9 @@
           "colspan": 2,
           "rowspan": 1,
           "visible": true
+        },
+        "triggers":{
+          "query": "infoConductor"          
         }
       },
       {

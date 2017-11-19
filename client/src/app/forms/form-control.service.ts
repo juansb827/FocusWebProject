@@ -56,13 +56,14 @@ export class FormControlService{
             let finalValue='';
             if(val ){
                 if (typeof val == 'object' ) {
-                    finalValue=(val as DataSetItem).value;                    
+                    finalValue=(val as DataSetItem).value.trim();                    
                 }else{
                     finalValue=val;
                 }
             }
             
-            formData[key]=finalValue;
+            if(finalValue || finalValue!=='')
+                formData[key]=finalValue;
         });
 
         return formData;       

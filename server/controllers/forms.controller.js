@@ -7,11 +7,11 @@ Promise.promisifyAll(fs);
 var Q = require('q');
 // routes
 router.post('/', saveForm);
-router.get('/:id', getForm)
+router.get('/:id', getForm);
 
 
 module.exports = router;
-//TODO  transform de request body into something that sequelize can save in bd.
+
 function saveForm(req, res) {
   //  res.send(req.body) ; 
     //if (1 == 1) { return }

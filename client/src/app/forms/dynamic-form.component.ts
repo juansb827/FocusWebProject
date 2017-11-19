@@ -16,80 +16,70 @@ import { DragulaService } from 'ng2-dragula';
 })
 export class DynamicFormComponent implements OnInit {
 
-  @Input() form: Form;  
+  @Input() form: Form;
   formGroup: FormGroup;
   initialValues: Object;
   //for the form editor
-  editMode: boolean=false;
+  editMode: boolean = false;
 
   constructor(
-    private formService : FormService,
+    private formService: FormService,
     private fcService: FormControlService,
-    private dragService: DragulaService) {      
+    private dragService: DragulaService) {
     dragService.setOptions('nested-bag', {
       moves: function (el: any, container: any, handle: any): any {
-     //   console.log(el, container);
-       // console.log("ha", handle.className);
-        return handle.className.indexOf('handle')!==-1;//handle.className === 'handle';
+        //   console.log(el, container);
+        // console.log("ha", handle.className);
+        return handle.className.indexOf('handle') !== -1;//handle.className === 'handle';
       }
     });
 
   }
 
   ngOnInit() {
-   // console.log("formObject",this.form);
+    // console.log("formObject",this.form);
     this.updateFormGroup();
-    if(this.formGroup){
-      this.initialValues=this.formGroup.value;
+    if (this.formGroup) {
+      this.initialValues = this.formGroup.value;
     }
   }
 
   resetForm() {
     console.log("ds");
     this.formGroup.reset(
-      this.initialValues    
+      this.initialValues
     );
   }
 
   updateFormGroup() {
-    try{
+    try {
       this.formGroup = this.fcService.toFormGroup(this.form);
-    }catch(e){
-      if(e instanceof FormError) console.log("Error generando el formulario");
-      else   throw e;
-      
+    } catch (e) {
+      if (e instanceof FormError) console.log("Error generando el formulario");
+      else throw e;
+
     }
   }
 
   onSubmit() {
-    
-      
-        
-        
-    
-    
-    if(1==1) return;
-    console.log("preformData",this.formGroup.value);
-    const formData=this.fcService.getFormGroupData(this.formGroup);
-    console.log("formData",formData);
-    this.formService.saveFormData(formData)    
-    .finally(()=>console.log("final2"))
-    .subscribe(
-      x=> console.log("success",x),
-      e=>console.log("error",e),
-      ()=>console.log("final")
-    );
-    
+    //if(1==1) return;
+    console.log("preformData", this.formGroup.value);
+    const formData = this.fcService.getFormGroupData(this.formGroup);
+    console.log("formData",JSON.stringify (formData ));
+    this.formService.saveFormData(formData)
+      .finally(() => console.log("final2"))
+      .subscribe(
+      x => console.log("success", x),
+      e => console.log("error", e),
+      () => console.log("final")
+      );
+
   }
-
-
-
-
 }
 
-import {PipeTransform, Pipe} from '@angular/core';
+import { PipeTransform, Pipe } from '@angular/core';
 
-@Pipe({name: 'times'})
+@Pipe({ name: 'times' })
 export class TimesPipe implements PipeTransform {
   transform(value: number): any {
     const iterable = {};

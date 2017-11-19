@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldBase, Autocomplete } from './field-base';
 import { DataSet, DataSetItem } from './form';
@@ -19,6 +19,7 @@ export class DynamicFormFieldComponent implements OnInit {
   /* For autocomplete */
   filteredOptions: Observable<any[]>;
   lastFilter: DataSetItem[];
+  @ViewChild('autoComplete')  autoCompOptions;
   /* For controls with an options list */
   optionList : DataSetItem[];
 
@@ -75,8 +76,8 @@ export class DynamicFormFieldComponent implements OnInit {
   /*
   Checks if "Val" it's the start of any option.
   */
-  filter(val: string, options): DataSetItem[] {
-    console.log("Val", val);
+  filter(val: string, options): DataSetItem[] {    
+    
     return options.filter(option => {
       const item = option as DataSetItem;
       const text = val.toLowerCase();
@@ -92,18 +93,36 @@ export class DynamicFormFieldComponent implements OnInit {
   /*
   */
   displayFn(option: DataSetItem): string {
-    return option ? option.value + " - " + option.label : '';
+    return option ? option.value.trim() + " - " + option.label.trim() : '';
   }
 
+  /*
+
+  */
+  onBlurInput(){
+      
+      if(this.field.triggers){
+        console.log("Query triggered"); 
+        this.formService.getFieldQuery(this.field,this.formGroup.value).subscribe(data=>{
+          console.log("data",data);
+          this.formGroup.patchValue(data);  
+        });
+      }
+      
+      
+  }
   /* 
     Used for AutoComplete control. 
     Checks whether the value of the field is valid after the users 
     leaves the field.
   */
-  onBlurMethod() {
+  onBlurAutoComplete() {
+    if(this.autoCompOptions) {
+      //onBlur is called when the user select an option form the autocompletelist
+      if (this.autoCompOptions.isOpen) return;
+    }
     const control = this.formGroup.get(this.field.id);
-    const value = control.value;
-
+    const value = control.value;    
     if (typeof value !== 'object' && this.lastFilter.length === 1) {
       //When the user leaves the field without selecting an option, 
       //but what he has typed matches one of the options exactly       
@@ -111,12 +130,11 @@ export class DynamicFormFieldComponent implements OnInit {
       if (value.toLowerCase() === concat.toLowerCase())
         control.setValue(this.lastFilter[0]);
     }
-    //TODO: make the control invalid;
+    //TODO: make the control invalid instead of deleting the field content;
     if (typeof control.value !== 'object') {
       control.setValue("");
-      //console.log("invalidValue", control.value);
-    }
-    
+      console.log("invalidValue", control.value);
+    }   
 
 
 

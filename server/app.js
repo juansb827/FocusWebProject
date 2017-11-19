@@ -33,6 +33,8 @@ function bye(req,res,next){
 app.post("/forms",bye,require('./controllers/forms.controller'));
 app.use("/forms",require('./controllers/forms.controller'));
 
+app.use("/datasets",require('./controllers/dataSets.controller'));
+app.use("/queries",require('./controllers/queries.controller'));
 
 
 

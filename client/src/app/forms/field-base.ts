@@ -17,6 +17,8 @@ export class FieldBase<T>{
     rowspan: number,
     visible: boolean
   };
+  //Query triggered when the user leaves the field
+  triggers?: any;
 
 
   constructor(options: {
