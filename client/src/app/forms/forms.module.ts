@@ -10,8 +10,20 @@ import { FormControlService } from './form-control.service'
 import { FormService } from './form.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module'
-import {  MAT_DATE_LOCALE } from '@angular/material';
+import {  MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
 import { OnlyNumber } from './validators'
+
+export const MY_FORMATS = {
+    parse: {
+      dateInput: 'DD-MM-YYYY',
+    },
+    display: {
+      dateInput: 'DD-MM-YYYY',
+      monthYearLabel: 'MMM YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'MMMM YYYY',
+    },
+  };
 
 
 
@@ -40,7 +52,9 @@ export class DynamicFormsModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: DynamicFormsModule,
-            providers: [FormControlService, FormService, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}]
+            providers: [FormControlService, FormService, 
+                {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+                {provide: MAT_DATE_LOCALE, useValue: 'es-CO'}]
         }
     }
 }

@@ -63,15 +63,15 @@
         <!-- Datepicker-->
         <mat-form-field *ngSwitchCase="'datepicker'" style="width:100%" >
             <input matInput placeholder="{{field.placeholder}}" [formControlName]="field.id" (blur)="onBlurDatepicker()" 
-            [readonly]="field.readonly" OnlyNumber="true" [matDatepicker]="picker">
+            [readonly]="field.readonly" [matDatepicker]="picker">
              
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> 
+            <mat-datepicker-toggle matSuffix [for]="picker" *ngIf="!field.readonly"></mat-datepicker-toggle> 
             <mat-datepicker #picker></mat-datepicker>           
 
             <mat-error *ngIf="controlModel.errors">
                 <span *ngIf="controlModel.errors.required;">El campo es obligatorio</span>
                 <span *ngIf="!controlModel.errors.required">
-                   <span *ngIf="controlModel.errors.invalidDate || controlModel.errors.incorrect">Formato de fecha invalido.</span>
+                   <span *ngIf="controlModel.errors.invalidDate || controlModel.errors.incorrect || controlModel.errors.matDatepickerParse">Formato de fecha invalido.</span>
                    <span *ngIf="controlModel.errors.minDate">La fecha no puede ser antes de {{controlModel.errors.minDate | date:'dd-MM-yyyy'}}.</span>
                    <span *ngIf="controlModel.errors.maxDate">La fecha no puede ser despues de {{controlModel.errors.maxDate | date:'dd-MM-yyyy'}}.</span>
                 </span>

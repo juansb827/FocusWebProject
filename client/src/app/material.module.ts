@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-
+import { MatMomentDateModule} from '@angular/material-moment-adapter';
 import {
   MatButtonModule,
+  MatProgressBarModule,
   MatMenuModule,
   MatToolbarModule,
   MatIconModule,
@@ -14,8 +15,9 @@ import {
   MatRadioModule,
   MatSnackBarModule,
   MatAutocompleteModule,
-  MatDatepickerModule,
-  MatNativeDateModule
+  MatDatepickerModule
+  
+  
   
 } from '@angular/material';
 
@@ -23,6 +25,7 @@ import {
   
   exports: [
     MatButtonModule,
+    MatProgressBarModule,
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,
@@ -36,7 +39,7 @@ import {
     MatSnackBarModule,
     MatAutocompleteModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatMomentDateModule
   ]
 })
 export class MaterialModule {}

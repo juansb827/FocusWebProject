@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
+
 import { MaterialModule } from './material.module';
 
 
@@ -22,7 +22,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 
 import {DynamicFormsModule} from './forms/forms.module'
- 
+import {  MAT_DATE_LOCALE } from '@angular/material';
  //dynamic forms
  /*
  import { FormDisplayerComponent } from './forms/form-displayer.component';
@@ -67,8 +67,7 @@ import { FormService } from './forms/form.service';
     AuthenticationService,    
     AuthGuard,
     ToasterService,
-    MenuService,        
-    {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
+    MenuService    
         
   ],
   entryComponents:[

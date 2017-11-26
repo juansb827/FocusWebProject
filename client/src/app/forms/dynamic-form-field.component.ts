@@ -123,7 +123,7 @@ export class DynamicFormFieldComponent implements OnInit {
 
   handleDateInput(){   
     
-     
+     /*
     const control=this.formGroup.controls[this.field.id];
     let lastVal;
 
@@ -144,12 +144,14 @@ export class DynamicFormFieldComponent implements OnInit {
      else lastVal=value;  
     });
     console.log("datepicker",control);
-    
+   */ 
   }
 
   onBlurDatepicker(){   
     
     console.log("err",this.controlModel.errors);
+    console.log("value",this.controlModel.value);
+    //if (this.controlModel.errors) this.controlModel.setValue('.');
     /* 
     let date=this.toDate(control.value);
     if( !date.isValid() ){
