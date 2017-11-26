@@ -1,6 +1,6 @@
 import { Injectable }       from '@angular/core';
 import {HttpClient,HttpParams} from '@angular/common/http';
-import { Form, DataSet }       from './form';
+import { Form, DataSet,DataSetItem }       from './form';
 import { Observable } from 'rxjs/Observable';
 
 import { FieldBase, Textbox,Dropdown,Autocomplete,Radiogroup,EmptySpace,TextArea, ItemGroup }       from './field-base';
@@ -148,6 +148,19 @@ export class FormService{
     saveFormData(formData):Observable<any>{
       return Observable.of('');
      // return this.http.post('http://localhost:3000/forms',formData);
+    }
+
+    searchData(term): Observable<DataSetItem[]>{
+      if (!term.trim()) {
+        // if not search term, return empty array.
+        return Observable.of([]);
+      }
+
+      let Params = new HttpParams();
+      Params=Params.append('razonSocialCliente', term);        
+      return this.http.get<DataSetItem[]>('http://localhost:3000/queries/infoClienteByNombre',{
+        params: Params
+      })
     }
 
     doFieldQuery(field:FieldBase<any>,formData):Observable<any>{

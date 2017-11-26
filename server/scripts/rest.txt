@@ -10,3 +10,7 @@ ciudades
 http://localhost:3000/queries/infoClienteByNombre/?razonSocialCliente=COLOMBI
 http://localhost:3000/queries/infoClienteByNit/?razonSocialCliente=7528558
 COL
+
+select top 10 tercero,ter_razons from terceros where ter_razons LIKE '%7528%'
+UNION
+select top 10 tercero,ter_razons from terceros where tercero LIKE '7528%'

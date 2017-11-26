@@ -1,4 +1,9 @@
+
 export class FieldBase<T>{
+
+  static readonly EAGER_LOADING="PRELOAD";
+  static readonly LAZY_LOADING="LAZY_LOAD";
+
   controlType: string;
   id: string;
   label: string;
@@ -10,6 +15,10 @@ export class FieldBase<T>{
   placeholder?: string;
   datasetName? : string;
   dataset?:any;
+  datasetProperties?: {
+    loadingMethod: string
+  };
+
   maxLength? :number;
   subItems?: FieldBase<any>[];
   readonly? : boolean;

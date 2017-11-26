@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FieldBase, Autocomplete } from './field-base';
 import { DataSet, DataSetItem } from './form';
 import { FormService } from './form.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable,Subject } from 'rxjs/';
 import { DateAdapter } from '@angular/material';
 
 import 'rxjs/add/operator/startWith';
@@ -41,7 +41,23 @@ export class DynamicFormFieldComponent implements OnInit {
     if(this.field.controlType=='datepicker'){
       this.handleDateInput();            
     } 
-    if (this.field.datasetName) {      
+    //TODO fix field class 
+    if (this.field.triggers && this.field.triggers.on){
+      //TODO move to method
+      let obs=new Subject<any[]>();
+      this.filteredOptions=obs.asObservable();
+      obs.next([{value:'a',label:'b'}]);
+
+      this.filteredOptions= this.formGroup.controls[this.field.id].valueChanges      
+      .debounceTime(500)
+      .distinctUntilChanged()
+      .switchMap(term=>{
+        console.log('input',term);
+        return   this.formService.searchData(term);
+        
+         
+      })
+    }else if (this.field.datasetName) {      
       this.loadDataset();
     }else if(this.field.dataset){
       this.optionList=this.field.dataset    
@@ -61,22 +77,29 @@ export class DynamicFormFieldComponent implements OnInit {
 
   loadDataset() {
     const control: Autocomplete = this.field as Autocomplete;
-
+//.finally(      () => console.log("Loading done"))
     //gets the dataSet from the formservice
-    this.formService.getDataSet(control.datasetName)
-    //.finally(      () => console.log("Loading done"))
-    .subscribe(
-      dataSet => {
-        if (!dataSet) return;
-          const options = (dataSet as DataSet).items;
-          if (this.field.controlType === 'autocomplete') this.initAutocomplete(options);
-          else {
-            this.optionList=options;  
-          }
-        
-      }
+    
+    if(this.field.datasetProperties){
 
-    );
+    }else{
+      this.formService.getDataSet(control.datasetName)    
+      .subscribe(
+        dataSet => {
+          if (!dataSet) return;
+            const options = (dataSet as DataSet).items;
+            if (this.field.controlType === 'autocomplete'  ){            
+              this.initAutocomplete(options);
+            } 
+            else {
+              this.optionList=options;  
+            }        
+        }
+      );
+  
+    }
+    
+
 
   }
 
@@ -166,7 +189,7 @@ export class DynamicFormFieldComponent implements OnInit {
     
     
       
-      if(this.field.triggers){
+      if(this.field.triggers && !this.field.triggers.on){
         console.log("Query triggered"); 
         this.formService.doFieldQuery(this.field,this.formGroup.value).subscribe(data=>{
           console.log("data",data);
@@ -182,6 +205,8 @@ export class DynamicFormFieldComponent implements OnInit {
     leaves the field.
   */
   onBlurAutoComplete() {
+    //TODo check how this behaves with chnages on autocomplete
+    if(1==1) return;
     if(this.autoCompOptions) {
       //onBlur is called when the user select an option form the autocompletelist
       if (this.autoCompOptions.isOpen) return;
