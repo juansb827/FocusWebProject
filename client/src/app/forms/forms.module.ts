@@ -11,6 +11,7 @@ import { FormService } from './form.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module'
 import {  MAT_DATE_LOCALE } from '@angular/material';
+import { OnlyNumber } from './validators'
 
 
 
@@ -24,13 +25,14 @@ import {  MAT_DATE_LOCALE } from '@angular/material';
         DynamicFormFieldComponent,
         FormDisplayerComponent,
         FormEditorComponent,
-        DialogValidaciones
+        DialogValidaciones,
+        OnlyNumber
 
     ],
     exports: [DynamicFormComponent,
         DynamicFormFieldComponent,
         FormDisplayerComponent,
-        FormEditorComponent]
+        FormEditorComponent,OnlyNumber]
     , entryComponents: [DialogValidaciones]
 
 })
@@ -38,7 +40,7 @@ export class DynamicFormsModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: DynamicFormsModule,
-            providers: [FormControlService, FormService, {provide:  MAT_DATE_LOCALE, useValue: 'en-GB'}]
+            providers: [FormControlService, FormService, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}]
         }
     }
 }

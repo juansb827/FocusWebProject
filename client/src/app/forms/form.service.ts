@@ -114,7 +114,7 @@ export class FormService{
 
     getForm(formId):Observable<Form>{
       return this.http.get<Form>('http://localhost:3000/forms/inspeccion001');
-      //return Observable.of(form4);
+     // return Observable.of(form4);
         /*
         return Observable.create(observer=>{
          observer.next(form4);
@@ -127,6 +127,7 @@ export class FormService{
     }
 
     getDataSet(datasetName):Observable<DataSet>{
+        /*
         return Observable.create(observer=>{
             this.http.get<DataSet>('http://localhost:3000/datasets/'+datasetName)            
                 .subscribe(data=>{                    
@@ -137,10 +138,10 @@ export class FormService{
                     observer.next(data);
                 })
                 
-        })
+        }) */
         
         
-      //return Observable.of(datasets[datasetName]);
+      return Observable.of(datasets[datasetName]);
       
     }
 
@@ -174,529 +175,540 @@ export class FormService{
 }
 
 var form4:Form=
-  {
+{
     "id": "form2",
     "title": "Turno - Ingreso de Contenedores",
     "columns": 12,
-    "rows": 4,
-    "fields": [
-        {
-            "value": "TB",
-            "id": "tipoDocTurno",
-            "label": "",
-            "name": "Documento",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Documento",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "2017-05-27",
-            "id": "fechaTurno",
-            "label": "",
-            "name": "Año-Mes-Dia",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Año-Mes-Dia",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "1",
-            "id": "numTurno",
-            "label": "",
-            "name": "Turno",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Turno",
-            "appearance": {
-                "colspan": 1,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "1",
-            "id": "patio",
-            "label": "",
-            "name": "Patio",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Patio",
-            "appearance": {
-                "colspan": 1,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "tipoTurno",
-            "label": "",
-            "name": "",
-            "required": false,
-            "order": 1,
-            "controlType": "radioGroup",
-            "placeholder": "",
-            "appearance": {
-                "colspan": 3,
-                "rowspan": 1,
-                "visible": true
-            },
-            "datasetName": "tiposTurno"
-        },
-        {
-            "value": "",
-            "id": "usoLogico",
-            "label": "",
-            "name": "",
-            "required": false,
-            "order": 1,
-            "controlType": "radioGroup",
-            "placeholder": "",
-            "appearance": {
-                "colspan": 3,
-                "rowspan": 1,
-                "visible": true
-            },
-            "datasetName": "tiposCarga"
-        },
-        {
-            "value": "",
-            "id": "grupo",
-            "label": "",
-            "name": "Grupo",
-            "required": false,
-            "order": 1,
-            "controlType": "dropdown",
-            "placeholder": "Grupo",
-            "datasetName": "grupos",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "lineaNaviera",
-            "label": "",
-            "name": "Linea Naviera",
-            "required": false,
-            "order": 1,
-            "controlType": "autocomplete",
-            "placeholder": "Linea Naviera",
-            "appearance": {
-                "colspan": 4,
-                "rowspan": 1,
-                "visible": true
-            },
-            "datasetName": "lineas"
-        },
-        {
-            "value": "",
-            "id": "contenedor",
-            "label": "",
-            "name": "Contenedor",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "maxLength": 14,
-            "placeholder": "Contenedor",
-            "appearance": {
-                "colspan": 4,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "id": "",
-            "label": "",
-            "name": "",
-            "order": 1,
-            "controlType": "itemgroup",
-            "placeholder": "",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 4,
-                "visible": true
-            },
-            "subItems": [
-                {
-                    "value": "",
-                    "id": "tipoContenedor",
-                    "label": "",
-                    "name": "Tipo",
-                    "required": false,
-                    "order": 1,
-                    "controlType": "textbox",
-                    "placeholder": "Tipo",
-                    "appearance": {
-                        "colspan": 1,
-                        "rowspan": 1,
-                        "visible": true
-                    }
-                },
-                {
-                    "value": "",
-                    "id": "tamano",
-                    "label": "",
-                    "name": "tamanoContenedor",
-                    "required": false,
-                    "order": 1,
-                    "controlType": "textbox",
-                    "placeholder": "Tamaño",
-                    "appearance": {
-                        "colspan": 1,
-                        "rowspan": 1,
-                        "visible": true
-                    }
-                },
-                {
-                    "value": "",
-                    "id": "codIsoContenedor",
-                    "label": "",
-                    "name": "Codigo ISO",
-                    "required": false,
-                    "order": 1,
-                    "controlType": "textbox",
-                    "placeholder": "Codigo ISO",
-                    "appearance": {
-                        "colspan": 1,
-                        "rowspan": 1,
-                        "visible": true
-                    }
-                },
-                {
-                    "value": "",
-                    "id": "pesoMaximoContenedor",
-                    "label": "",
-                    "name": "Peso Máximo",
-                    "required": false,
-                    "order": 1,
-                    "controlType": "textbox",
-                    "placeholder": "Peso Máximo",
-                    "appearance": {
-                        "colspan": 1,
-                        "rowspan": 1,
-                        "visible": true
-                    }
-                },
-                {
-                    "value": "",
-                    "id": "taraContenedor",
-                    "label": "",
-                    "name": "Tara",
-                    "required": false,
-                    "order": 1,
-                    "controlType": "textbox",
-                    "placeholder": "Tara",
-                    "appearance": {
-                        "colspan": 1,
-                        "rowspan": 1,
-                        "visible": true
-                    }
-                }
-            ]
-        },
-        {
-            "value": "",
-            "id": "cedulaConductor",
-            "label": "",
-            "name": "Cedula Conductor",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Cedula Conductor",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "nombreConductor",
-            "label": "",
-            "name": "Nombre Conductor",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Nombre Conductor",
-            "appearance": {
-                "colspan": 3,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "celularConductor",
-            "label": "",
-            "name": "Celular",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Celular",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "empresaTransporte",
-            "label": "",
-            "name": "Empresa de Transporte",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Empresa de Transporte",
-            "appearance": {
-                "colspan": 3,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "placaVehiculo",
-            "label": "",
-            "name": "Placa Vehiculo",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Placa Vehiculo",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "nitClienteCarga",
-            "label": "",
-            "name": "Nit Cliente Carga",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Nit Cliente Carga",
-            "appearance": {
-                "colspan": 4,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "sitioOrigen",
-            "label": "",
-            "name": "Sitio de Origen",
-            "required": false,
-            "order": 1,
-            "controlType": "autocomplete",
-            "placeholder": "Sitio de Origen",
-            "appearance": {
-                "colspan": 4,
-                "rowspan": 1,
-                "visible": true
-            },
-            "datasetName": "ciudades"
-        },
-        {
-            "value": "",
-            "id": "observaciones",
-            "label": "",
-            "name": "Observaciones",
-            "required": false,
-            "order": 1,
-            "controlType": "textarea",
-            "placeholder": "Observaciones",
-            "appearance": {
-                "colspan": 4,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "numeroBl",
-            "label": "",
-            "name": "Numero de BL",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Numero de BL",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "contratoConmodato",
-            "label": "",
-            "name": "Contrato de Conmodato",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Contrato de Conmodato",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "motonave",
-            "label": "",
-            "name": "Motonave",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Motonave",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "viaje",
-            "label": "",
-            "name": "Viaje",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Viaje",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "sellos",
-            "label": "",
-            "name": "Sellos",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Sellos",
-            "appearance": {
-                "colspan": 6,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "detalleCarga",
-            "label": "",
-            "name": "Detalle Carga",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Detalle Carga",
-            "appearance": {
-                "colspan": 6,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "pesoCarga",
-            "label": "",
-            "name": "pesoCarga",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Peso Carga",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "pesoCargaPuerto",
-            "label": "",
-            "name": "Peso Carga Puerto",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Peso Carga Puerto",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "pesoCargaBascula",
-            "label": "",
-            "name": "Peso Carga Bascula",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Peso Carga Bascula",
-            "appearance": {
-                "colspan": 2,
-                "rowspan": 1,
-                "visible": true
-            }
-        },
-        {
-            "value": "",
-            "id": "puertoDestino",
-            "label": "",
-            "name": "Puerto Destino",
-            "required": false,
-            "order": 1,
-            "controlType": "autocomplete",
-            "placeholder": "Puerto Destino",
-            "appearance": {
-                "colspan": 4,
-                "rowspan": 1,
-                "visible": true
-            },
-            "datasetName": "ciudades"
-        },
-        {
-            "value": "",
-            "id": "fechaArriboPto",
-            "label": "",
-            "name": "Fecha Arribo Puerto (DD/MM/AAAA)",
-            "required": false,
-            "order": 1,
-            "controlType": "textbox",
-            "placeholder": "Fecha Arribo Puerto (DD/MM/AAAA)",
-            "appearance": {
-                "colspan": 4,
-                "rowspan": 1,
-                "visible": true
-            }
-        }
-    ]
-}
+    "rows": 4,    
 
+    "fields": [
+      {
+        "value": "TB",
+        "id": "tipoDocTurno",
+        "label": "",
+        "name": "Documento",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Documento",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "2017-05-27",
+        "id": "fechaTurno",
+        "label": "",
+        "name": "Año-Mes-Dia",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Año-Mes-Dia",
+        "readonly" : true,
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "1",
+        "id": "numTurno",
+        "label": "",
+        "name": "Turno",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Turno",
+        "appearance": {
+          "colspan": 1,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "1",
+        "id": "patio",
+        "label": "",
+        "name": "Patio",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Patio",
+        "appearance": {
+          "colspan": 1,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "ENTRADA",
+        "id": "tipoTurno",
+        "label": "",
+        "name": "",
+        "required": false,
+        "order": 1,
+        "controlType": "radioGroup",
+        "placeholder": "",
+        "appearance": {
+          "colspan": 3,
+          "rowspan": 1,
+          "visible": true
+        },
+        "dataset": [  { "value": "ENTRADA", "label": "ENTRADA" }, { "value": "SALIDA", "label": "SALIDA" } ]
+                  
+      },
+      {
+        "value": "EMPTY",
+        "id": "usoLogico",
+        "label": "",
+        "name": "",
+        "required": false,
+        "order": 1,
+        "controlType": "radioGroup",
+        "placeholder": "",
+        "appearance": {
+          "colspan": 3,
+          "rowspan": 1,
+          "visible": true
+        },
+        "dataset": [  { "value": "FULL", "label": "FULL" } ,{ "value": "EMPTY", "label": "EMPTY" } ]
+      
+      },
+      {
+        "value": "IMPORTACION",
+        "id": "grupo",
+        "label": "",
+        "name": "Grupo",
+        "required": false,
+        "order": 1,
+        "controlType": "dropdown",
+        "placeholder": "Grupo",
+        "datasetName": "gruposMovContenedores",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "lineaNaviera",
+        "label": "",
+        "name": "Linea Naviera",
+        "required": false,
+        "order": 1,
+        "controlType": "autocomplete",
+        "placeholder": "Linea Naviera",
+        "appearance": {
+          "colspan": 4,
+          "rowspan": 1,
+          "visible": true
+        },
+        "datasetName": "lineas"
+      },
+      {
+        "value": "",
+        "id": "codContenedor",
+        "label": "",
+        "name": "Contenedor",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "maxLength" : 14,
+        "placeholder": "Contenedor",
+        "appearance": {
+          "colspan": 4,
+          "rowspan": 1,
+          "visible": true
+        },
+        "triggers":{
+          "query": "infoContenedor"          
+        }
+      },
+      {
+        
+        "id": "",
+        "label": "",
+        "name": "",        
+        "order": 1,
+        "controlType": "itemgroup",
+        "placeholder": "",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 4,
+          "visible": true
+        },
+        "subItems": [
+          {
+            "value": "",
+            "id": "tipoContenedor",
+            "label": "",
+            "name": "Tipo",
+            "required": false,
+            "order": 1,
+            "controlType": "textbox",
+            "placeholder": "Tipo",
+            "appearance": {
+              "colspan": 1,
+              "rowspan": 1,
+              "visible": true
+            }
+          },
+          {
+            "value": "",
+            "id": "tamanoContenedor",
+            "label": "",
+            "name": "tamanoContenedor",
+            "required": false,
+            "order": 1,
+            "controlType": "textbox",
+            "placeholder": "Tamaño",
+            "appearance": {
+              "colspan": 1,
+              "rowspan": 1,
+              "visible": true
+            }
+          },
+          {
+            "value": "",
+            "id": "codIsoContenedor",
+            "label": "",
+            "name": "Codigo ISO",
+            "required": false,
+            "order": 1,
+            "controlType": "textbox",
+            "placeholder": "Codigo ISO",
+            "appearance": {
+              "colspan": 1,
+              "rowspan": 1,
+              "visible": true
+            }
+          },
+          {
+            "value": "",
+            "id": "pesoMaxContenedor",
+            "label": "",
+            "name": "Peso Máximo",
+            "required": false,
+            "order": 1,
+            "controlType": "textbox",
+            "placeholder": "Peso Máximo",
+            "appearance": {
+              "colspan": 1,
+              "rowspan": 1,
+              "visible": true
+            }
+          },
+          {
+            "value": "",
+            "id": "taraContenedor",
+            "label": "",
+            "name": "Tara",
+            "required": false,
+            "order": 1,
+            "controlType": "textbox",
+            "placeholder": "Tara",
+            "appearance": {
+              "colspan": 1,
+              "rowspan": 1,
+              "visible": true
+            }
+          }
+        ]
+      },
+      {
+        "value": "",
+        "id": "cedulaConductor",
+        "label": "",
+        "name": "Cedula Conductor",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Cedula Conductor",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        },
+        "triggers":{
+          "query": "infoConductor"          
+        }
+      },
+      {
+        "value": "",
+        "id": "nombreConductor",
+        "label": "",
+        "name": "Nombre Conductor",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Nombre Conductor",
+        "appearance": {
+          "colspan": 3,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "celularConductor",
+        "label": "",
+        "name": "Celular",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Celular",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "empresaTransporte",
+        "label": "",
+        "name": "Empresa de Transporte",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Empresa de Transporte",
+        "appearance": {
+          "colspan": 3,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "placaVehiculo",
+        "label": "",
+        "name": "Placa Vehiculo",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Placa Vehiculo",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "nitClienteCarga",
+        "label": "",
+        "name": "Nit Cliente Carga",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Nit Cliente Carga",
+        "appearance": {
+          "colspan": 4,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value":  "",
+        "id": "sitioOrigen",
+        "label": "",
+        "name": "Sitio de Origen",
+        "required": false,
+        "order": 1,
+        "controlType": "autocomplete",
+        "placeholder": "Sitio de Origen",
+        "appearance": {
+          "colspan": 4,
+          "rowspan": 1,
+          "visible": true
+        },
+        "datasetName": "ciudades"
+      },
+      {
+        "value": "",
+        "id": "observaciones",
+        "label": "",
+        "name": "Observaciones",
+        "required": false,
+        "order": 1,
+        "controlType": "textarea",
+        "placeholder": "Observaciones",
+        "appearance": {
+          "colspan": 4,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "numeroBl",
+        "label": "",
+        "name": "Numero de BL",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Numero de BL",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "contratoConmodato",
+        "label": "",
+        "name": "Contrato de Conmodato",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Contrato de Conmodato",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "motonave",
+        "label": "",
+        "name": "Motonave",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Motonave",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "viaje",
+        "label": "",
+        "name": "Viaje",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Viaje",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "sellos",
+        "label": "",
+        "name": "Sellos",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Sellos",
+        "appearance": {
+          "colspan": 6,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "detalleCarga",
+        "label": "",
+        "name": "Detalle Carga",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Detalle Carga",
+        "appearance": {
+          "colspan": 6,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "pesoCarga",
+        "label": "",
+        "name": "pesoCarga",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Peso Carga",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "pesoCargaPuerto",
+        "label": "",
+        "name": "Peso Carga Puerto",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Peso Carga Puerto",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "pesoCargaBascula",
+        "label": "",
+        "name": "Peso Carga Bascula",
+        "required": false,
+        "order": 1,
+        "controlType": "textbox",
+        "placeholder": "Peso Carga Bascula",
+        "appearance": {
+          "colspan": 2,
+          "rowspan": 1,
+          "visible": true
+        }
+      },
+      {
+        "value": "",
+        "id": "puertoDestino",
+        "label": "",
+        "name": "Puerto Destino",
+        "required": false,
+        "order": 1,
+        "controlType": "autocomplete",
+        "placeholder": "Puerto Destino",
+        "appearance": {
+          "colspan": 4,
+          "rowspan": 1,
+          "visible": true
+        },
+        "datasetName": "ciudades"
+      },
+      {
+        "value": "",
+        "id": "fechaArriboPto",
+        "label": "",
+        "name": "Fecha Arribo Puerto",
+        "required": false,
+        "order": 1,
+        "controlType": "datepicker",
+        "placeholder": "Fecha Arribo Puerto (DD-MM-AAAA)",
+        "appearance": {
+          "colspan": 4,
+          "rowspan": 1,
+          "visible": true
+        }
+      }
+    ]
+    
+  }

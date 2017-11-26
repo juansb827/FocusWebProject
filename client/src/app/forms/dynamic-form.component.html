@@ -37,7 +37,7 @@ grid-template-rows:repeat(10,1fr);">
   
   <div style="grid-column-end: span 3;grid-row-end:span 4">
 
-    <button mat-raised-button color="primary" [disabled]="!formGroup.valid" type="submit">Enviar</button>
+    <button mat-raised-button color="primary" [disabled]="false" type="submit">Enviar</button>
     <button mat-raised-button color="warn" [disabled]="formGroup.pristine" (click)="resetForm()">Limpiar</button>
   </div>
 <!--

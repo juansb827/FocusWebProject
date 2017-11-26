@@ -1,7 +1,8 @@
-<div  > <!-- *ngIf="formGroup.get(field.id)" TODO:-->
+<div>
+    <!-- *ngIf="formGroup.get(field.id)" TODO:-->
     <!-- FormItems composite, creates all of it's children -->
     <div *ngIf="field.subItems;ngElseBlock">
-            <form-field *ngFor="let child of field.subItems;let i=index" [field]="child" [formGroup]="formGroup"></form-field>        
+        <form-field *ngFor="let child of field.subItems;let i=index" [field]="child" [formGroup]="formGroup"></form-field>
     </div>
 
     <div #ngElseBlock [ngSwitch]="field.controlType" style="width:100%" [formGroup]="formGroup">
@@ -10,8 +11,8 @@
 
         <!-- Text Input-->
         <mat-form-field *ngSwitchCase="'textbox'" style="width:100%">
-            <input matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [required]="field.required" [value]="field.value"
-                [maxlength]="field.maxLength" (blur)="onBlurInput()">
+            <input matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [required]="field.required" [maxlength]="field.maxLength"
+                (blur)="onBlurInput()">
             <mat-hint align="end" *ngIf="field.maxLength ">
                 {{ formGroup.get(field.id).value.length || 0}}/{{field.maxLength}}
             </mat-hint>
@@ -37,7 +38,7 @@
                     {{option.value.trim()}} - {{option.label.trim()}}
                 </mat-option>
             </mat-autocomplete>
-            
+
         </div>
 
 
@@ -51,33 +52,33 @@
             </mat-select>
         </mat-form-field>
 
-        <!-- Radio Group-->   
-        <mat-radio-group *ngSwitchCase="'radioGroup'" [formControlName]="field.id"  style="display: inline-flex; flex-direction: column;text-align:left">
+        <!-- Radio Group-->
+        <mat-radio-group *ngSwitchCase="'radioGroup'" [formControlName]="field.id" style="display: inline-flex; flex-direction: column;text-align:left">
 
             <mat-radio-button *ngFor="let option of optionList" [value]="option.value" style="margin: 5px;">
                 {{option.label}}
             </mat-radio-button>
         </mat-radio-group>
 
-        <!-- Datepicker-->   
-        <mat-form-field *ngSwitchCase="'datepicker'" style="width:100%">            
-                <input matInput [matDatepicker]="picker" placeholder="{{field.placeholder}}" [formControlName]="field.id">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>            
+        <!-- Datepicker-->
+        <mat-form-field *ngSwitchCase="'datepicker'" style="width:100%" >
+            <input matInput placeholder="{{field.placeholder}}" [formControlName]="field.id" (blur)="onBlurDatepicker()" 
+            [readonly]="field.readonly" OnlyNumber="true" [matDatepicker]="picker">
+             
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> 
+            <mat-datepicker #picker></mat-datepicker>           
+
+            <mat-error *ngIf="controlModel.errors">
+                <span *ngIf="controlModel.errors.required;">El campo es obligatorio</span>
+                <span *ngIf="!controlModel.errors.required">
+                   <span *ngIf="controlModel.errors.invalidDate || controlModel.errors.incorrect">Formato de fecha invalido.</span>
+                   <span *ngIf="controlModel.errors.minDate">La fecha no puede ser antes de {{controlModel.errors.minDate | date:'dd-MM-yyyy'}}.</span>
+                   <span *ngIf="controlModel.errors.maxDate">La fecha no puede ser despues de {{controlModel.errors.maxDate | date:'dd-MM-yyyy'}}.</span>
+                </span>
+            </mat-error>
         </mat-form-field>
-
-    
-
-
-
-
-
-
 
 
 
     </div>
-
-
-
 </div>

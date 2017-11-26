@@ -3,9 +3,12 @@
      an angular FormGroup
 */
 import { Injectable }       from '@angular/core';
-import { FormControl, FormGroup,Validators } from '@angular/forms';
+import { FormControl, FormGroup,Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Form,DataSetItem,FormError } from './form';
 import { FieldBase,ItemGroup } from './field-base';
+import {dateValidator} from './validators'
+import * as moment from 'moment';
+
 
 @Injectable()
 export class FormControlService{
@@ -50,9 +53,22 @@ export class FormControlService{
         
         if(field.controlType!='itemgroup' ){
             //TODO: create more validations for the fields
-            collection[field.id]=field.required? 
-            new FormControl({value:field.value,disabled:false}, Validators.required)
-            :    new FormControl(field.value); 
+            if(field.controlType=='datepicker'){
+                if(field.value=='CURRENT_DATE'){
+                    collection[field.id]= new FormControl(moment().toDate());
+                }else{
+                    collection[field.id]= new FormControl('',[dateValidator('DD-MM-YYYY',moment().startOf('day'),
+                    moment().startOf('day').add(1,'week')),Validators.required]);    
+                }
+                
+                
+            }else{
+                collection[field.id]=field.required? 
+                new FormControl({value:field.value,disabled:false}, Validators.required)
+                :  new FormControl(field.value);  
+            }
+             
+            
             
         }
         
@@ -104,3 +120,4 @@ export class FormControlService{
 
 
 }
+

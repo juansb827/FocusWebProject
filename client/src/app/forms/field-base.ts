@@ -12,7 +12,7 @@ export class FieldBase<T>{
   dataset?:any;
   maxLength? :number;
   subItems?: FieldBase<any>[];
-
+  readonly? : boolean;
   appearance?: {
     colspan:number,
     rowspan: number,

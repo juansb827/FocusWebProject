@@ -64,8 +64,24 @@ export class DynamicFormComponent implements OnInit {
     }
   }
 
+  markFormGroupAsTouched(formGroup:FormGroup){
+    //Object.
+    const controls=formGroup.controls;
+      Object.keys(controls).forEach(key=>{
+        controls[key].markAsTouched();
+      });
+      
+    
+  }
+
   onSubmit() {
-    //if(1==1) return;
+    if(this.formGroup.invalid!){
+      this.markFormGroupAsTouched(this.formGroup);
+      return;
+    }
+    
+    console.log("group",this.formGroup.controls);
+    if(1==1) return;
     console.log("preformData", this.formGroup.value);
     const formData = this.fcService.getFormGroupData(this.formGroup,this.formfields);
     console.log("formData",JSON.stringify (formData ));

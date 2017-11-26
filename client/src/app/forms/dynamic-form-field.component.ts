@@ -8,7 +8,7 @@ import { DateAdapter } from '@angular/material';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
-
+import * as moment from 'moment';
 
 
 
@@ -27,15 +27,20 @@ export class DynamicFormFieldComponent implements OnInit {
   /* For controls with an options list */
   optionList : DataSetItem[];
 
-  constructor(private formService: FormService,
-            ) {
+  constructor(private formService: FormService
+                ) {
              //     this.dateAdapter.setLocale('es-CO');
+             ;
   }
 
   get isValid() { return this.formGroup.controls[this.field.id].valid; }
+  get controlModel() {return this.formGroup.get(this.field.id)}  
 
   ngOnInit() {   
     
+    if(this.field.controlType=='datepicker'){
+      this.handleDateInput();            
+    } 
     if (this.field.datasetName) {      
       this.loadDataset();
     }else if(this.field.dataset){
@@ -43,6 +48,15 @@ export class DynamicFormFieldComponent implements OnInit {
     }
 
 
+  }
+
+  
+  
+
+   toDate(dateStr) {
+    //const [day, month, year] = dateStr.split("-")
+    
+    return moment(dateStr, 'DD-MM-YYYY');
   }
 
   loadDataset() {
@@ -106,7 +120,49 @@ export class DynamicFormFieldComponent implements OnInit {
   /*
 
   */
+
+  handleDateInput(){   
+    
+     
+    const control=this.formGroup.controls[this.field.id];
+    let lastVal;
+
+    control.valueChanges.forEach(value=>{      
+      
+      //When the user is pressing backspace isWriting becomes false
+      const isWriting=lastVal && (value.length>lastVal.length);      
+      if(isWriting ){
+        if(value.length==2) control.setValue(value+'-');
+        if(value.length==5) control.setValue(value+'-');
+        if(value.length==10) {
+          const fecha=this.toDate(value);
+          if(!fecha.isValid())
+            this.formGroup.controls[this.field.id].setErrors({'incorrect':true})
+        }
+      } 
+     if(value.length==11) control.setValue(lastVal)
+     else lastVal=value;  
+    });
+    console.log("datepicker",control);
+    
+  }
+
+  onBlurDatepicker(){   
+    
+    console.log("err",this.controlModel.errors);
+    /* 
+    let date=this.toDate(control.value);
+    if( !date.isValid() ){
+      this.formGroup.controls[this.field.id].setErrors({'incorrect':true})
+      console.log("valuedate",date); 
+    }else{
+      control.setValue(date.format('DD-MM-YYYY'));
+    } */
+  }
+
   onBlurInput(){
+    
+    
       
       if(this.field.triggers){
         console.log("Query triggered"); 
