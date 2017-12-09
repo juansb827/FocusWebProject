@@ -6,6 +6,18 @@ export class Form{
     rows :number;
     fields: FieldBase<any>[];
 
+    static readonly  controlTypes={
+        empty : 'empty',
+        itemgroup: 'itemgroup',
+        textbox: 'textbox',
+        textarea : 'textarea',
+        dropdown : 'dropdown', 
+        autocomplete : 'autocomplete',
+        radioGroup: 'radioGroup',
+        datepicker : 'datepicker',
+        textcard : 'textcard'
+    }   
+
     constructor(id:String, 
                 title:String,
                 fields:FieldBase<any>[]){

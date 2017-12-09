@@ -126,11 +126,11 @@ export class FormService {
   }
 
   saveFormData(formData): Observable<any> {
-    return Observable.of('');
-    // return this.http.post('http://localhost:3000/forms',formData);
+    //return Observable.of('');
+     return this.http.post('http://localhost:3000/forms',formData);
   }
 
-  searchData(term): Observable<DataSetItem[]> {
+  searchData(term,queryName): Observable<DataSetItem[]> {
     console.log('Searchdata', term);
     if (!term.trim()) {
       // if not search term, return empty array.
@@ -139,7 +139,7 @@ export class FormService {
 
     let Params = new HttpParams();
     Params = Params.append('search_term', term);
-    return this.http.get<DataSetItem[]>('http://localhost:3000/queries/InfoClienteByNitOrName', {
+    return this.http.get<DataSetItem[]>('http://localhost:3000/queries/'+queryName, {
       params: Params
     }).map(items=>  removeSpacesFromItems(items));
 

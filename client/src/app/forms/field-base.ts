@@ -3,6 +3,12 @@ export class FieldBase<T>{
 
   static readonly EAGER_LOADING="PRELOAD";
   static readonly LAZY_LOADING="LAZY_LOAD";
+  static readonly triggers={
+    leaveField:"leaveField",
+    typing: "typing"
+  };
+  
+  
 
   controlType: string;
   id: string;
@@ -28,8 +34,15 @@ export class FieldBase<T>{
     visible: boolean
   };
   //Query triggered when the user leaves the field
-  triggers?: any;
-
+  triggers?:{
+    on: string,
+    threshold?: any,
+    query : string
+  } 
+  dateValidations?:{
+     mindate?: any,
+     maxdate?: any
+  }
 
   constructor(options: {
     value?: T,

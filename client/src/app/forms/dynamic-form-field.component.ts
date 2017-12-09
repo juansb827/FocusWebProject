@@ -42,7 +42,8 @@ export class DynamicFormFieldComponent implements OnInit {
       this.handleDateInput();
     }
     //TODO fix field class 
-    if (this.field.controlType == 'autocomplete' && this.field.triggers && this.field.triggers.on) {
+    if (this.field.controlType == 'autocomplete' && this.field.triggers
+           && this.field.triggers.on==FieldBase.triggers.typing) {
       this.initRemoteAutocomplete();
     } else if (this.field.datasetName) {
       this.loadDataset();
@@ -134,7 +135,7 @@ export class DynamicFormFieldComponent implements OnInit {
           //ignores inputs with length <4
           if (term.length < 4) { lastTerm = null; return Observable.of([]) };
           lastTerm = term;
-          return this.formService.searchData(term)
+          return this.formService.searchData(term,this.field.triggers.query)
             .catch(err => { console.log('err', err); return Observable.of([]); })
         } else { //does a search using the last set of items retrieved from the api       
           const filtered = this.filter(term, lastData);
@@ -191,7 +192,7 @@ export class DynamicFormFieldComponent implements OnInit {
 
   /*
   */
-  displayFn(option: DataSetItem): string {
+  displayFn(option: DataSetItem): string {     
     return option ? option.value.trim() + " - " + option.label.trim() : '';
   }
 
@@ -241,7 +242,7 @@ export class DynamicFormFieldComponent implements OnInit {
   }
 
   onBlurInput() {
-    if (this.field.triggers && !this.field.triggers.on) {
+    if (this.field.triggers && this.field.triggers.on==FieldBase.triggers.leaveField) {
       console.log("Query triggered");
       this.formService.doFieldQuery(this.field, this.formGroup.value).subscribe(data => {
         console.log("data", data);

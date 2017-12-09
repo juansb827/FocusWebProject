@@ -40,8 +40,9 @@
           }
         },
         {
-          "value": "1",
+          "value": "...",
           "id": "numTurno",
+          "readonly" :true,
           "label": "",
           "name": "Turno",
           "required": false,
@@ -151,6 +152,7 @@
             "visible": true
           },
           "triggers":{
+            "on" : "leaveField",
             "query": "infoContenedor"          
           }
         },
@@ -260,6 +262,7 @@
             "visible": true
           },
           "triggers":{
+            "on" : "leaveField",
             "query": "infoConductor"          
           }
         },
@@ -339,7 +342,8 @@
           },
           "triggers": {
             "on": "typing",
-            "threshold": 4
+            "threshold": 4,
+            "query": "InfoClienteByNitOrName" 
           }
         },
         {
@@ -532,6 +536,10 @@
           "required": false,
           "order": 1,
           "controlType": "datepicker",
+          "dateValidations" :{
+            "mindate" : "CURRENT_DAY",
+            "maxdate" : "CURRENT_YEAR"
+          },
           "placeholder": "Fecha Arribo Puerto (DD-MM-AAAA)",
           "appearance": {
             "colspan": 4,

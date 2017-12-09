@@ -64,6 +64,7 @@ export class DynamicFormComponent implements OnInit {
     }
   }
 
+  
   markFormGroupAsTouched(formGroup:FormGroup){
     //Object.
     const controls=formGroup.controls;
@@ -76,15 +77,16 @@ export class DynamicFormComponent implements OnInit {
 
   onSubmit() {
     if(this.formGroup.invalid!){
+      //mark everyfield as touched, so errors will be displayed in the ui
       this.markFormGroupAsTouched(this.formGroup);
       return;
     }
     
-    console.log("group",this.formGroup.controls);
-    if(1==1) return;
+    console.log("group",this.formGroup.controls);    
     console.log("preformData", this.formGroup.value);
     const formData = this.fcService.getFormGroupData(this.formGroup,this.formfields);
     console.log("formData",JSON.stringify (formData ));
+
     this.formService.saveFormData(formData)
       .finally(() => console.log("final2"))
       .subscribe(

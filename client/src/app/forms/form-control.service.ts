@@ -14,6 +14,10 @@ import * as moment from 'moment';
 export class FormControlService{
     //TODO: remove Copy Paste
 
+    /**
+     * Convers a Form into a angular FormGroup
+     * @param form 
+     */
     toFormGroup(form:Form ){
         const fields: FieldBase<any>[]=form.fields;
         let formControls: any={};
@@ -51,17 +55,35 @@ export class FormControlService{
         if(field.controlType=='empty' ) return;
             
         
-        if(field.controlType!='itemgroup' ){
+        if(field.controlType!=Form.controlTypes.itemgroup ){
             //TODO: create more validations for the fields
-            if(field.controlType=='datepicker'){
+            //TODO: move to a control creation method
+            if(field.controlType==Form.controlTypes.datepicker){
                 if(field.value=='CURRENT_DATE'){
                     collection[field.id]= new FormControl(moment());
-                }else{
-                    collection[field.id]= new FormControl('',[dateValidator('DD-MM-YYYY',moment().startOf('day'),
-                    moment().startOf('day').add(1,'week')),Validators.required]);    
+                }else if(field.value){
+                    collection[field.id]= new FormControl(moment(field.value,'DD-MM-YYYY'));
+                }else if(field.dateValidations){
+                    let mindate;
+                    if(field.dateValidations.mindate){
+                       if('CURRENT_DAY') mindate=moment().startOf('day');
+                    }
+                    let maxdate;
+                    if(field.dateValidations.maxdate){
+                        //moment().startOf('day').add(1,'week'))
+                    } 
+                    const dateVal=dateValidator('DD-MM-YYYY',mindate,maxdate);
+                    
+                    collection[field.id]= new FormControl('',[dateVal,Validators.required]);    
                 }
                 
                 
+            }else if(field.controlType==Form.controlTypes.autocomplete){
+                if(field.value){
+                    collection[field.id]=new FormControl({value:field.value,disabled:false})    
+                }else{
+                    collection[field.id]=new FormControl(''); 
+                }
             }else{
                 collection[field.id]=field.required? 
                 new FormControl({value:field.value,disabled:false}, Validators.required)
@@ -91,13 +113,19 @@ export class FormControlService{
             let finalValue='';
             if(val ){
                 const field:FieldBase<any> =formFields[key];
-                if (field.controlType==='datepicker') {
-                    console.log("Date",val);
-                      finalValue=(val as Date).toISOString();
-                }           
-                else{
-                    finalValue=val.trim();
-                }
+                switch(field.controlType){
+                    case Form.controlTypes.datepicker:  
+                        finalValue=(val as Date).toISOString();
+                        break;
+                    case Form.controlTypes.autocomplete:
+                        finalValue=(val as DataSetItem).value;
+                        break;
+                    default:                                            
+                        if(typeof val !='string')console.log('not a string',key,val);
+                        finalValue=(val+'').trim();    
+                       
+                        break;  
+                }                
             }
             
             if(finalValue || finalValue!=='')

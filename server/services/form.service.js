@@ -10,13 +10,27 @@ service.saveFormData = saveFormData;
 service.saveFormData2 = saveFormData2;
 module.exports = service;
 
+var defaultValues={     
+   "lineaNaviera" : {"value": "ROT", "label" :"ROTTERDAN"},
+   "nitClienteCarga" : {"value": "900547176", "label" :"FOCUS SOFTWARE SOLUTIONS SAS"} ,
+   "numTurno" : 13,
+   "fechaArriboPto": "31-12-2018"
+   
+
+}
+
 
 function getFormById(formId, removeDbInfo) {
     var deferred = Q.defer();
     fs.readFile(forms + 'inspeccion.json', (err, data) => {
         var form = JSON.parse(data);
-        if (err) deferred.reject(err.name + ': ' + err.message);
+        if (err) deferred.reject(err.name + ': ' + err.message);        
         if (removeDbInfo) delete form.db_info;
+        form.fields.forEach(function(field) {
+            if (defaultValues[field.id]){
+                field.value=defaultValues[field.id];
+            }            
+        });
         deferred.resolve(form);
 
     })
@@ -36,9 +50,9 @@ function getFormById(formId, removeDbInfo) {
      "atendido": 0, "numTurno": 21, "codCntr": "ASDLAKDLSA"
 }
 */
-/*
+/** 
     Saves the data of a form in the DB.    
-    formData= Data of the form after being transformed into a structure that Sequelize can use.
+    @param {*} formData - Data in  a structure that Sequelize can use.
     eg:
     {
     ModelName1:   Field1: Value1   , Field2,Value2 ...
@@ -61,6 +75,10 @@ function saveFormData(formData) {
     return seqInstance.create(formData["TBTURNOS"]);
 }
 
+/**
+ * DELETE THIS
+ * @param {*} formData 
+ */
 function saveFormData2(formData) {
 
     let tbTurnos = global.databases["db_focus"].models["TBTURNOS"];

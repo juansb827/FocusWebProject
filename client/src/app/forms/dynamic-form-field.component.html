@@ -9,10 +9,13 @@
         <!-- Empty Space-->
         <div *ngSwitchCase="'empty'" style="width:100%"></div>
 
+        <!-- Text Box -->
+        <mat-card *ngSwitchCase="'textcard'" style="font-weight: bold;font-size:1.5em;height:1em">TURNO 1</mat-card>
+
         <!-- Text Input-->
         <mat-form-field *ngSwitchCase="'textbox'" style="width:100%">
             <input matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [required]="field.required" [maxlength]="field.maxLength"
-                (blur)="onBlurInput()">
+                (blur)="onBlurInput()" [readonly]="field.readonly">
             <mat-hint align="end" *ngIf="field.maxLength ">
                 {{ formGroup.get(field.id).value.length || 0}}/{{field.maxLength}}
             </mat-hint>

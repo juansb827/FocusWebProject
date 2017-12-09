@@ -1,5 +1,6 @@
 /* jshint indent: 2 */
 var Sequelize = require("sequelize");
+var moment = require("moment")
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('TBTURNOS', {
     Ccliente: {
@@ -201,14 +202,11 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'TBTURNOS',
     setterMethods: {
       fechaTurno(value){
-        const currentDate=new Date();
-        
-        
-        this.setDataValue('Dfechalog', currentDate+'');
-        this.setDataValue('Nano', currentDate.getFullYear());
-        this.setDataValue('Nmes', currentDate.getMonth()+1);  //January is 0!
-        this.setDataValue('Ndia', currentDate.getDate());
-        
+        const currentDate=moment();              
+        this.setDataValue('Dfechalog', currentDate);
+        this.setDataValue('Nano', currentDate.year());
+        this.setDataValue('Nmes', currentDate.month()+1);  //January is 0!
+        this.setDataValue('Ndia', currentDate.date());       
         
       }
     }
