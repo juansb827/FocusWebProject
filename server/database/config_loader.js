@@ -35,9 +35,13 @@ function getDatabases()
 * 	-models:[], a model represents a table, used for queries
 */
 var dbs_config={};
+const Op = Sequelize.Op;
+const operatorsAliases = {
+  $like: Op.like
+}
 getDatabases().forEach(function(db_name){		
 	var confDb=config[db_name];
-	
+	confDb.operatorsAliases;
 	var seq = new Sequelize(confDb.database, confDb.username, confDb.password, confDb);	
 	var db_conf ={name : db_name , sequelize : seq , models : [] } ;
 	dbs_config[db_name]=db_conf;	

@@ -49,39 +49,11 @@ var queries = {
         }
 
     },
-    "infoClienteByNombre": {
+    "InfoClienteByNitOrName": {
         "modelName": "TERCEROS",
-        "where": {
-            "Ter_razons": ''
-
-        },
-        "attributes": [
-            ["Tercero", "value"],
-            ["Ter_razons", "label"]
-        ],
-        "columnMapping": {
-            "Ter_razons": "razonSocialCliente"
-        },
-        "queryCondition": "contains",
-        "resultType": "multipleRows",
-        "limit": 10
-    },
-    "infoClienteByNit": {
-        "modelName": "TERCEROS",
-        "where": {
-            "Tercero": ''
-
-        },
-        "attributes": [
-            ["Tercero", "value"],
-            ["Ter_razons", "label"]
-        ],
-        "columnMapping": {
-            "Tercero": "nitCliente"
-        },
-        "queryCondition": "startsWith",
-        "resultType": "multipleRows",
-        "limit": 10
+        "raw": true,
+        "statement": "SELECT TOP 10 Tercero AS value, Ter_razons AS label FROM TERCEROS WHERE Ter_razons like :search_term or tercero like :search_term ",
+        "queryCondition":"startsWith" 
     }
 };
 
@@ -93,10 +65,23 @@ var queries = {
 function doQuery(req, res) {
     const queryId = req.params._id;
     let queryInfo = queries[queryId];
+    let dbCon
     setParamsIntoQuery(queryInfo, req.query);
-    let dbCon = global.databases["db_focus"].models[queryInfo.modelName];
+    if (!queryInfo.raw) {
+        dbCon = global.databases["db_focus"].models[queryInfo.modelName];
+    } else {
+        dbCon = global.databases["db_focus"].sequelize;
+    }
 
-    if (!queryInfo.resultType || queryInfo.resultType == SINGLE_ROW) {
+    if (queryInfo.raw) {
+        dbCon.query(queryInfo.statement, { replacements: queryInfo.replacements,
+            type: sequelize.QueryTypes.SELECT  })
+            .then(data => {
+                if (!data) data = {};
+                res.send(data)
+            })
+    }
+    else if (!queryInfo.resultType || queryInfo.resultType == SINGLE_ROW) {
         dbCon.findOne(queryInfo)
             .then(data => {
                 if (!data) data = {};
@@ -117,19 +102,33 @@ function doQuery(req, res) {
 /**  
     Puts the params inside the property "where"  of queryInfo, according to the columnMapping property.
     @param {Object} queryInfo - Options (except columnMapping) that sequelize  uses for a query
-    @param {string} params - Parameters to set into the queryInfo 
+    @param {string} params - Query parameters of the request. Will be set into the queryInfo
     
 */
 function setParamsIntoQuery(queryInfo, params) {
+
+    if (queryInfo.raw) {
+        let replacements = {};
+        Object.keys(params).forEach(paramName => {
+            
+            const paramValue = params[paramName];
+            //TODo parametirze
+            replacements[paramName]= paramValue+'%';
+        });
+        queryInfo.replacements=replacements;
+        return;
+    }
+
     const mapping = queryInfo.columnMapping;
     Object.keys(queryInfo.where).forEach(columnName => {
         const fieldName = mapping[columnName];
+
         if (!queryInfo.queryCondition) {
             queryInfo.where[columnName] = params[fieldName];
         } else if (queryInfo.queryCondition == QUERY_CONDITION_CONTAINS) {
             queryInfo.where[columnName] = { [Op.like]: '%' + params[fieldName] + '%' };
         } else if (queryInfo.queryCondition == QUERY_CONDITION_STARTS_WITH) {
-            queryInfo.where[columnName] = { [Op.like]: params[fieldName] + '%' };
+            //  queryInfo.where[columnName] = { [Op.like]: params[fieldName] + '%' };
         }
     });
 }

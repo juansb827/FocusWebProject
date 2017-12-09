@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node --inspect-brk app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "node --inspect-brk app.js"
+    "debug": "node --inspect-brk app.js"
   },
   "keywords": [],
   "author": "",
