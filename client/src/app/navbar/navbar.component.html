@@ -7,7 +7,7 @@
     <div class="app-options">
       <div class="app-option" *ngFor="let option of currentApp.options;let i=index;" (click)="loadOption(i)">
         {{option.name}}
-      </div>     
+      </div>
     </div>
   </div>
   <div class="user-actions" [matMenuTriggerFor]="appMenu">
@@ -22,18 +22,20 @@
   </div>
 </mat-toolbar>
 
-
+<!-- drop down > <!-->
 <mat-menu #appMenu="matMenu" class="user-dropdown" [overlapTrigger]="false">
   <button mat-menu-item>
-    <mat-icon>dialpad</mat-icon>
-    <span>Redial</span>
-  </button>
+        <mat-icon>settings</mat-icon>
+        <span>Configuracion</span>
+      </button>
   <button mat-menu-item>
-    <mat-icon>voicemail</mat-icon>
-    <span>Check voicemail</span>
-  </button>
+        <mat-icon>help_outline</mat-icon>
+        <span>Ayuda</span>
+      </button>
   <button mat-menu-item>
-    <mat-icon>notifications_off</mat-icon>
-    <span>Disable alerts</span>
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Cerrar Sesión</span>
   </button>
+
+
 </mat-menu>

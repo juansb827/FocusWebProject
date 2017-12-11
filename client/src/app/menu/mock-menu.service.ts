@@ -50,7 +50,7 @@ export class MenuService{
     }
 
     getApps(){
-       this.appsSubject.next(userMenu); 
+       return Observable.of(userMenu); 
     }
 
     getAppOptions():Observable<any>{

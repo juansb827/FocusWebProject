@@ -13,15 +13,15 @@ export class HomeComponent implements OnInit {
   constructor(private menuService:MenuService) { };
 
   ngOnInit() {    
-    this.menuService.getAppsObservable().subscribe((userApps)=>{   
+    
+    this.menuService.getApps().subscribe(userApps=>{
       this.userApps=userApps;        
-    }); 
-    this.menuService.getApps();
+    });
   }
 
   loadApp(i:number){
     this.menuService.loadApp(i);          
-    this.userApps=[];
+    //this.userApps=[];
   }
 
 }
