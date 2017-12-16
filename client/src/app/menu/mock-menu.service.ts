@@ -1,11 +1,11 @@
 import { Observable,Subject } from 'rxjs';
 import 'rxjs/add/operator/pairwise';
 
-import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart,NavigationEnd } from '@angular/router';
 import { Injectable } from '@angular/core';
 
 
-// Todo: get from a remote source of forms metadata
+// Todo: get from a remote source
 let userMenu=[
     {name:'Contabilidad',icon:'home',options:[
         {name:'Opcion1',icon:'warning'},
@@ -27,61 +27,73 @@ let userMenu=[
     
 @Injectable()
 export class MenuService{
+    private messageSource=new Subject<any>();
+    msgPublisher$=this.messageSource.asObservable();
+
+    private selectedApp=new Subject<any>();
+    currentApp$=this.selectedApp.asObservable();
+
+    static readonly messages={
+        SHOW_APPS: "SHOW_APPS",      
+        SHOW_TABS: "SHOW_TABS",
+        SELECT_TAB: "SELECT_TAB"
+    }
 
     menu:any;
-    currentApp:number;
-    currentAppOption:number;
+    currentAppIndex:number;
+    currentOptionIndex:number;
     optionsSubject = new Subject<any>();  
-    appsSubject=new Subject<any>();
+    
     
 
-    constructor(private router:Router){   
-       this.menu=userMenu;     
+    constructor(private router:Router,private route:ActivatedRoute){   
        this.router.events
-        .filter(event => event instanceof NavigationStart)
-         .subscribe((event:NavigationStart) => {
-             console.log(event);
-        // You only receive NavigationStart events
+        .filter(event => event instanceof NavigationEnd)
+         .subscribe((event) => {
+             let r=this.route;
+             while (r.firstChild) {
+                r = r.firstChild
+            }
+             r.params.subscribe(params=>{                
+               // Now you can use the params to do whatever you want
+               console.log("params",params);
+               this.currentAppIndex=params.appId;
+               this.currentOptionIndex=params.optionId;
+               this.selectedApp.next(userMenu[this.currentAppIndex]);
+               this.messageSource.next({msg :MenuService.messages.SELECT_TAB, value : this.currentOptionIndex})
+             });             
+            
+        
         });            
     }
 
-    getAppsObservable():Observable<any>{
-        return this.appsSubject.asObservable();        
-    }
 
-    getApps(){
+
+    getApps(route){      
        return Observable.of(userMenu); 
     }
 
-    getAppOptions():Observable<any>{
-        return this.optionsSubject.asObservable();
-    }
+    
 
     goHome(){
         this.router.navigate(['/']);
-        this.appsSubject.next(userMenu);    
-        this.optionsSubject.next();    
+        this.messageSource.next({msg:MenuService.messages.SHOW_APPS,value:true}); 
+        this.selectedApp.next();
+        
     }
 
     loadApp(i:number){
         console.log(userMenu[i].name);        
-        this.currentApp=i;
-        this.currentAppOption=null;
-        //this.router.navigate(['/login']);
-        this.optionsSubject.next(userMenu[i]);
+        this.currentAppIndex=i;
+        this.messageSource.next({msg:MenuService.messages.SHOW_APPS,value:false});
+        this.selectedApp.next(userMenu[i]);
     }
 
     loadAppOption(optionIndex:number){
-        const appIndex=this.currentApp;
+        this.currentOptionIndex=optionIndex;
+        const appIndex=this.currentAppIndex;
         const app=userMenu[appIndex];
-        const option=userMenu[appIndex].options[optionIndex];
-        
-        
-        var route='/app/'+app.name+'/'+appIndex+'/option/'
-                    +option.name+'/'+optionIndex;
-                    console.log(route);
-                    route=route.toLocaleLowerCase();
-
+        const option=app.options[optionIndex];      
         this.router.navigate(
             ['/app',app.name,appIndex,'option',option.name,optionIndex]);
         

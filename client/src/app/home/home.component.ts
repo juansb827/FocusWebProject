@@ -10,16 +10,22 @@ import { MenuService } from '../menu/mock-menu.service';
 export class HomeComponent implements OnInit {
   
   userApps=[];  
+  showApps:boolean=true;
   constructor(private menuService:MenuService) { };
 
   ngOnInit() {    
-    
-    this.menuService.getApps().subscribe(userApps=>{
+    this.menuService.msgPublisher$.subscribe(data=>{
+      switch(data.msg){
+        case MenuService.messages.SHOW_APPS: this.showApps=data.value;
+      }
+    })
+
+    this.menuService.getApps(null).subscribe(userApps=>{
       this.userApps=userApps;        
     });
   }
 
-  loadApp(i:number){
+  onAppClick(i:number){
     this.menuService.loadApp(i);          
     //this.userApps=[];
   }

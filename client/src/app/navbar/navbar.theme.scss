@@ -6,7 +6,7 @@
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  .user-actions:hover, .app-option:hover, .goback:hover{
+  .user-actions:hover, .app-option:hover, .goback:hover, .app-option-selected{
     background-color:mat-color($primary, 400);
   } 
   

@@ -1,7 +1,7 @@
 <div class="home-component">
 
-  <div class="grid-wrapper" *ngIf="userApps">
-    <div class="app-box" *ngFor="let app of userApps;let i=index;" (click)="loadApp(i)">
+  <div class="grid-wrapper" *ngIf="userApps && showApps">
+    <div class="app-box" *ngFor="let app of userApps;let i=index;" (click)="onAppClick(i)">
       <mat-icon class="app-icon">{{app.icon}}</mat-icon>
       <span class="app-text">
               {{app.name}} 

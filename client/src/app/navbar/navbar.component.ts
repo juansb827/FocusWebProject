@@ -14,29 +14,37 @@ export class NavbarComponent implements OnInit {
   mockAuth=MockAuth;
   user:User;
   currentApp;
-  constructor(private auth:AuthenticationService,
-              private menuService:MenuService,
-              private router:Router) { }
+  selectedOptionIndex;
+  constructor(private auth:AuthenticationService, private menuService:MenuService  ) { }
 
   ngOnInit() {
+
+    this.menuService.msgPublisher$.subscribe(data=>{
+      switch(data.msg){
+        case MenuService.messages.SELECT_TAB: this.selectedOptionIndex=data.value;
+      }
+    })
+  
     this.mockAuth.getLoginObservable().subscribe(user=>{
       this.user=user;  
     });  
-    this.mockAuth.loadUser();
-   
-    this.menuService.getAppOptions().subscribe(currentApp=>{
-      //makes the tabs change, everytime a user selects a new app
+    this.mockAuth.loadUser();   
+    //makes the tabs change, everytime a user selects a new app         
+    this.menuService.currentApp$.subscribe(currentApp=>{
+      console.log("selected App",currentApp);
       this.currentApp=currentApp;
-      console.log("current are",currentApp);
-    });   
+    });
+    
+      
     
 
   }
 
-  loadOption(index){    
+  onTabClick(index){    
     this.menuService.loadAppOption(index);
   }
-  goHome(){
+
+  onGoBack(){
     this.menuService.goHome();
   }
 
