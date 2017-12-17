@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, Input, OnInit, OnChanges,OnDestroy,AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MyFormDirective } from './forms.directive'
 import { FormControlService } from './form-control.service'
@@ -14,7 +14,7 @@ import { DragulaService } from 'ng2-dragula';
   styleUrls: ['./dynamic-form.component.scss'],
   providers: [FormControlService]
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
 
   @Input() form: Form;
   formGroup: FormGroup;
@@ -27,19 +27,32 @@ export class DynamicFormComponent implements OnInit {
     private formService: FormService,
     private fcService: FormControlService,
     private dragService: DragulaService) {
+   
     dragService.setOptions('nested-bag', {
       moves: function (el: any, container: any, handle: any): any {
         //   console.log(el, container);
         // console.log("ha", handle.className);
         //if(handle.className)
         //return handle.className.indexOf('handle') !== -1;//handle.className === 'handle';
-      }
+      } 
     });
 
+  
+  }
+
+  ngOnDestroy(){
+    this.dragService.destroy('nested-bag');
   }
 
   ngOnInit() {
     // console.log("formObject",this.form);
+    this.updateFormGroup();
+    if (this.formGroup) {
+      this.initialValues = this.formGroup.value;
+    }
+  }
+
+  ngOnChanges(){
     this.updateFormGroup();
     if (this.formGroup) {
       this.initialValues = this.formGroup.value;

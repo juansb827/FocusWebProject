@@ -1,7 +1,9 @@
 'use strict'
-var forms = __dirname + '/../forms/';
+var formsPath = __dirname + '/../forms/';
 var fs = require("fs");
 var Q = require('q');
+var Promise = require('bluebird');
+Promise.promisifyAll(fs);
 
 var service = {};
 
@@ -21,21 +23,27 @@ var defaultValues={
 
 
 function getFormById(formId, removeDbInfo) {
-    var deferred = Q.defer();
-    fs.readFile(forms + 'inspeccion.json', (err, data) => {
-        var form = JSON.parse(data);
-        if (err) deferred.reject(err.name + ': ' + err.message);        
-        if (removeDbInfo) delete form.db_info;
-        form.fields.forEach(function(field) {
-            if (defaultValues[field.id]){
-                field.value=defaultValues[field.id];
-            }            
-        });
-        deferred.resolve(form);
+    return new Promise(function (resolve, reject) {
+        console.log("formId",formId+"|");
+        fs.readFileAsync(formsPath + formId+'.json')
+        .then(data=>{
+            var form = JSON.parse(data);
+                   
+            if (removeDbInfo) delete form.db_info;
+            //set default values
+            form.fields.forEach(function(field) {
+                if (defaultValues[field.id]){
+                    field.value=defaultValues[field.id];
+                }           
+            });
+            resolve(form);
+        })   
 
-    })
-
-    return deferred.promise;
+    },err=>{
+        reject(err.name + ': ' + err.message); 
+    });
+    
+  
 
 }
 

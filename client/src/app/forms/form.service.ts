@@ -113,7 +113,9 @@ export class FormService {
   constructor(private http: HttpClient) { }
 
   getForm(formId): Observable<Form> {
-    return this.http.get<Form>('http://localhost:3000/forms/inspeccion001');
+    console.log("formid",formId);
+    if(!formId) return Observable.of(null);
+    return this.http.get<Form>('http://localhost:3000/forms/'+formId);
     // return Observable.of(form4);  
   }
 

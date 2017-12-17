@@ -106,7 +106,7 @@ export class DynamicFormFieldComponent implements OnInit {
    * User presses '4' (Searchterm becomes 'Item4') , suppose that he API responds with 19 results (which is <20), 
    * so we know that results of subsequent searchterms will we included in this lists of 19 results 
    * we just received, 
-   * so we store this last set of results and subsequent searches will be using that 
+   * so we store this last set of results and subsequent searches will be issued using that 
    * list instead of calling the api.
    * 
    * Api calls will be done again, only if search terms becomes something that doesn't contain

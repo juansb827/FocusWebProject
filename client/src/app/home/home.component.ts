@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { MenuService } from '../menu/mock-menu.service';
 
 
@@ -7,26 +7,34 @@ import { MenuService } from '../menu/mock-menu.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit,OnDestroy {
   
   userApps=[];  
   showApps:boolean=true;
+  sub;
   constructor(private menuService:MenuService) { };
 
   ngOnInit() {    
-    this.menuService.msgPublisher$.subscribe(data=>{
+    this.sub=this.menuService.msgPublisher$.subscribe(data=>{      
       switch(data.msg){
         case MenuService.messages.SHOW_APPS: this.showApps=data.value;
+        break;
+        case MenuService.messages.APPS: this.userApps=data.value;        
+        break;
       }
     })
 
-    this.menuService.getApps(null).subscribe(userApps=>{
-      this.userApps=userApps;        
-    });
+    this.menuService.loadAppsMenu();
+
+   ;
+  }
+
+  ngOnDestroy(){    
+    this.sub.unsubscribe();
   }
 
   onAppClick(i:number){
-    this.menuService.loadApp(i);          
+    this.menuService.selectApp(i);          
     //this.userApps=[];
   }
 

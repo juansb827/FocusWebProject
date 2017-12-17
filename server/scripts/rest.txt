@@ -17,4 +17,7 @@ UNION
 select top 10 tercero,ter_razons from terceros where tercero LIKE '7528%'
 
 //TODO de donde viene el num de turno
-//TODO indicacion de carga de datos 
+//TODO indicacion de carga de datos en los campos
+//TODO guardar formularios en local storage
+//TODO guardar menus en local storage
+//remove mock menu service
