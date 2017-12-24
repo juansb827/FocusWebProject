@@ -4,8 +4,8 @@ var Sequelize = require("sequelize");
 var basename = path.basename(module.filename);
 //var env = process.env.NODE_ENV || "development";
 var env= "DEV";
-var config = require(__dirname + '/../config/db_config_'+env);
-var modelsFolder = __dirname+'/../models/';
+var config = require(__dirname + './../../config/db_config_'+env);
+var modelsFolder = __dirname+'./../models/';
 
 
 

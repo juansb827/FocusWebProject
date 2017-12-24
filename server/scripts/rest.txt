@@ -16,8 +16,15 @@ select top 10 tercero,ter_razons from terceros where ter_razons LIKE '%7528%'
 UNION
 select top 10 tercero,ter_razons from terceros where tercero LIKE '7528%'
 
+//TODO users 
+//TODO authentication
+//TODO authorization
 //TODO de donde viene el num de turno
 //TODO indicacion de carga de datos en los campos
 //TODO guardar formularios en local storage
 //TODO guardar menus en local storage
 //remove mock menu service
+
+
+https://hackernoon.com/restful-api-design-with-node-js-26ccf66eab09
+https://medium.freecodecamp.org/securing-node-js-restful-apis-with-'json-web-tokens-9f811a92bb52

@@ -1,17 +1,24 @@
 var express = require('express');
 var logger = require('morgan');
 var app = express();
-//var routes= require("./routes/routes")
-var routes= require('./routes');
 var jsonParser= require("body-parser").json;
-
-var db_config= require('./database/config_loader');
+var nconf = require('nconf');
+var db_config= require('./app/database/config_loader');
 global.databases= db_config;
-var db_con_manager= require('./database/connection_manager');
+var db_con_manager= require('./app/database/connection_manager');
 
 
+// Load Environment variables from .env file
+require('dotenv').load();
 
+// Set up configs
+nconf.use('memory');
+// First load command line arguments
+nconf.argv();
+// Load environment variables
+nconf.env();
 
+console.log("ENV",nconf.get('NODE_ENV'));
 app.use(logger("dev"));
 app.use(jsonParser());
 
@@ -26,16 +33,7 @@ app.use(function(req, res, next){
 });
 
 
-function bye(req,res,next){	
-//	req.body={"d":2};
-	next();
-  }
-app.post("/forms",bye,require('./controllers/forms.controller'));
-app.use("/forms",require('./controllers/forms.controller'));
-
-app.use("/datasets",require('./controllers/dataSets.controller'));
-app.use("/queries",require('./controllers/queries.controller'));
-
+app.use('/', require('./app/routes'));
 
 
 //catch 404 and forward to error handler
@@ -43,7 +41,6 @@ app.use(function(req, res, next){
 	var err= new Error("Not found");
 	err.status = 404;
 	next(err);
-
 });
 
 //error handler
@@ -53,8 +50,8 @@ app.use(function(err, req, res, next){
 	res.status(err.status || 500);
 	res.json({
 		error: {
-			message: err.message,
-			errror: (app.get('env') === 'development') ? err : {}
+			message:  "No error msg" || err.message,
+			error: err//(app.get('env') === 'development') ? err : {}
 		}
 	});
 
@@ -68,14 +65,16 @@ app.set('port', process.env.PORT || 3000);
 * Starts the server
 */
 function startServer(){
+
 	var server = app.listen(app.get('port'), function() {
+		var db = require('./app/database/mongodb.js');
 		console.log('Express server listening on port ' + server.address().port);	
 		//global.databases=databases;
 	});	
 };
 
-//startServer();
+startServer();
 
-db_con_manager(db_config,startServer); 
+//db_con_manager(db_config,startServer); 
 
 module.exports = app;
