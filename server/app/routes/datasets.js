@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var Promise = require('bluebird');
-
+var appError= require('./../utils/error').appError
+var errorTypes= require('./../utils/error').errorTypes;
 // routes
-
+//var _databases = require('./../database/config_loader');
 router.get('/:_id', get);
 module.exports = router;
 
@@ -31,20 +32,25 @@ var dataSets={
     
 }
 
-function get(req,res){
+function get(req,res,next){
     const dataSetId=req.params._id;
     let setInfo=dataSets[dataSetId];
+    
     //If it has the modelName property it means that it must be loaded from the database
-    if(setInfo.modelName){
-        let seqInstance = global.databases["db_focus"].models[setInfo.modelName];        
+    if(!setInfo){
+       next(new appError(errorTypes.NOT_FOUND,`No such Dataset:${dataSetId}`,true));
+    }
+    if(setInfo.modelName){  
+        let seqInstance = _databases["db_focus"].models[setInfo.modelName];        
         seqInstance.findAll(setInfo)
-                .then(data=>{
-                    res.send({items:data});
-                    console.log(data.length)
+                .then(data=>{                           
+                    res.send({items:data});                  
                 })
-                .catch(err=>res.send(err));
+               .catch(err=>next(err));
     }else{
         res.send({items:setInfo});
     }
+ 
+    
     
 }

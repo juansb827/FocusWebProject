@@ -4,12 +4,13 @@ var fs = require("fs");
 var Q = require('q');
 var Promise = require('bluebird');
 Promise.promisifyAll(fs);
-
+var appError = require('./../utils/error').appError
+var errorTypes = require('./../utils/error').errorTypes;
 var service = {};
 
 service.getFormById = getFormById;
 service.saveFormData = saveFormData;
-service.saveFormData2 = saveFormData2;
+
 module.exports = service;
 
 var defaultValues={     
@@ -21,11 +22,16 @@ var defaultValues={
 
 }
 
+var forms={
+    "turnos_inspeccion" : "turnos_inspeccion"
+}
+
 
 function getFormById(formId, removeDbInfo) {
     return new Promise(function (resolve, reject) {
-        console.log("formId",formId+"|");
-        fs.readFileAsync(formsPath + formId+'.json')
+       const form_name=forms[formId];
+       if(!form_name) resolve(null);      
+        fs.readFileAsync(formsPath + form_name+'.json')
         .then(data=>{
             var form = JSON.parse(data);
                    
@@ -83,20 +89,3 @@ function saveFormData(formData) {
     return seqInstance.create(formData["TBTURNOS"]);
 }
 
-/**
- * DELETE THIS
- * @param {*} formData 
- */
-function saveFormData2(formData) {
-
-    let tbTurnos = global.databases["db_focus"].models["TBTURNOS"];
-    //console.log("data",formData["TBTURNOS"]);
-
-    return tbTurnos.create({
-        Ccliente: "21asklf", Ctipdoc: "CS", Nano: 2017, Nmes: 11, Ndia: 14,
-        Natendido: 0, Nturno: '21', Ccodcntr: "ASDLAKDLSA"
-    }
-    )
-
-
-}

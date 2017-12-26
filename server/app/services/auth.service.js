@@ -2,8 +2,11 @@ var nconf = require('nconf');
 var _ = require('lodash');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
+var appError = require('./../utils/error').appError
+var errorTypes = require('./../utils/error').errorTypes;
 
 var User = require('./../models/nonrelational/user');
+
 
 var secret = nconf.get('SESSION_SECRET');
 
@@ -37,7 +40,7 @@ function authenticateUser(email, password) {
       });
       var letUser = _.omit(user, 'password');
       return { auth: true, user: letUser, token: token };
-    });
+    })
 }
 
 
@@ -46,25 +49,27 @@ function validateRequest(req, res, next) {
     (req.query && req.query.access_token) ||
     req.headers['x-access-token'];
 
-  if (!token) return res.status(403).send('No token provided');
+  if (!token)
+    return next(new appError(errorTypes.UNAUTHORIZED, 'No token provided', true));
+
 
   jwt.verify(token, secret, function (err, decoded) {
-    if (err)
-      return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-
-    if (decoded.exp <= (Date.now() / 1000)) {
-      res.status(400);
-      return next("Token Expired");
+    if (err) {
+      if (err.expiredAt)
+        return next(new appError(errorTypes.UNAUTHORIZED, 'Token Expired', true, err));
+      else
+        return next(new appError(errorTypes.SERVER_ERROR, 'Failed to authenticate token', true, err));
     }
 
     const userId = decoded.id;
     req.userId = userId
-       
+
     User.findById(userId).exec().then(user => {
-      if (!user) res.status(400).send("Invalid User")
+      if (!user)
+        next(new appError(errorTypes.UNAUTHORIZED, 'The user associated with the token no longer exists', true));
       else next();
     }).catch(err => next(err));
-    
+
 
   })
 

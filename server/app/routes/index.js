@@ -41,9 +41,9 @@ router.use('/api/v1/*', [validateRequest]);
  */
 router.use("/api/v1/auth", require('./auth.js'));
 router.use("/api/v1/users", require('./users'));
-router.use("/api/v1/forms", require('./../controllers/forms.controller'));
+router.use("/api/v1/forms", require('./forms'));
 router.use("/api/v1/datasets", require('./datasets'));
-router.use("/api/v1/queries", require('./../controllers/queries.controller'));
+router.use("/api/v1/queries", require('./queries'));
 
 /*
  * Routes that can be accessed only by authenticated & authorized users
