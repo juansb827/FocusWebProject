@@ -1,13 +1,21 @@
 
 var async = require('async');
 var server = require('./config/initializers/server');
+var fs = require('fs');
 
-
-var logger = require('./app/utils/logger');
 var errorHandler=require('./app/utils/errorHandler')
 var server = require('./config/initializers/server');
 var appError = require('./app/utils/error').appError
 var errorTypes = require('./app/utils/error').errorTypes;
+
+
+//Creates Logs folder if it does not exists
+var dir = './logs';
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
+var logger = require('./app/utils/logger');
+
 
 // Load Environment variables from .env file
 require('dotenv').load();
