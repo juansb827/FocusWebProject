@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -12,7 +14,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { AppConfig } from './app.config';
 
-import { AuthenticationService } from './authentication/authentication.service';
+import { AuthService } from './authentication/authentication.service';
+import { TokenInterceptor } from './authentication/token.interceptor';
 import { MenuService } from './menu/mock-menu.service';
 import { AuthGuard } from './authentication/authentication.guard';
 import { LoginComponent } from './authentication/login/login.component';
@@ -62,9 +65,13 @@ import { FormService } from './forms/form.service';
     
   ],
   providers: [
-    AppConfig,
-    
-    AuthenticationService,    
+    AppConfig,    
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },    
     AuthGuard,
     ToasterService,
     MenuService    

@@ -79,7 +79,6 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
 
   
   markFormGroupAsTouched(formGroup:FormGroup){
-    //Object.
     const controls=formGroup.controls;
       Object.keys(controls).forEach(key=>{
         controls[key].markAsTouched();
@@ -100,8 +99,8 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
     const formData = this.fcService.getFormGroupData(this.formGroup,this.formfields);
     console.log("formData",JSON.stringify (formData ));
 
-    this.formService.saveFormData(formData)
-      .finally(() => console.log("final2"))
+    this.formService.saveFormData(formData,this.form.id)
+      //.finally(() => console.log("final2"))
       .subscribe(
       x => console.log("success", x),
       e => console.log("error", e),
