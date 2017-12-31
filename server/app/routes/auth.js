@@ -6,13 +6,12 @@ var appError= require('./../utils/error').appError
 var errorTypes= require('./../utils/error').errorTypes;
 
 var User = require('./../models/nonrelational/user');
-var nconf = require('nconf');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var authService = require('./../services/auth.service')
 var userService = require('./../services/user.service')
 
-const secret = nconf.get('SESSION_SECRET');
+
 router.use(bodyParser.urlencoded({ extended: false }));
 
 

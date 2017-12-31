@@ -10,5 +10,6 @@ process.on('unhandledRejection', function (reason, p) {
 process.on('uncaughtException', function (error) {
 	logger.info("Caught uncaughtException");
 	logger.error(error);
+	process.exit(1)
 	//TODO errorHandler
 });

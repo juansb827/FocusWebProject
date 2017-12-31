@@ -1,12 +1,12 @@
 var express = require('express');
 var bodyParser = require("body-parser");
-var config = require('nconf');
+
 
 var logger = require('./../../app/utils/logger');
 var appError = require('./../../app/utils/error').appError
 var errorTypes = require('./../../app/utils/error').errorTypes;
 
-const env = config.get('NODE_ENV');
+const env = process.env;
 
 
 var app = express();
@@ -56,8 +56,8 @@ function start(callback) {
     });
 
 
-    app.listen(config.get('NODE_PORT'), function () {
-        logger.info('[SERVER] Listening on port ' + config.get('NODE_PORT'));
+    app.listen(process.env.NODE_PORT, function () {
+        logger.info('[SERVER] Listening on port ' + process.env.NODE_PORT);
         callback();
 
     });

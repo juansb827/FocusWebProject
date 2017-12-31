@@ -1,4 +1,3 @@
-var nconf = require('nconf');
 var _ = require('lodash');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
@@ -8,7 +7,7 @@ var errorTypes = require('./../utils/error').errorTypes;
 var User = require('./../models/nonrelational/user');
 
 
-var secret = nconf.get('SESSION_SECRET');
+var secret = process.env.SESSION_SECRET
 
 /**
  * Register an user in the db, and returns a token containing it's id

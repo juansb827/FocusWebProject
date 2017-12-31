@@ -42,7 +42,9 @@ const operatorsAliases = {
 getDatabases().forEach(function(db_name){		
 	var confDb=config[db_name];
 	confDb.operatorsAliases;
-	var seq = new Sequelize(confDb.database, confDb.username, confDb.password, confDb);	
+	//var seq = new Sequelize(confDb.database, confDb.username, confDb.password, confDb);	
+	confDb.host=process.env.DB_HOST;
+	var seq = new Sequelize(confDb.database, confDb.username, process.env.DB_PASSWORD, confDb);	
 	var db_conf ={name : db_name , sequelize : seq , models : [] } ;
 	dbs_config[db_name]=db_conf;	
 	

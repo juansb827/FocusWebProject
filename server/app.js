@@ -1,7 +1,7 @@
 
 var async = require('async');
 var server = require('./config/initializers/server');
-var nconf = require('nconf');
+
 
 var logger = require('./app/utils/logger');
 var errorHandler=require('./app/utils/errorHandler')
@@ -11,14 +11,8 @@ var errorTypes = require('./app/utils/error').errorTypes;
 
 // Load Environment variables from .env file
 require('dotenv').load();
-// Set up configs
-nconf.use('memory');
-// First load command line arguments
-nconf.argv();
-// Load environment variables
-nconf.env();
 
-const env = nconf.get('NODE_ENV');
+// Set up configs
 
 async.series([
 	function initializeDbConnection(callback){
