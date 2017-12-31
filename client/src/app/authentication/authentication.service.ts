@@ -33,13 +33,13 @@ export class AuthService {
 
     constructor(private config: AppConfig, private http: HttpClient) { }
 
-    login(username: string, password: string) {
+    login(email: string, password: string) {
 
         return this.http.post(this.config.apiUrl + '/auth/login', {
             name: "example",
-            email: "example",
+            email: email,
             company: "testCompany",
-            password: "password"
+            password: password
         })  //TODO validate  resp against interface
             .map((resp: any) => {
                 // login successful if there's a jwt token in the response

@@ -1,3 +1,3 @@
 export class AppConfig {
-    public readonly apiUrl = 'http://localhost:4000/api/v1';
+    public readonly apiUrl = 'https://focusweb-api.herokuapp.com/api/v1';
 };

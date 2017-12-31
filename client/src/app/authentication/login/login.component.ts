@@ -41,13 +41,16 @@ export class LoginComponent implements OnInit {
   login() {
     this.loading = true;
   //  this.authService.isAuthenticated();
-  this.authService.login(null,null).subscribe(user=>{
+  this.authService.login(this.model.email,this.model.password).subscribe(user=>{
     console.log("user",user);
     this.loading=false;
     this.toasterService.showToaster("Bienvenido, "+user.name);    
     this.router.navigate([this.returnUrl]);
     
-  })
+  },  error => {
+     this.loading=false;
+     console.log("Login false",error);
+ })
 
     
     /*
