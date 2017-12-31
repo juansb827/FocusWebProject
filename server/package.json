@@ -2,7 +2,7 @@
   "name": "focus-web",
   "version": "1.0.0",
   "scripts": {
-    "start": "node --inspect-brk app.js",
+    "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "node --inspect-brk app.js"
   },
