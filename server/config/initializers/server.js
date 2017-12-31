@@ -55,9 +55,10 @@ function start(callback) {
 
     });
 
-
-    app.listen(process.env.NODE_PORT, function () {
-        logger.info('[SERVER] Listening on port ' + process.env.NODE_PORT);
+    //
+    const port= process.env.PORT || process.env.NODE_PORT || 8080;
+    app.listen(port, function () {
+        logger.info('[SERVER] Listening on port ' + port);
         callback();
 
     });
