@@ -57,7 +57,7 @@ function getFormById(formId, removeDbInfo) {
     return new Promise(function (resolve, reject) {
         if (!forms[formId]) resolve(null);        
         const form = JSON.parse(JSON.stringify(forms[formId].form));
-                
+
         form.fields.forEach(function (field) {
             if (defaultValues[field.id]) {
                 field.value = defaultValues[field.id];
@@ -66,9 +66,7 @@ function getFormById(formId, removeDbInfo) {
         
         resolve(form);
 
-    }, err => {
-        reject(err.name + ': ' + err.message);
-    });
+    })
 
 
 
@@ -76,25 +74,21 @@ function getFormById(formId, removeDbInfo) {
 
 
 function save(formId, formData) {
-    return new Promise(function (resolve, reject) {
-        const form_name = forms[formId];
-        if (!form_name) reject(new appError(errorTypes.NOT_FOUND, "No such form:" + formId, true));
-        fs.readFileAsync(formsPath + form_name + '_dbconfig.json')
-            .then(configFile => {
-                var formConfig = JSON.parse(configFile);
-                return parseData(formData, formConfig);
-            })
-            .then(parseData => {
-                return saveFormData(parseData);
-            })
-            .then(savedData => resolve(savedData))
-            .catch(err => { reject(err) });
+    return new Promise(function (resolve, reject) {        
+        if (!forms[formId]) reject(new appError(errorTypes.NOT_FOUND, "No such form:" + formId, true));
+        const formConfig = JSON.parse(JSON.stringify(forms[formId].dbconfig));
+        parseData(formData, formConfig)
+        .then(parseData => {
+            return saveFormData(parseData);
+        })
+        .then(savedData => resolve(savedData))
+        .catch(err => { reject(err) });
     })
 }
 
 
 /** 
-    Saves the data of a form in the DB.    
+    Saves the data of a form into the DB.    
     @param {*} formData - Data in  a structure that Sequelize can use.
   
     TODO:
