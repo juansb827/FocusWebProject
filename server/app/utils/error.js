@@ -3,6 +3,7 @@ const errorTypes={
     "WRONG_CREDENTIALS" : {httpCode:401},
     "UNAUTHORIZED" : {httpCode:401},
     "SERVER_ERROR" :  {httpCode:500},
+    "BAD_REQUEST" : {httpCode:400}
 }
 
 /**

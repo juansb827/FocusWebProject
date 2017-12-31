@@ -49,7 +49,7 @@ router.use("/api/v1/queries", require('./queries'));
  * Routes that can be accessed only by authenticated & authorized users
  */
 
- //TODO
+ //TODO add admin routes..
 
 module.exports = router;
 

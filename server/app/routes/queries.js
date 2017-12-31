@@ -3,6 +3,8 @@ var router = express.Router();
 var Promise = require('bluebird');
 var sequelize = require("sequelize");
 const Op = sequelize.Op
+
+var databases = require('./../database/config_loader');
 // routes
 
 router.get('/:_id', doQuery);
@@ -58,7 +60,7 @@ var queries = {
 };
 
 /**  
-    Puts the params inside the "where" of the query info, according to the columnMapping property.
+  
     @param {string} req - Contains the Id of the query to execute, and the params for that query
     @param {string} res - Response 
 */
@@ -68,9 +70,9 @@ function doQuery(req, res) {
     let dbCon
     setParamsIntoQuery(queryInfo, req.query);
     if (!queryInfo.raw) {
-        dbCon = global.databases["db_focus"].models[queryInfo.modelName];
+        dbCon = databases["db_focus"].models[queryInfo.modelName];
     } else {
-        dbCon = global.databases["db_focus"].sequelize;
+        dbCon = databases["db_focus"].sequelize;
     }
 
     if (queryInfo.raw) {

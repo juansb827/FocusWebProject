@@ -4,10 +4,11 @@ var Promise = require('bluebird');
 var appError= require('./../utils/error').appError
 var errorTypes= require('./../utils/error').errorTypes;
 // routes
-//var _databases = require('./../database/config_loader');
+var databases = require('./../database/config_loader');
 router.get('/:_id', get);
 module.exports = router;
 
+//Todo move to config file
 var dataSets={
     "lineas":{
         "attributes":[ ['Cctelna','value'],['Cdesctelna','label'] ],
@@ -41,7 +42,7 @@ function get(req,res,next){
        next(new appError(errorTypes.NOT_FOUND,`No such Dataset:${dataSetId}`,true));
     }
     if(setInfo.modelName){  
-        let seqInstance = _databases["db_focus"].models[setInfo.modelName];        
+        let seqInstance = databases[req.companyDb].models[setInfo.modelName];        
         seqInstance.findAll(setInfo)
                 .then(data=>{                           
                     res.send({items:data});                  

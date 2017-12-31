@@ -17,7 +17,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 
 router.post('/register', function (req, res) {
-    authService.registerUser(req.body.name, req.body.email, req.body.password)
+    authService.registerUser(req.body)
         .then(data => res.status(200).send(data))
         .catch(err => {
             next(new appError(errorTypes.SERVER_ERROR,"There was a problem registering the user",true,err));           

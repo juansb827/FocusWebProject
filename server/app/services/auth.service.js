@@ -14,18 +14,33 @@ var secret = nconf.get('SESSION_SECRET');
  * Register an user in the db, and returns a token containing it's id
  * @param {*} password 
  */
-function registerUser(name, email, password) {
-  var hashedPassword = bcrypt.hashSync(password, 8);
-  return User.create({
-    name: name,
-    email: email,
-    password: hashedPassword
-  }).then(user => {
-    var token = jwt.sign({ id: user._id }, secret, {
-      expiresIn: 86400 // expires in 24 hours
-    });
-    return ({ auth: true, token: token });
+
+//TODO:move to a config file
+var companies = {
+  "testCompany": "db_focus"
+}
+function registerUser(userInfo) {
+
+  if (!userInfo.name) throw new appError(errorTypes.BAD_REQUEST, "Name is required", true);
+  if (!userInfo.email) throw new appError(errorTypes.BAD_REQUEST, "Email is required", true);
+  if (!userInfo.company) throw new appError(errorTypes.BAD_REQUEST, "Company is required", true);
+  if (!userInfo.password) throw new appError(errorTypes.BAD_REQUEST, "Password is required", true);
+
+  return bcrypt.hash(userInfo.password, 8).then(hashedPassword => {
+    userInfo.password = hashedPassword;
+    return User.create(userInfo);
   })
+    .then(user => {
+      return new Promise((resolve, reject) => {
+        jwt.sign({ id: user._id }, secret, {
+          expiresIn: 86400 // expires in 24 hours
+        }, function (err, token) {
+          if (err) return reject(err);
+          else resolve({ auth: true, token: token });
+        });
+      })
+    })
+
 }
 
 function authenticateUser(email, password) {
@@ -64,10 +79,15 @@ function validateRequest(req, res, next) {
     const userId = decoded.id;
     req.userId = userId
 
+
     User.findById(userId).exec().then(user => {
       if (!user)
-        next(new appError(errorTypes.UNAUTHORIZED, 'The user associated with the token no longer exists', true));
-      else next();
+        return next(new appError(errorTypes.UNAUTHORIZED, 'The user associated with the token no longer exists', true));
+      else {
+        req.userCompany = user.company;
+        req.companyDb = companies[user.company];
+        next();
+      }
     }).catch(err => next(err));
 
 
@@ -79,6 +99,7 @@ function canAcessResource(userId, url) {
   return true;
 }
 
+//DELTE THIS
 function verifyToken(req, res, next) {
   var token = req.headers['x-access-token'];
   if (!token)
@@ -86,7 +107,7 @@ function verifyToken(req, res, next) {
   jwt.verify(token, secret, function (err, decoded) {
     if (err)
       return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-    // if everything good, save to request for use in other routes      
+    // if everything good, sa ve to request for use in other routes      
     req.userId = decoded.id;
     next();
   });

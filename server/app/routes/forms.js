@@ -20,56 +20,29 @@ router.get('/:_id', getForm);
 
 module.exports = router;
 
-function saveForm(req, res) {
+function saveForm(req, res,next) {
     let formId = req.params._id
+    formService.save(formId,req.body)
+    .then(data=>{
+        res.send(data);
+    })
+    .catch(err=>next(err));
+    /*
     fs.readFileAsync(__dirname + '/../forms/'+formId+'.json')
         .then(configFile => {
             var config = JSON.parse(configFile);
             parseData(req.body, config)
                 .then(parsedData => formService.saveFormData(parsedData))
                 .then(resp => res.send(resp))
-                .catch(err => { console.log("err", err); res.status(400).send(err) });
+                .catch(err => next(err));
+                    
 
-        })
+        }) 
+    */
 }
 
-//todo parametrize and move to service
-/**
- *  Transforms formData into an object that Sequelize can use.
- * @param {*} formData 
- */
-function parseData(formData, config) {
-    return new Promise(function (resolve, reject) {
-        let output = {};
-        //TODO: include functionality for multiple tables
-        const targetTable = config.targetTable;
-        if (!targetTable) {
-            console.log("Invalid configuration file, no target table ")
-            reject();
 
-        }
-
-
-        output[targetTable] = {};
-
-        Object.keys(formData).forEach(fieldId => {
-            const fieldConf = config.fields[fieldId];
-            if (fieldConf) {
-                const fieldName = fieldConf.targetField || fieldConf.srcField;
-                const tableFields = output[targetTable];
-                tableFields[fieldName] = formData[fieldId];
-            } else {
-                console.log(fieldId + "Ignored because it has no associated configuration in inspeccion_dbcon.json")
-            }
-        })
-        resolve(output);
-
-    });
-}
-
-function getForm(req, res,next) {
-    logger.info("Getting e form");
-    logger.error("Er");
+function getForm(req, res,next) { 
     let formId = req.params._id
     formService.getFormById(formId, true)
         .then(form => {
