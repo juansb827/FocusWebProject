@@ -17,7 +17,7 @@
         <mat-error *ngIf="company.errors && company.errors.required">Por favor ingrese la empresa</mat-error>
       </mat-form-field>
       <mat-form-field style="width:100%">
-        <input matInput placeholder="Correo" [(ngModel)]="model.email" name="email" #email="ngModel" type="email" (click)="test(email)"
+        <input matInput placeholder="Correo" [(ngModel)]="model.email" name="email" #email="ngModel" type="email" 
           email required>
         <mat-error *ngIf="email.errors">
           Porfavor ingrese una direccion de correo valida

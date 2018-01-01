@@ -2,7 +2,7 @@
 import { Component, OnInit, OnDestroy,AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Form } from './form'
-import { MyFormDirective } from './forms.directive'
+
 import { FormService } from './form.service'
 import { MenuService } from '../menu/mock-menu.service'
 

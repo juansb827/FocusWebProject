@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnChanges,OnDestroy,AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MyFormDirective } from './forms.directive'
+import 'rxjs/add/operator/catch'
 import { FormControlService } from './form-control.service'
 import { FormService } from './form.service'
 import { Form, FormError } from './form'
@@ -110,6 +110,8 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
   }
 }
 
+/*
+
 import { PipeTransform, Pipe } from '@angular/core';
 
 @Pipe({ name: 'times' })
@@ -125,3 +127,4 @@ export class TimesPipe implements PipeTransform {
     return iterable;
   }
 }
+*/
