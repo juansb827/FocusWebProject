@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
-import decode from 'jwt-decode'
+import * as JWT from 'jwt-decode';
 import { AppConfig } from '../app.config';
 
 
@@ -23,7 +23,7 @@ export class AuthService {
         // get the token
         const token = this.getToken();
         if (!token) return false;        
-        var dec = decode(token);
+        var dec = JWT(token);
         // return a boolean reflecting 
         // whether or not the token is expired
         return dec.exp < new Date().getTime();
