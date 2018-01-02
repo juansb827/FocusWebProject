@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Form, DataSet, DataSetItem } from './form';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { removeSpacesFromItems,removeSpacesFromDataSet} from './formUtils';
 import { FieldBase, Textbox, Dropdown, Autocomplete, Radiogroup, EmptySpace, TextArea, ItemGroup } from './field-base';
 import {AppConfig} from './../app.config'

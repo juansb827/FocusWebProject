@@ -19,7 +19,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private sub;
   //subscription to session changes
   private sessionSub;
-  constructor(private authService: AuthService, private menuService: MenuService) { }
+  constructor(private authService: AuthService, private menuService: MenuService,
+    private router:Router) { }
 
   ngOnInit() {
 
@@ -51,6 +52,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   onTabClick(index) {
     this.menuService.selectAppOption(index);
+  }
+
+  logout(){
+    this.router.navigate(['login']);
+    this.authService.logout();
   }
 
   onGoBack() {

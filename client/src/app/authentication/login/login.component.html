@@ -3,40 +3,46 @@
   <div class="login-box mat-elevation-z10" style="background-color:white;">
     <mat-progress-bar mode="indeterminate" color="warn" *ngIf="loading">
     </mat-progress-bar>
-    <mat-toolbar color="primary">
-      <span>Iniciar Sesión</span>
-    </mat-toolbar>
+    
 
-    <form name="form" (ngSubmit)="login()" style="padding:40px" novalidate>
+    <form name="form" (ngSubmit)="login()" novalidate>
 
       <!-- <mat-icon matPrefix>home</mat-icon>      
         <mat-icon matSuffix>home</mat-icon>      
         -->
       <mat-form-field style="width:100%">
-        <input class="mat-display-1" matInput placeholder="Empresa" [(ngModel)]="model.company" name="company" #company="ngModel" maxlength="10" required>
+        <input  matInput placeholder="Empresa" [(ngModel)]="model.company" name="company" #company="ngModel"
+          maxlength="10" required>
         <mat-error *ngIf="company.errors && company.errors.required">Por favor ingrese la empresa</mat-error>
       </mat-form-field>
+
       <mat-form-field style="width:100%">
-        <input matInput placeholder="Correo" [(ngModel)]="model.email" name="email" #email="ngModel" type="email" 
-          email required>
+        <input matInput placeholder="Correo" [(ngModel)]="model.email" name="email" #email="ngModel" type="email" email required>
         <mat-error *ngIf="email.errors">
           Porfavor ingrese una direccion de correo valida
-        </mat-error>      
+        </mat-error>
       </mat-form-field>
+
       <mat-form-field style="width:100%">
-        <input matInput placeholder="Contraseña" [(ngModel)]="model.password" name="password" #password="ngModel" required> 
+        <input matInput placeholder="Contraseña" [(ngModel)]="model.password" name="password" #password="ngModel" 
+        type="password"
+        required>
         <mat-error *ngIf="password.errors && password.errors.required">
           Porfavor ingrese su contraseña
-        </mat-error>              
+        </mat-error>
       </mat-form-field>
 
- 
-      <button type="submit" mat-raised-button color="primary">Iniciar</button>
 
-      
-       
-      
-        
+      <button style="margin:auto" type="submit" style="font-size:1.2em;width:100%;margin-top:5%" mat-raised-button color="primary">Iniciar Sesión</button>
+
+
+
     </form>
-  </div>
+  </div> <!-- Login Box -->
+
+  <footer><a href="http://www.polymer-project.org/" target="_blank"><img src="https://www.polymer-project.org/images/logos/p-logo.svg"></a>
+    <p><a href="https://www.google.com.co/" target="_blank">Focus Colombia</a></p>
+  </footer>
+
 </div>
+

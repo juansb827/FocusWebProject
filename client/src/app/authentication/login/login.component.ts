@@ -9,7 +9,7 @@ import { ToasterService } from '../../messages/toaster.service'
 @Component({
 
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
