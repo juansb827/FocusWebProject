@@ -7,18 +7,10 @@
      display: inline-flex;
   align-items: center;
 }
+
 .app-options{
-    display: table;    
-    height: inherit;    
-    margin-left:50px;
-    cursor: pointer; cursor: hand;
-    //width: 200px;
-}
-.app-option{
-    display: table-cell;
-    text-align: center;
-    padding:15px;
-       vertical-align: middle;    
+    display: none;    
+  
 }
 
 .username {
@@ -59,12 +51,36 @@
 
 
 
-/*
+
 .toolbar{
     position: fixed;
-     z-index: 2;
-     top:0px;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%  !important;
+    
+}
+
+.user-actions{
+    display:none;
+}
+
+@media all and (min-width: 1024px){
+    .app-options{
+        display: table;    
+        height: inherit;    
+        margin-left:50px;
+        cursor: pointer; cursor: hand;
+        //width: 200px;
+    }
+    .app-option{
+        display: table-cell;
+        text-align: center;
+        padding:15px;
+           vertical-align: middle;    
+    }
+    
+
 }
 
  
-*/

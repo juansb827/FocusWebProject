@@ -184,9 +184,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: ' '
     },
     Dfechaarribo: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Sequelize.NOW
+      type: DataTypes.DATE    
     },
     Npescarpuerto: {
       type: DataTypes.DOUBLE,
@@ -203,7 +201,7 @@ module.exports = function(sequelize, DataTypes) {
     setterMethods: {
       fechaTurno(value){
         const currentDate=moment();              
-        this.setDataValue('Dfechalog', currentDate);
+        this.setDataValue('Dfechalog', currentDate.toISOString());
         this.setDataValue('Nano', currentDate.year());
         this.setDataValue('Nmes', currentDate.month()+1);  //January is 0!
         this.setDataValue('Ndia', currentDate.date());       

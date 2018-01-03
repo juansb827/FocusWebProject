@@ -78,8 +78,8 @@ function save(formId, formData) {
         if (!forms[formId]) reject(new appError(errorTypes.NOT_FOUND, "No such form:" + formId, true));
         const formConfig = JSON.parse(JSON.stringify(forms[formId].dbconfig));
         parseData(formData, formConfig)
-        .then(parseData => {
-            return saveFormData(parseData);
+        .then(parsedData => {
+            return saveFormData(parsedData);
         })
         .then(savedData => resolve(savedData))
         .catch(err => { reject(err) });

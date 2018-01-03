@@ -1,17 +1,20 @@
-<mat-toolbar class="toolbar" color="primary" *ngIf="user">
+<mat-toolbar class="toolbar" *ngIf="user" color="primary">
+
+
   <div class="app-area" *ngIf="currentApp">
+
     <div class="goback" (click)="onGoBack()">
       <mat-icon class="btn-goback">keyboard_arrow_left</mat-icon>
     </div>
     <span class="app-name">{{currentApp.name}}</span>
-    <!-- Tabs --> 
+    <!-- Tabs -->
     <div class="app-options">
-      <div class="app-option" *ngFor="let option of currentApp.options;let i=index;" (click)="onTabClick(i)"
-        [ngClass]="{'app-option-selected':(i==selectedOptionIndex)}">
-        {{option.name}} 
+      <div class="app-option" *ngFor="let option of currentApp.options;let i=index;" (click)="onTabClick(i)" [ngClass]="{'app-option-selected':(i==selectedOptionIndex)}">
+        {{option.name}}
       </div>
     </div>
   </div>
+
   <div class="user-actions" [matMenuTriggerFor]="appMenu">
 
     <mat-icon class="user-icon">person</mat-icon>
@@ -22,22 +25,37 @@
     <span class="space"></span>
     <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
   </div>
+
+  <div class="" *ngIf="currentApp" [matMenuTriggerFor]="optionList">
+      <mat-icon class="dropdown-icon">menu</mat-icon>
+    </div>
+  
+
 </mat-toolbar>
 
-<!-- User dropdown options --> 
+
+<!-- User dropdown options -->
 <mat-menu #appMenu="matMenu" class="user-dropdown" [overlapTrigger]="false">
   <button mat-menu-item>
-        <mat-icon>settings</mat-icon>
-        <span>Configuracion</span>
-      </button>
+          <mat-icon>settings</mat-icon>
+          <span>Configuracion</span>
+        </button>
   <button mat-menu-item>
-        <mat-icon>help_outline</mat-icon>
-        <span>Ayuda</span>
-      </button>
+          <mat-icon>help_outline</mat-icon>
+          <span>Ayuda</span>
+        </button>
   <button mat-menu-item (click)="logout()">
-    <mat-icon>exit_to_app</mat-icon>
-    <span>Cerrar Sesión</span>
-  </button>
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Cerrar Sesión</span>
+    </button>
+</mat-menu>
 
+<mat-menu #optionList="matMenu" class="user-dropdown" [overlapTrigger]="false">
+  <div *ngIf="currentApp">
+    <button mat-menu-item *ngFor="let option of currentApp.options;let i=index;">
+          <mat-icon>settings</mat-icon>
+          <span> {{option.name}}</span>
+      </button>
+  </div>
 
 </mat-menu>

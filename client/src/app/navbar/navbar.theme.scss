@@ -32,7 +32,7 @@ $user-actions-padding:30px;
     cursor: pointer; cursor: hand;
 }
 .user-dropdown{
-    $mat-menu-width:$user-actions-width+2*$user-actions-padding;
+    $mat-menu-width: $user-actions-width+2*$user-actions-padding;
     min-width: $mat-menu-width !important ;  
     max-width: $mat-menu-width !important ; 
 }
