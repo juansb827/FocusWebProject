@@ -1,33 +1,36 @@
 <mat-toolbar class="toolbar" *ngIf="user" color="primary">
 
   <mat-toolbar-row>
-    <div class="app-area" *ngIf="currentApp">
+    <div class="app-area" *ngIf="currentApp"  [ngStyle]="{'opacity':(showAppSection?1:0)}" >
 
-      <div class="goback" (click)="onGoBack()">
-        <mat-icon class="btn-goback">keyboard_arrow_left</mat-icon>
+      <div class="icon-wrapper" (click)="goBack()" >
+        <mat-icon >keyboard_arrow_left</mat-icon>
       </div>
-      <span class="app-name">{{currentApp.name}}</span>
+
+      <span class="app-name" *ngIf="currentApp">{{currentApp.name}}</span>
+
+      <div class="user-actions-mobile" [matMenuTriggerFor]="appMenu" >
+          <mat-icon >menu</mat-icon>
+      </div>
 
     </div>
-
-
     
-  <div class="user-actions" [matMenuTriggerFor]="appMenu">
-
-    <mat-icon class="user-icon">person</mat-icon>
-    <span class="space"></span>
-    <div class="username">
-      {{user.email}}
-    </div>
-    <span class="space"></span>
-    <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
-  </div>
-
-
+      <div class="user-actions" [matMenuTriggerFor]="appMenu">
+          <mat-icon class="dropdown-icon">person</mat-icon>    
+          <div class="username">
+            {{user.email}}
+          </div>    
+          <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
+        </div>
+        
+   
+      
+    
  
-  <div class="" *ngIf="currentApp" [matMenuTriggerFor]="optionList">
-      <mat-icon class="dropdown-icon">menu</mat-icon>
-    </div>
+
+
+  
+
 
   
   </mat-toolbar-row>
@@ -51,12 +54,3 @@
     </button>
 </mat-menu>
 
-<mat-menu #optionList="matMenu" class="user-dropdown" [overlapTrigger]="false">
-  <div *ngIf="currentApp">
-    <button mat-menu-item *ngFor="let option of currentApp.options;let i=index;">
-          <mat-icon>settings</mat-icon>
-          <span> {{option.name}}</span>
-      </button>
-  </div>
-
-</mat-menu>

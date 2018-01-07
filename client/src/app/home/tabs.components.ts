@@ -22,27 +22,36 @@ import { MenuService } from '../menu/mock-menu.service'
 //
 export class TabsComponent implements OnInit, OnDestroy, AfterViewInit {
 
+    selectedTab;
     currentApp;   
     sub;
-    private currentTabIndex
+  
     constructor(private route: ActivatedRoute,
 
         private menuService: MenuService) { }
 
-    onTabChange(index){
-       this.currentTabIndex=index;
+    onTabChange(index){     
+       this.menuService.selectAppOption(index);
     }    
 
     ngOnInit() {
-        console.log("TABSSS")
-        this.currentTabIndex=0;
        
-  
-        
+        console.log("TABSSS")
+    
+       /*
+        this.menuService.msgPublisher$.subscribe(msg=>{
+            switch (msg){
+                case MenuService.messages.SELECT_OPTION:
+                    this.selectedTab=msg.data;
+                break; 
+            }
+        })
+        */
 
         this.route.params.subscribe(params => {
             this.menuService.getMenu().subscribe(menu=>{
                 this.currentApp=menu[params.appId];
+                this.selectedTab=params.optionId;
             });       
           
         })

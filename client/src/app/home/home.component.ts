@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit,OnDestroy,AfterViewInit,AfterViewChecked } from '@angular/core';
 import { MenuService } from '../menu/mock-menu.service';
 
 
@@ -7,27 +7,37 @@ import { MenuService } from '../menu/mock-menu.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit,OnDestroy {
+export class HomeComponent implements OnInit,OnDestroy,AfterViewChecked {
   
   userApps=[];  
-  showApps:boolean=true;
+  showApps:boolean=false;
   sub;
   constructor(private menuService:MenuService) { };
 
-  ngOnInit() {    
+  ngOnInit() {       
     this.sub=this.menuService.msgPublisher$.subscribe(data=>{      
       switch(data.msg){
-        case MenuService.messages.SHOW_APPS: this.showApps=data.value;
-        break;
+       
        
       }
     })
 
-    this.menuService.getMenu().subscribe(menu=>this.userApps=menu);
-
-   ;
+  
+    this.menuService.getMenu().subscribe(menu=>{
+      this.userApps=menu;
+     
+      setTimeout(()=>{
+        this.showApps=true;       
+      })
+    });
+   
+   
   }
 
+  ngAfterViewChecked(){
+
+  
+  }
   ngOnDestroy(){    
     this.sub.unsubscribe();
   }

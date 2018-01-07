@@ -39,13 +39,9 @@ export class MenuService {
 
 
 
-    static readonly messages = {
-        APPS: "APPS",
-        SHOW_APPS: "SHOW_APPS",
+    static readonly messages = {       
         SELECTED_APP: "SELECTED_APP",
-        SHOW_APP_OPTIONS: "SHOW_APP_OPTIONS",
-        SELECT_OPTION: "SELECT_OPTION",
-        LOAD_OPTION: "LOAD_OPTION"
+       
     }
 
   
@@ -61,27 +57,22 @@ export class MenuService {
     }
 
     constructor(private router: Router, private route: ActivatedRoute) {
-        
+        //Used for notify the Navbar after a page reload
         this.routeChanges = this.router.events
             .filter(event => event instanceof NavigationEnd)
-            .subscribe((event) => {
-                console.log("gotParamsinService", this.route);
-              
+            .subscribe((event) => {                    
                 let r = this.route;
                 
                 while (r.firstChild) {
                     r = r.firstChild;
                 }
+
                 r.params.first().subscribe(params => {
                     console.log("gotParamsinService", params);
                     if (!params.appId) return;
-                    this.sendMessage(MenuService.messages.SELECTED_APP,params.appId);
-                    
-
-
+                    this.currentAppIndex=params.appId;
+                    this.sendMessage(MenuService.messages.SELECTED_APP,params.appId);            
                 });
-
-
 
 
             });
@@ -93,9 +84,7 @@ export class MenuService {
 
 
     goHome() {
-        this.router.navigate(['/']);
-        this.sendMessage(MenuService.messages.SHOW_APPS, true);
-     //   this.sendMessage(MenuService.messages.SELECT_OPTION, -1);
+        this.router.navigate(['/']);     
         this.sendMessage(MenuService.messages.SELECTED_APP, null);
 
     }
@@ -103,8 +92,7 @@ export class MenuService {
     selectApp(i: number) {
         console.log("OnselectApp", i);
         this.currentAppIndex = i;
-        const selectedApp = this.userMenu[i];
-        this.router.navigate(['/app', selectedApp.name, i]);     
+        this.selectAppOption(0);     
 
     }
 
@@ -114,29 +102,10 @@ export class MenuService {
         const appIndex = this.currentAppIndex;
         const app = this.userMenu[appIndex];
         const option = app.options[optionIndex];
-
         this.router.navigate(['/app', app.name, appIndex, 'option', option.name, optionIndex]);
-        console.log("navigate");
+       
     }
 
-    /**
-     * Tells the components to display an Option
-     * @param params - routeParams
-     */
-    displayAppOption(appIndex, optionIndex) {
-        this.currentAppIndex = appIndex;
-        this.currentOptionIndex = optionIndex;
-
-        this.getMenu().subscribe(menu=>{
-            this.userMenu=menu;
-            const currentApp = this.userMenu[this.currentAppIndex];
-            const currentOption = currentApp.options[this.currentOptionIndex];
-            this.sendMessage(MenuService.messages.SELECTED_APP, currentApp);
-            this.sendMessage(MenuService.messages.SELECT_OPTION, this.currentOptionIndex);
-            this.sendMessage(MenuService.messages.LOAD_OPTION, currentOption);
-        })
-      
-    }
 
     loadMenu(): Observable<any> {
         console.log("Fecthing menu");

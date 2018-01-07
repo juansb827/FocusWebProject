@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../authentication/authentication.service';
 
@@ -8,13 +8,14 @@ import { User } from '../user/user';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
   user: User;
   currentApp;
-  ;
+  showAppSection: boolean;
   //subscription to menu service messages
   private sub;
   //subscription to session changes
@@ -23,12 +24,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
-
     this.sub = this.menuService.msgPublisher$.subscribe(data => {
-      switch (data.msg) {             
+      switch (data.msg) {
         case MenuService.messages.SELECTED_APP:
-          this.menuService.getMenu().first().subscribe(menu=>{          
-            this.currentApp = menu[data.value];
+          this.menuService.getMenu().first().subscribe(menu => {
+            
+            if(data.value!=null){
+              this.currentApp = menu[data.value];
+            }
+            //Sends the code to the bottom of the call stack
+            //so  the fade-in animation will start after the componenet is rendered
+            setTimeout(() => {
+              this.showAppSection = data.value!=null;
+            })
           })
           break;
       }
@@ -58,8 +66,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
-  onGoBack() {
-    console.log("goback");
+  goBack() {
     this.menuService.goHome();
   }
 

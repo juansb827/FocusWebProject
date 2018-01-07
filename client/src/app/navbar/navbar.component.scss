@@ -1,54 +1,59 @@
 .app-area{
     display:flex;
-    height: inherit;
+    height: 100%;
+    width:100%;
+    justify-content: space-between;
+    align-items: center;
+    transition: opacity 0.3s ease-in-out;
 }
 .app-name{
-    font-size:1.7em;
-     display: inline-flex;
-  align-items: center;
+    font-size:1em;
+//padding-left:2.5%;
 }
 
-.app-options{
-  //  display: none;    
-  
-}
-
-.username {
-    display: table-cell; 
+.username {   
     vertical-align: middle;    
 }
 
-.user-icon{
-    font-size:1.8em;
-    display: table-cell; 
-    vertical-align: middle;    
-}
-.space{
-    display:table-cell;
-    width:20px;
-}
+
 .dropdown-icon{
-    font-size:1.5em;
-    display: table-cell; 
-    vertical-align: middle;    
-}
-.goback{    
-    display: table;
-    height: inherit;
-    
-    
-}
-.btn-goback{
-    display: table-cell;    
-    font-size:2.5em;    
-    vertical-align: middle;    
-    padding-left:10px;
-    padding-right:10px;
-    cursor: pointer; cursor: hand;
-    
+    font-size:1.5em;          
 }
 
+.icon-wrapper{                
+    
+    height: 100%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-right:2.5%;    
+    padding-left:2.5%;    
+}
+.icon-wrapper > mat-icon{  
+      
+    font-size:2.4em;  
+    height: auto !important;
+    width: auto !important;
+}
 
+.user-actions-mobile{
+    height: 100%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding-right:4%;    
+    padding-left:4%;  
+}
+
+.user-actions-mobile >mat-icon{
+    font-size:2em;  
+    height: auto !important;
+    width: auto !important;
+}
+
+.toolbar> mat-toolbar-row{
+    padding:0px;
+}
 
 
 
@@ -61,13 +66,59 @@
     
 }
 
-.user-actions{
- // display:none;
-}
 
-@media all and (min-width: 1024px){
- 
+
+
+.mat-menu-panel.user-dropdown {
+    max-width:none;
+    width: 100vw; 
+      overflow: visible;
+  }
+  
+  .user-actions{   
+      display: none;    
+      position: absolute;
+      right: 0px;
+      height: inherit;    
+      box-sizing: border-box;
+      width:30vw;
+      padding-left:30px;
+      padding-right:30px;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer; cursor: hand;
+  }
+
+
+
+@media all and (min-width: 768px){
+
+    .icon-wrapper{
+        padding-right:1.5%;    
+        padding-left:1.5%;    
+    }
+    .user-icon{
+        font-size:1.8em;  
+    }
+
+   .app-name{
+        font-size:1.7em;
+        width  :90%;
+  }
+
+ .user-actions{
+    display: flex;    
+ }
+ .user-actions-mobile{
+    display:none;
+ }
     
+ .mat-menu-panel.user-dropdown {
+  
+    width: 30vw; 
+  
+  }
+  
 
 }
 
