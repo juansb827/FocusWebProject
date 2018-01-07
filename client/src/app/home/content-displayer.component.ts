@@ -1,13 +1,13 @@
 /* Component that displays a DynamicForm */
-import { Component, OnInit, OnDestroy,AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { Form } from './form'
+import { Form } from './../forms/form'
 
-import { FormService } from './form.service'
+import { FormService } from '../forms/form.service'
 import { MenuService } from '../menu/mock-menu.service'
 
 @Component({  //<ng-template ad-host></ng-template>
-  selector: 'form-displayer',
+  selector: 'content-displayer',
   template:
   `<div style="text-align:center;margin-top:75px">
     <dynamic-form *ngIf="form" [form]="form">
@@ -23,8 +23,8 @@ import { MenuService } from '../menu/mock-menu.service'
 
 //TODO move outside of my form muodule, this componenet uses FormModule but should not be part of it
 //
-export class FormDisplayerComponent implements OnInit,OnDestroy, AfterViewInit {
-
+export class ContentDisplayerComponent implements OnInit, OnDestroy, AfterViewInit {
+  @Input() contentId: String;
   //private sub: any;
   form: Form;
   sub;
@@ -34,37 +34,29 @@ export class FormDisplayerComponent implements OnInit,OnDestroy, AfterViewInit {
     private menuService: MenuService) { }
 
   ngOnInit() {
+    console.log("!!!! Init Content DIsplay",this.contentId);
 
-    this.sub=this.menuService.msgPublisher$.subscribe(data => {
-
-      switch (data.msg) {
-        case MenuService.messages.LOAD_OPTION:        
-          let option = data.value;
-          this.formService.getForm(option.form).subscribe(form => {
-            this.form = form
-          //  console.log("form", this.form);
-          });
-          break;
-
-      }
+    this.formService.getForm(this.contentId).subscribe(form => {
+      this.form = form
     })
+    
 
 
 
-    this.route.params.subscribe(params => {    console.log("changes");
-      this.menuService.displayAppOption(params.appId, params.optionId);
-    })
+
+
 
   }
 
- 
+
 
   ngAfterViewInit() {
     this.loadForm();
   }
 
   ngOnDestroy() {
-     this.sub.unsubscribe();
+    console.log("!!!! Destroy Content DIsplay",this.contentId);
+  //  this.sub.unsubscribe();
   }
 
   loadForm() {
@@ -78,11 +70,8 @@ export class FormDisplayerComponent implements OnInit,OnDestroy, AfterViewInit {
     
     let viewContainerRef= this.formHost2.viewContainerRef;
     viewContainerRef.clear();
-
     let componentRef = viewContainerRef.createComponent(componentFactory);
     */
   }
 
 }
-
-

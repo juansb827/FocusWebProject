@@ -9,7 +9,7 @@
 }
 
 .app-options{
-    display: none;    
+  //  display: none;    
   
 }
 
@@ -62,23 +62,11 @@
 }
 
 .user-actions{
-    display:none;
+ // display:none;
 }
 
 @media all and (min-width: 1024px){
-    .app-options{
-        display: table;    
-        height: inherit;    
-        margin-left:50px;
-        cursor: pointer; cursor: hand;
-        //width: 200px;
-    }
-    .app-option{
-        display: table-cell;
-        text-align: center;
-        padding:15px;
-           vertical-align: middle;    
-    }
+ 
     
 
 }

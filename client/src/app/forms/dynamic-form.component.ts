@@ -27,7 +27,7 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
     private formService: FormService,
     private fcService: FormControlService,
     private dragService: DragulaService) {
-   
+   /*
     dragService.setOptions('nested-bag', {
       moves: function (el: any, container: any, handle: any): any {
         //   console.log(el, container);
@@ -36,12 +36,12 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
         //return handle.className.indexOf('handle') !== -1;//handle.className === 'handle';
       } 
     });
-
+ */
   
   }
 
   ngOnDestroy(){
-    this.dragService.destroy('nested-bag');
+  //  this.dragService.destroy('nested-bag');
   }
 
   ngOnInit() {

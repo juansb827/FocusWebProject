@@ -1,20 +1,17 @@
 <mat-toolbar class="toolbar" *ngIf="user" color="primary">
 
+  <mat-toolbar-row>
+    <div class="app-area" *ngIf="currentApp">
 
-  <div class="app-area" *ngIf="currentApp">
-
-    <div class="goback" (click)="onGoBack()">
-      <mat-icon class="btn-goback">keyboard_arrow_left</mat-icon>
-    </div>
-    <span class="app-name">{{currentApp.name}}</span>
-    <!-- Tabs -->
-    <div class="app-options">
-      <div class="app-option" *ngFor="let option of currentApp.options;let i=index;" (click)="onTabClick(i)" [ngClass]="{'app-option-selected':(i==selectedOptionIndex)}">
-        {{option.name}}
+      <div class="goback" (click)="onGoBack()">
+        <mat-icon class="btn-goback">keyboard_arrow_left</mat-icon>
       </div>
-    </div>
-  </div>
+      <span class="app-name">{{currentApp.name}}</span>
 
+    </div>
+
+
+    
   <div class="user-actions" [matMenuTriggerFor]="appMenu">
 
     <mat-icon class="user-icon">person</mat-icon>
@@ -26,10 +23,14 @@
     <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
   </div>
 
+
+ 
   <div class="" *ngIf="currentApp" [matMenuTriggerFor]="optionList">
       <mat-icon class="dropdown-icon">menu</mat-icon>
     </div>
+
   
+  </mat-toolbar-row>
 
 </mat-toolbar>
 

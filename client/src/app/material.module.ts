@@ -16,7 +16,8 @@ import {
   MatSnackBarModule,
   MatAutocompleteModule,
   MatDatepickerModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatTabsModule
   
   
   
@@ -41,7 +42,8 @@ import {
     MatAutocompleteModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTabsModule
   ]
 })
 export class MaterialModule {}

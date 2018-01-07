@@ -19,12 +19,11 @@ export class HomeComponent implements OnInit,OnDestroy {
       switch(data.msg){
         case MenuService.messages.SHOW_APPS: this.showApps=data.value;
         break;
-        case MenuService.messages.APPS: this.userApps=data.value;        
-        break;
+       
       }
     })
 
-    this.menuService.loadAppsMenu();
+    this.menuService.getMenu().subscribe(menu=>this.userApps=menu);
 
    ;
   }
@@ -34,8 +33,7 @@ export class HomeComponent implements OnInit,OnDestroy {
   }
 
   onAppClick(i:number){
-    this.menuService.selectApp(i);          
-    //this.userApps=[];
+    this.menuService.selectApp(i);
   }
 
 }

@@ -14,29 +14,28 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   user: User;
   currentApp;
-  selectedOptionIndex;
+  ;
   //subscription to menu service messages
   private sub;
   //subscription to session changes
   private sessionSub;
   constructor(private authService: AuthService, private menuService: MenuService,
-    private router:Router) { }
+    private router: Router) { }
 
   ngOnInit() {
 
     this.sub = this.menuService.msgPublisher$.subscribe(data => {
-      switch (data.msg) {
-        case MenuService.messages.SELECT_OPTION: this.selectedOptionIndex = data.value;
-          break;
-        //makes the tabs change, everytime the user selects a new app         
-        case MenuService.messages.SELECTED_APP: this.currentApp = data.value;
+      switch (data.msg) {             
+        case MenuService.messages.SELECTED_APP:
+          this.menuService.getMenu().first().subscribe(menu=>{          
+            this.currentApp = menu[data.value];
+          })
           break;
       }
     })
     //gets the user after a pageReload
-    this.user=this.authService.getUser();
-
-    this.sessionSub=this.authService.sessionChanges$.subscribe(user => {
+    this.user = this.authService.getUser();
+    this.sessionSub = this.authService.sessionChanges$.subscribe(user => {
       this.user = user;
     })
 
@@ -54,7 +53,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.menuService.selectAppOption(index);
   }
 
-  logout(){
+  logout() {
     this.router.navigate(['login']);
     this.authService.logout();
   }

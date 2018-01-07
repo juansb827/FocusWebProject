@@ -4,31 +4,48 @@
   
     //background-color: #eee;
     padding-top:75px;
-    background-image: url('/assets/img/home-background.jpg');   
+    background-image: url('/assets/img/1.jpg');   
     background-size: cover;
 }
 
 
 .grid-wrapper{    
 /*use repeat(# of times, measurement)     */
-margin-left:5%;
-width: 90%;
 
-display: grid;
-grid-template-columns: repeat(2,1fr);
-grid-gap:2em;  
+max-width:90%;
+position:relative;
+display: flex;
+justify-content: space-between;
+-webkit-flex-wrap: wrap;
+flex-wrap: wrap;
+margin:auto;
+
 
 }
 
 .app-box{
-    cursor: pointer; cursor: hand;       
+    cursor: pointer; cursor: hand;     
+    position: relative;
+    box-sizing:border-box;
+    height:0;
+    width:48%;
+    padding-bottom:48%;
+    margin-bottom: 2%;
+    margin-top: 2%;
     
-    padding-top: 20px;
-    border:1px solid transparent;
-    border-radius:15px;  
-    padding: 1em;
-    text-align: center;
+    
+    
+     
+    
+    
+    border:1px solid red;    
+    border-radius:15px;      
+    
     transition: all .5s ease;
+
+    text-align: center
+  
+    
 }
 
 .app-box:hover{
@@ -38,40 +55,46 @@ grid-gap:2em;
     
 }
 
-.app-icon{
-    font-size:5em;    
+.app-icon{   
+    margin-top:4vw; 
     width: 100%;
+    font-size:25vw;        
     color:#F5F5F5;font:bold;
-    margin-bottom: 1em;    
-
 }
-.app-text{
-    
+.app-text{ 
+       
     width:100%;
     word-wrap: break-word;         
-    font-size:1.2em;
+    font-size:5vw;        
     color:white;font:bold;       
 }
 
-@media all and (min-width: 1024px){
+@media all and (min-width: 768px){
     .grid-wrapper{    
         /*use repeat(# of times, measurement)     */
-        margin-left:15%;
-        width: 70%;        
+     
+      width: 70%;        
         grid-template-columns: repeat(5,1fr);
         
         
         }
 
-        .app-text{
-               
-            font-size:1.5em;
-          
+        .app-box{
+            width:17%;
+            padding-bottom:17%;
+
+            margin-bottom: 1.875%;
+            
+        }
+
+        .app-text{               
+            font-size:1.7vw;          
             
         }
 
         .app-icon{
-            font-size:7em;    
+            margin-top:auto;
+            font-size:8vw;    
             
         
         }

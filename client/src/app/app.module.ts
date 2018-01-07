@@ -23,6 +23,8 @@ import { SnackbarComponent } from './messages/toaster.service';
 import { ToasterService } from './messages/toaster.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+import { TabsComponent } from './home/tabs.components';
+import { ContentDisplayerComponent } from './home/content-displayer.component';
 
 import {DynamicFormsModule} from './forms/forms.module'
 import {  MAT_DATE_LOCALE } from '@angular/material';
@@ -47,6 +49,8 @@ import { FormService } from './forms/form.service';
     LoginComponent,
     NavbarComponent,
     HomeComponent,
+    ContentDisplayerComponent,
+    TabsComponent,
     SnackbarComponent,     
     
     
