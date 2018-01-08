@@ -1,13 +1,13 @@
 <mat-toolbar class="toolbar" *ngIf="user" color="primary">
 
   <mat-toolbar-row>
-    <div class="app-area" *ngIf="currentApp"  [ngStyle]="{'opacity':(showAppSection?1:0)}" >
+    <div class="app-area"  >
 
-      <div class="icon-wrapper" (click)="goBack()" >
+      <div class="icon-wrapper" (click)="goBack()"  [ngStyle]="{'opacity':(showAppSection?1:0)}">
         <mat-icon >keyboard_arrow_left</mat-icon>
       </div>
 
-      <span class="app-name" *ngIf="currentApp">{{currentApp.name}}</span>
+      <span class="app-name"   [ngStyle]="{'opacity':(showAppSection?1:0)}">{{ currentApp?currentApp.name:''}}</span>
 
       <div class="user-actions-mobile" [matMenuTriggerFor]="appMenu" >
           <mat-icon >menu</mat-icon>

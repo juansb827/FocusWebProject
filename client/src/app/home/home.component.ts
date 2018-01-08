@@ -43,7 +43,12 @@ export class HomeComponent implements OnInit,OnDestroy,AfterViewChecked {
   }
 
   onAppClick(i:number){
-    this.menuService.selectApp(i);
+    //Wait 300ms so the user will see an animation 
+    setTimeout(()=>{
+      this.menuService.selectApp(i)
+      
+    },300);
+    
   }
 
 }

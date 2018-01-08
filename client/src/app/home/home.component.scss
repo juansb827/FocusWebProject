@@ -1,9 +1,10 @@
 .home-component{    
     height: 100%;
     width:100%;  
-  
+    box-sizing: border-box;
     //background-color: #eee;
     padding-top:75px;
+    
     background-image: url('/assets/img/1.jpg');   
     background-size: cover;
 }
@@ -22,7 +23,17 @@ margin:auto;
 transition: opacity 0.3s ease-in;
 
 
+
+//The menu will look strage if it's selected as text
+-webkit-user-select: none; /* Safari */        
+-moz-user-select: none; /* Firefox */
+-ms-user-select: none; /* IE10+/Edge */
+user-select: none; /* Standard */
+
+
 }
+
+
 
 .app-box{
     cursor: pointer; cursor: hand;     
@@ -32,26 +43,27 @@ transition: opacity 0.3s ease-in;
     width:48%;
     padding-bottom:48%;
     margin-bottom: 2%;
-    margin-top: 2%;
-    
+    margin-top: 2%;   
     
     
      
     
     
-    border:1px solid red;    
+    border:1px solid transparent;    
     border-radius:15px;      
     
-    transition: border,background-color .3s ease-in;
+    transition: border-color .3s ease-in, background-color .3s ease-in;
+    
 
-    text-align: center
+    text-align: center;
+
   
     
 }
 
 .app-box:hover{
    
-    border:1px solid ;
+    border-color:black ;
     background-color:rgba(255,0,0,0.4)  ;      
     
 }
