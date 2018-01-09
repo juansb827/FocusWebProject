@@ -23,10 +23,13 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
   //for the form editor
   editMode: boolean = false;
 
+  innerWidth: Number;
   constructor(
     private formService: FormService,
     private fcService: FormControlService,
     private dragService: DragulaService) {
+      this.innerWidth=window.screen.width;
+      console.log(  (window.screen.height) + "hpx", (window.screen.width) + "wpx");
    /*
     dragService.setOptions('nested-bag', {
       moves: function (el: any, container: any, handle: any): any {
@@ -38,6 +41,30 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
     });
  */
   
+  }
+
+  getColspan(field:FieldBase<any>) {
+    //console.log("get colspan");
+
+    return ' colspan-sm-'+(null || 12)+
+           ' colspan-md-'+(null || 6) +
+           ' colspan-lg-'+(field.appearance.colspan || 1);
+
+    /*
+    console.log("getColsPan",this.innerWidth);
+    const width=window.screen.width;
+    if (!field.appearance.colspan) return 1;
+    
+    if(width<1024 && width>768){
+      //if small-screen colspan it's not defined, 
+      // the colspan wll be twice than on desktop's
+      
+      return  null || (field.appearance.colspan+1);
+    }else if(width<=768){
+      return 12 || (field.appearance.colspan*2);
+    }
+    return field.appearance.colspan;
+    */
   }
 
   ngOnDestroy(){

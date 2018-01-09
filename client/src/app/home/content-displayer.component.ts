@@ -9,7 +9,7 @@ import { MenuService } from '../menu/mock-menu.service'
 @Component({  //<ng-template ad-host></ng-template>
   selector: 'content-displayer',
   template:
-  `<div style="text-align:center;margin-top:0px">
+  `<div style="text-align:center;">
     <dynamic-form *ngIf="form" [form]="form">
     </dynamic-form>
     <div *ngIf="!form">Cargando formulario...</div>

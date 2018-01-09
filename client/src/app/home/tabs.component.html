@@ -1,8 +1,8 @@
-<div style="text-align:center;margin-top:60px">
+
+    
       <mat-tab-group *ngIf="currentApp" [selectedIndex]="selectedTab" (selectedIndexChange)="onTabChange($event)" #tabGroup  >           
         <mat-tab [label]="option.name" *ngFor="let option of currentApp.options;let i=index;">
               <content-displayer *ngIf="selectedTab==i" [contentId]="option.form">                  
               </content-displayer>
         </mat-tab>        
-    </mat-tab-group>
-</div>
+    </mat-tab-group> 

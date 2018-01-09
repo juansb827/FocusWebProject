@@ -56,7 +56,8 @@
         </mat-form-field>
 
         <!-- Radio Group-->
-        <mat-radio-group *ngSwitchCase="'radioGroup'" [formControlName]="field.id" style="display: inline-flex; flex-direction: column;text-align:left">
+        <mat-radio-group *ngSwitchCase="'radioGroup'" [formControlName]="field.id" 
+        style="margin-top:-10px;display: inline-flex; flex-direction: column;text-align:left">
 
             <mat-radio-button *ngFor="let option of optionList" [value]="option.value" style="margin: 5px;">
                 {{option.label}}

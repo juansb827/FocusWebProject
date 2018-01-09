@@ -26,8 +26,8 @@
     display: flex;
     text-align: center;
     align-items: center;
-    padding-right:2.5%;    
-    padding-left:2.5%;    
+  //  padding-right:2.5%;    
+    //padding-left:2.5%;    
     transition: opacity 0.3s ease-in-out;
 }
 .icon-wrapper > mat-icon{  
@@ -53,24 +53,22 @@
     width: auto !important;
 }
 
-.toolbar> mat-toolbar-row{
-    padding:0px;
+.toolbar {
+    padding:0px !important  ;
 }
-
 
 
 .toolbar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    width: 100%  !important;
     
-}
+    z-index: 999;
+    position: fixed;
+    height: 55px !important;
+  }
+
+  
 
 
-
-
+//Requires View Encapsulation Deactivated
 .mat-menu-panel.user-dropdown {
     max-width:none;
     width: 100vw; 
@@ -96,7 +94,7 @@
 @media all and (min-width: 768px){
 
     .icon-wrapper{
-        padding-right:1.5%;    
+        padding-right:2%;    
         padding-left:1.5%;    
     }
     .user-icon{

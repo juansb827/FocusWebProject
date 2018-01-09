@@ -12,7 +12,10 @@ export class HomeComponent implements OnInit,OnDestroy,AfterViewChecked {
   userApps=[];  
   showApps:boolean=false;
   sub;
-  constructor(private menuService:MenuService) { };
+  constructor(private menuService:MenuService) { 
+   
+
+  };
 
   ngOnInit() {       
     this.sub=this.menuService.msgPublisher$.subscribe(data=>{      

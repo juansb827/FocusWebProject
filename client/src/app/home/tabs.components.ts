@@ -11,7 +11,7 @@ import { MenuService } from '../menu/mock-menu.service'
     selector: 'tabs-container',
     templateUrl: './tabs.component.html',
 
-    styleUrls: []
+    styleUrls: ['./tabs.component.scss']
 })
 /*
    
@@ -49,9 +49,10 @@ export class TabsComponent implements OnInit, OnDestroy, AfterViewInit {
         */
 
         this.route.params.subscribe(params => {
-            this.menuService.getMenu().subscribe(menu=>{
+            this.menuService.getMenu().subscribe(menu=>{                
                 this.currentApp=menu[params.appId];
                 this.selectedTab=params.optionId;
+              
             });       
           
         })
