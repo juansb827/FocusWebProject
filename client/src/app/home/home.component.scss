@@ -3,24 +3,25 @@
     width:100%;  
     box-sizing: border-box;
     //background-color: #eee;
-    padding-top:75px;
     
-    background-image: url('/assets/img/1.jpg');   
+    padding-top:75px;
+    //background-image: url('/assets/img/color10.png');   
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
     background-size: cover;
 }
 
 
 .grid-wrapper{    
-/*use repeat(# of times, measurement)     */
 
-max-width:90%;
-position:relative;
-display: flex;
-justify-content: space-between;
--webkit-flex-wrap: wrap;
-flex-wrap: wrap;
+
+
+width:90%;
+
+text-align: center;
+
 margin:auto;
-transition: opacity 0.3s ease-in;
+transition: opacity 0.4s ease-in;
+
 
 
 
@@ -36,89 +37,96 @@ user-select: none; /* Standard */
 
 
 .app-box{
-    cursor: pointer; cursor: hand;     
+  
+    
+    float:left;
+  
     position: relative;
-    box-sizing:border-box;
-    height:0;
-    width:48%;
-    padding-bottom:48%;
-    margin-bottom: 2%;
-    margin-top: 2%;   
+    width: 46%;
+    padding-bottom: 46%;
+    overflow: hidden;
+    margin: 2%;
+  
+    color : white;
     
-    
-     
-    
-    
+
+    box-sizing: border-box;
     border:1px solid transparent;    
     border-radius:15px;      
     
     transition: border-color .3s ease-in, background-color .3s ease-in;
     
 
-    text-align: center;
-
   
     
+}
+
+.box-content{
+    box-sizing: border-box;
+    text-align: center;
+        padding-top: 3vw;
+        position : absolute;
+        height : 100%;
+        width:100%;
+      
 }
 
 .app-box:hover{
    
     border-color:black ;
-    background-color:rgba(255,0,0,0.4)  ;      
+    background-color:rgba(255,0,0,0.1)  ;      
     
 }
 
-.app-icon{   
-    margin-top:4vw; 
+.app-icon{ 
+    display: block  ;
+    
     width: 100%;
-    font-size:25vw;        
+    font-size: 25vw;
+    height: 25vw;
     color:#F5F5F5;font:bold;
 }
 
-.app-icon:hover{   
-    
-    
-}
-.app-text{ 
+
+//MAXIMUM 20 CHARACTERS LONG TO LOOK GOOD
+.app-text{                 
+    display: block;
        
     width:100%;
     word-wrap: break-word;         
     font-size:5vw;        
-    color:white;font:bold;       
+    color:white;
+    font-weight:bold;       
 }
 
 @media all and (min-width: 768px){
-    .grid-wrapper{    
-        /*use repeat(# of times, measurement)     */
-     
-      width: 70%;        
-     
-      
+    .grid-wrapper{
+        width:85%;
+    }
+    
+    .app-box{
         
+        width:17%;
+        padding-bottom:17%;
+        margin: 1.5%; //  Remaining space/(columsn*2)
+    }  
+
+    
+    .box-content{
+        padding-top:1.5vw;
         
-        }
+    }
+    .app-text{    
+    font-size:1.7vw;
+    word-wrap: break-word;                  
+    }
 
-        .app-box{
-            width:17%;
-            padding-bottom:17%;
 
-            margin-bottom: 1.875%;
-            
-        }
+    .app-icon{
+        margin-top:auto;
+        font-size:9vw;  
+        height: 9vw;
+    } 
 
-        .app-text{               
-            font-size:1.7vw;                  
-        }
-
-        
-        .app-icon{
-            margin-top:auto;
-            font-size:8vw;  
-          
-            
-        
-        }
-
-        
   }
   

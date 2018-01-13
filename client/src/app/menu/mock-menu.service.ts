@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 // Todo: get from a remote source
 let userMenuu = [
     {
-        name: 'Inspeccion Contenedores', icon: 'home', options: [
+        name: 'Contenedores', icon: 'home', options: [
             { name: 'Creacion de Turnos', icon: 'warning', form: 'turnos_inspeccion' },
             { name: 'Opcion2', icon: 'warning', form: 'turnos_inspeccion' },
             { name: 'Opcion3', icon: 'warning' }
