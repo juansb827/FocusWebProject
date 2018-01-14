@@ -8,7 +8,7 @@ var basename = path.basename(module.filename);
 //var env = process.env.NODE_ENV || "development";
 var env= "DEV";
 var config = require(  './../../config/db_config_DEV');
-var modelsFolder = path.join(__dirname,'./../models/');
+var modelsFolder = path.join(__dirname,'./../models/relational/');
 
 
 
