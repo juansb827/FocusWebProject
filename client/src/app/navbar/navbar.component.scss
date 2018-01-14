@@ -1,4 +1,12 @@
 .app-area{
+    
+
+//The menu will look strage if it's selected as text
+-webkit-user-select: none; /* Safari */        
+-moz-user-select: none; /* Firefox */
+-ms-user-select: none; /* IE10+/Edge */
+user-select: none; /* Standard */
+
     display:flex;
     height: 100%;
     width:100%;
@@ -7,6 +15,7 @@
   
 }
 .app-name{
+  
     font-size:1em;
     transition: opacity 0.3s ease-in-out;
 }
@@ -16,9 +25,6 @@
 }
 
 
-.dropdown-icon{
-    font-size:1.5em;          
-}
 
 .icon-wrapper{                
     
@@ -37,7 +43,13 @@
     width: auto !important;
 }
 
+.dropdown-icon{
+    font-size:1.5em;          
+}
+
+
 .user-actions-mobile{
+    width: 2em;
     height: 100%;
     display: flex;
     text-align: center;
