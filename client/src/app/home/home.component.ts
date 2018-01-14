@@ -1,5 +1,5 @@
 import { Component, OnInit,OnDestroy,AfterViewInit,AfterViewChecked } from '@angular/core';
-import { MenuService } from '../menu/mock-menu.service';
+import { MenuService } from '../menu/menu.service';
 
 
 @Component({

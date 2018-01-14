@@ -16,7 +16,7 @@ import { AppConfig } from './app.config';
 
 import { AuthService } from './authentication/authentication.service';
 import { TokenInterceptor } from './authentication/token.interceptor';
-import { MenuService } from './menu/mock-menu.service';
+import { MenuService } from './menu/menu.service';
 import { AuthGuard } from './authentication/authentication.guard';
 import { LoginComponent } from './authentication/login/login.component';
 import { SnackbarComponent } from './messages/toaster.service';

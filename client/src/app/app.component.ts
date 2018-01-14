@@ -1,5 +1,5 @@
 import { Component,OnInit, ViewChild} from '@angular/core';
-import { MenuService } from './menu/mock-menu.service';
+import { MenuService } from './menu/menu.service';
 import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({

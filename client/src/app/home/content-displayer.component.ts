@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Form } from './../forms/form'
 
 import { FormService } from '../forms/form.service'
-import { MenuService } from '../menu/mock-menu.service'
+import { MenuService } from '../menu/menu.service'
 
 @Component({  //<ng-template ad-host></ng-template>
   selector: 'content-displayer',

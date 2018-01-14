@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../authentication/authentication.service';
 
-import { MenuService } from '../menu/mock-menu.service';
+import { MenuService } from '../menu/menu.service';
 import { User } from '../user/user';
 
 @Component({
