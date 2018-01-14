@@ -18,27 +18,23 @@ import { AuthService } from './authentication/authentication.service';
 import { TokenInterceptor } from './authentication/token.interceptor';
 import { MenuService } from './menu/menu.service';
 import { AuthGuard } from './authentication/authentication.guard';
+import { ToasterService } from './messages/toaster.service';
+import { AlertService } from './messages/alert.service';
+
+
+/** components */
 import { LoginComponent } from './authentication/login/login.component';
 import { SnackbarComponent } from './messages/toaster.service';
-import { ToasterService } from './messages/toaster.service';
+import { DialogComponent } from './messages/dialog.component';
+
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { TabsComponent } from './home/tabs.components';
 import { ContentDisplayerComponent } from './home/content-displayer.component';
 
 import {DynamicFormsModule} from './forms/forms.module'
-import {  MAT_DATE_LOCALE } from '@angular/material';
- //dynamic forms
- /*
- import { FormDisplayerComponent } from './forms/form-displayer.component';
-import { DynamicFormComponent,TimesPipe } from './forms/dynamic-form.component';
-import { DynamicFormFieldComponent } from './forms/dynamic-form-field.component';
-import { FormControlService } from './forms/form-control.service';
-import { FormService } from './forms/form.service';
-*/
 
 
-/**/
 
 
 
@@ -51,7 +47,8 @@ import { FormService } from './forms/form.service';
     HomeComponent,
     ContentDisplayerComponent,
     TabsComponent,
-    SnackbarComponent,     
+    SnackbarComponent,   
+    DialogComponent  
     
     
   ],
@@ -78,11 +75,13 @@ import { FormService } from './forms/form.service';
     },    
     AuthGuard,
     ToasterService,
+    AlertService,
     MenuService    
         
   ],
   entryComponents:[
     SnackbarComponent,  
+    DialogComponent
 
      
   ],

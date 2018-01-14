@@ -7,6 +7,8 @@ import { Form, FormError } from './form'
 import { FieldBase } from './field-base'
 import { DragulaService } from 'ng2-dragula';
 
+import { AlertService } from './../messages/alert.service'
+
 
 @Component({
   selector: 'dynamic-form',
@@ -27,7 +29,8 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
   constructor(
     private formService: FormService,
     private fcService: FormControlService,
-    private dragService: DragulaService) {
+    private dragService: DragulaService,
+    private alertService: AlertService) {
       this.innerWidth=window.screen.width;
       console.log(  (window.screen.height) + "hpx", (window.screen.width) + "wpx");
    /*
@@ -115,11 +118,15 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
   }
 
   onSubmit() {
+ 
+  
     if(this.formGroup.invalid!){
       //mark everyfield as touched, so errors will be displayed in the ui
       this.markFormGroupAsTouched(this.formGroup);
       return;
     }
+
+    this.alertService.showDialog(null,null);
     
     console.log("group",this.formGroup.controls);    
     console.log("preformData", this.formGroup.value);
@@ -127,9 +134,13 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
     console.log("formData",JSON.stringify (formData ));
 
     this.formService.saveFormData(formData,this.form.id)
+     
       //.finally(() => console.log("final2"))
       .subscribe(
-      x => console.log("success", x),
+      x => {
+        console.log("success", x);
+        
+      },
       e => console.log("error", e),
       () => console.log("final")
       );
