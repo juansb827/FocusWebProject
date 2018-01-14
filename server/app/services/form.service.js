@@ -6,6 +6,7 @@ var Promise = require('bluebird');
 Promise.promisifyAll(fs);
 
 var formsPath = __dirname + '/../forms/';
+var benchmark = require('./../utils/benchmark');
 var appError = require('./../utils/error').appError
 var errorTypes = require('./../utils/error').errorTypes;
 var service = {};
@@ -15,7 +16,7 @@ service.saveFormData = saveFormData;
 service.save = save;
 module.exports = service;
 
-var databases = require('./../database/config_loader');
+var databases = require('./../database/sequelize_config_loader');
 
 var defaultValues = {
     "lineaNaviera": { "value": "ROT", "label": "ROTTERDAN" },
@@ -34,21 +35,14 @@ var forms = {
     }
 }
 
-const NS_PER_SEC = 1e9;
-function clock(start) {
-    if ( !start ) return process.hrtime();   
-    const diff=process.hrtime(start);
-    const nano=diff[0] * NS_PER_SEC + diff[1];
-    const mili=nano/(1e6);
-    console.log(`Benchmark took ${nano} nanoseconds, or ${mili} ms`);    
-}
+
 
 
 Object.keys(forms).forEach(formName => {  
     let formConfig=forms[formName];
-    let start=clock();
+    let start=benchmark();
     formConfig.form = require(formsPath + formConfig.fileName + '.json');   
-    clock(start);
+    benchmark(start,"Loading the forms");
     formConfig.dbconfig = require(formsPath + formConfig.fileName + '_dbconfig.json');
 });
 

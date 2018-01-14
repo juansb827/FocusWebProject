@@ -25,12 +25,18 @@ select top 10 tercero,ter_razons from terceros where tercero LIKE '7528%'
 //TODO guardar menus en local storage
 //remove mock menu service
 
-add heroku remote 
+//add heroku remote 
 git remote add heroku_client https://git.heroku.com/focusweb-api.git
+//push the client 
+git subtree push --prefix server heroku_client master
+//force push the client
+git push heroku_client `git subtree split --prefix client master`:master --force
 
 push to heroku the server 
 git subtree push --prefix server heroku_api master
+
 push to heroku the client
+
 
 
 

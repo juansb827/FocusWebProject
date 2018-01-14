@@ -1,10 +1,12 @@
 
 var async = require('async');
-var server = require('./config/initializers/server');
 var fs = require('fs');
+
+
 
 var errorHandler=require('./app/utils/errorHandler')
 var server = require('./config/initializers/server');
+var connectionTester = require('./config/initializers/relational_db_connection_tester');
 var appError = require('./app/utils/error').appError
 var errorTypes = require('./app/utils/error').errorTypes;
 
@@ -24,10 +26,15 @@ require('dotenv').load();
 
 async.series([
 	function initializeDbConnection(callback){
-		require('./app/database/mongodb.js');
-		//var db_con_manager = require('./app/database/connection_manager');
-		//db_con_manager(db_config,startServer); 
-		callback();
+		//Connects to MongoDB
+		require('./config/initializers/mongodb');
+		//Initializes Sequelize
+		var seq_configs = require('./app/database/sequelize_config_loader');
+		//Checks if connections to Relational DBs are OK
+		connectionTester.testConnections(seq_configs,callback);
+		
+		
+		
 	},
 	function startServer(callback){
 		server(callback);

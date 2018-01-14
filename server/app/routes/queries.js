@@ -4,7 +4,7 @@ var Promise = require('bluebird');
 var sequelize = require("sequelize");
 const Op = sequelize.Op
 
-var databases = require('./../database/config_loader');
+var databases = require('./../database/sequelize_config_loader');
 // routes
 
 router.get('/:_id', doQuery);

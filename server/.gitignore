@@ -1,6 +1,13 @@
 logs/*
 !.gitkeep
-node_modules/
+
+!node_modules/
+
+node_modules/*
+!node_modules/sequelize
+
+
+
 bower_components/
 tmp
 .DS_Store

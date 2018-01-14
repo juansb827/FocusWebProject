@@ -4,7 +4,7 @@ var Promise = require('bluebird');
 var appError= require('./../utils/error').appError
 var errorTypes= require('./../utils/error').errorTypes;
 // routes
-var databases = require('./../database/config_loader');
+var databases = require('./../database/sequelize_config_loader');
 router.get('/:_id', get);
 module.exports = router;
 

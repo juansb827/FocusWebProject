@@ -1,3 +1,6 @@
+/**
+ * Initializes  the sequelize library
+ */
 var fs = require("fs");
 var path = require("path");
 var Sequelize = require("sequelize");
@@ -52,9 +55,8 @@ getDatabases().forEach(function(db_name){
 
 
 /*
-* Loads all the models in the model folder
+* Loads all the models from the 'models/relational' folder
 */
-console.log("base",modelsFolder);
 fs
 .readdirSync(modelsFolder)
 //removes this file (index.js) from the file list
