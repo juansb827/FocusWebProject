@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../authentication/authentication.service';
-
+import { Observable } from 'rxjs/Observable';
 import { MenuService } from '../menu/menu.service';
 import { User } from '../user/user';
 
@@ -13,13 +13,11 @@ import { User } from '../user/user';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
-  user: User;
+  user: Observable<any>;
   currentApp;
   showAppSection: boolean;
   //subscription to menu service messages
-  private sub;
-  //subscription to session changes
-  private sessionSub;
+  private sub;  
   constructor(private authService: AuthService, private menuService: MenuService,
     private router: Router) { }
 
@@ -42,10 +40,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     })
     //gets the user after a pageReload
-    this.user = this.authService.getUser();
-    this.sessionSub = this.authService.sessionChanges$.subscribe(user => {
-      this.user = user;
-    })
+    this.user = this.authService.user;
+    
 
 
 
@@ -54,14 +50,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-    this.sessionSub.unsubscribe();
   }
 
   onTabClick(index) {
     this.menuService.selectAppOption(index);
   }
 
-  logout() {
+  logout(){
     this.router.navigate(['login']);
     this.authService.logout();
   }

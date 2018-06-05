@@ -6,13 +6,16 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
 import * as JWT from 'jwt-decode';
 import { AppConfig } from '../app.config';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable()
 export class AuthService {
 
-    private sessionChanges = new Subject<any>();
-    sessionChanges$ = this.sessionChanges.asObservable();
+    private _user: BehaviorSubject<any> = new BehaviorSubject(null);
+    user: Observable<any> = this._user.asObservable();
+
+    
 
     getToken(): string {
         return localStorage.getItem('token');
@@ -31,17 +34,19 @@ export class AuthService {
 
 
 
-    constructor(private config: AppConfig, private http: HttpClient) { }
+    constructor(private config: AppConfig, private http: HttpClient) {
+        this._user.next(this.getUser());
+     }
 
     login(email: string, password: string) {
 
-        return this.http.post(this.config.apiUrl + '/auth/login', {
+        this.http.post(this.config.apiUrl + '/auth/login', {
             name: "example",
             email: email,
             company: "testCompany",
             password: password
         })  //TODO validate  resp against interface
-            .map((resp: any) => {
+        .map((resp: any) => {
                 // login successful if there's a jwt token in the response
 
                 if (resp && resp.auth) {
@@ -49,22 +54,21 @@ export class AuthService {
                     const token = resp.token;
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                    localStorage.setItem('token', JSON.stringify(token));
-                    this.sessionChanges.next(user);
+                    localStorage.setItem('token', JSON.stringify(token));    
                     return user;
                 }else{
                     throw new Error("Failed Authentication")
                 }
-            });
+            })
+            .subscribe(user => this._user.next(user))
 
     }
 
     logout() {
-        // remove user from local storage to log user out
-        
-        localStorage.removeItem('currentUser');
+        // remove user from local storage to log user out        
+        localStorage.removeItem('curssrentUser');
         localStorage.removeItem('token');
-        this.sessionChanges.next(null);
+        this._user.next(null)        
     }
 
     
