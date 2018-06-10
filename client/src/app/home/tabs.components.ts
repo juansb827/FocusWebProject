@@ -66,17 +66,17 @@ export class TabsComponent implements OnInit, OnDestroy, AfterViewInit {
             console.log("Option was", e);
         });   
 
-        /*  Handles the case When the user refreshes the page
-        */
-        this.selectedApp$.first().subscribe( selectedApp => {
-            if(!selectedApp){ //If there is no selected app when this component inits, it is because the user when to it's url manually(e.g)
-                this.route.params.first().subscribe(params => {   
+        
+       /* If there is no 'selectedApp' when this component inits, it is because the user went to this component url from the browser url-bar
+       * or reloaded the page
+       * */
+       this.selectedApp$.first().
+            switchMap( selectedApp => !selectedApp ?  this.route.params.first() : Observable.of() )
+                .subscribe(params => {   
                     console.log("Loaded after page refresh");               
                     this.menuService.selectApp(params.appId, params.optionId);                                  
-                }) 
-            }
-
-        })        
+                })
+        
 
     }
 
