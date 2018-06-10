@@ -1,5 +1,5 @@
 /* Component that displays a DynamicForm */
-import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ComponentFactoryResolver, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Form } from './../forms/form'
 
@@ -23,7 +23,7 @@ import { MenuService } from '../menu/menu.service'
 
 //TODO move outside of my form muodule, this componenet uses FormModule but should not be part of it
 //
-export class ContentDisplayerComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ContentDisplayerComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() contentId: String;
   //private sub: any;
   form: Form;
@@ -36,11 +36,6 @@ export class ContentDisplayerComponent implements OnInit, OnDestroy, AfterViewIn
   ngOnInit() {
     console.log("!!!! Init Content DIsplay",this.contentId);
 
-    this.formService.getForm(this.contentId).subscribe(form => {
-      this.form = form
-    })
-    
-
 
 
 
@@ -52,6 +47,13 @@ export class ContentDisplayerComponent implements OnInit, OnDestroy, AfterViewIn
 
   ngAfterViewInit() {
     this.loadForm();
+  }
+  
+  ngOnChanges(changes){
+    console.log("changes",changes['contentId']);
+    this.formService.getForm(this.contentId).subscribe(form => {
+      this.form = form
+    })
   }
 
   ngOnDestroy() {

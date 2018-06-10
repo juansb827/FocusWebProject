@@ -32,7 +32,7 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
     private dragService: DragulaService,
     private alertService: AlertService) {
       this.innerWidth=window.screen.width;
-      console.log(  (window.screen.height) + "hpx", (window.screen.width) + "wpx");
+     // console.log(  (window.screen.height) + "hpx", (window.screen.width) + "wpx");
    /*
     dragService.setOptions('nested-bag', {
       moves: function (el: any, container: any, handle: any): any {

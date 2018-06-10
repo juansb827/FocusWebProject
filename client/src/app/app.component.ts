@@ -16,21 +16,7 @@ export class AppComponent implements OnInit{
   constructor(private menuService:MenuService){}
 
   ngOnInit(){
-    this.menuSub=this.menuService.msgPublisher$.subscribe(data=>{
-      
-        switch (data.msg) {
-          case MenuService.messages.SELECTED_APP: 
-          /*
-            if(data.value){
-              this.currentApp = data.value;
-              this.sidenav.open();
-            }             */
-          break;
-        
-      }
-      
-    })
-
+    
   }
 
   ngOnDestroy() {

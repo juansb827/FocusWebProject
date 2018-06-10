@@ -1,61 +1,82 @@
 /* Component that displays a DynamicForm */
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ComponentFactoryResolver, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import {MatTabGroup} from '@angular/material'
-import { Form } from './../forms/form'
+import { Observable } from 'rxjs/Observable';
 
+import { Form } from './../forms/form'
 import { FormService } from '../forms/form.service'
 import { MenuService } from '../menu/menu.service'
+import { Subscription } from 'rxjs';
 
 @Component({  //<ng-template ad-host></ng-template>
     selector: 'tabs-container',
     templateUrl: './tabs.component.html',
 
-    styleUrls: ['./tabs.component.scss']
+    styleUrls: ['./tabs.component.scss'],
+    
 })
 /*
    
 */
 
 
-//TODO move outside of my form muodule, this componenet uses FormModule but should not be part of it
-//
+
 export class TabsComponent implements OnInit, OnDestroy, AfterViewInit {
 
-    selectedTab;
-    currentApp;   
-    sub;
+    selectedOptionId$: Observable<any>;
+    selectedApp$: Observable<any>;
+    selectedOption$: Observable<any>;
+    
+    selectedTab;    
+    
+    tabs = [];
+
+    sub: Subscription;
+    appSub: Subscription;
   
-    constructor(private route: ActivatedRoute,
+    constructor(private route: ActivatedRoute, private menuService: MenuService) {
+        
+        this.selectedOptionId$ = this.menuService.selectedOptionId$;
+        this.selectedApp$ = this.menuService.selectedApp$;
+        this.selectedOption$ = this.menuService.selectedOption$;
 
-        private menuService: MenuService) { }
+        
+        
+                 
+        
+     }
 
-    onTabChange(index){     
-       this.menuService.selectAppOption(index);
+    onTabChange(index){          
+       this.menuService.selectAppOption(this.tabs[index].id);
     }    
 
-    ngOnInit() {
-       
-        console.log("TABSSS")
-    
-       /*
-        this.menuService.msgPublisher$.subscribe(msg=>{
-            switch (msg){
-                case MenuService.messages.SELECT_OPTION:
-                    this.selectedTab=msg.data;
-                break; 
-            }
+    ngOnInit() {                      
+        
+        this.appSub = this.selectedApp$.subscribe( selectedApp =>{
+            
+            if( selectedApp == null)  return;
+            selectedApp.options.forEach( opt => this.tabs.push(opt) );
+            
         })
-        */
 
-        this.route.params.subscribe(params => {
-            this.menuService.getMenu().subscribe(menu=>{                
-                this.currentApp=menu[params.appId];
-                this.selectedTab=params.optionId;
-              
-            });       
-          
-        })
+        this.sub = this.selectedOption$.subscribe( e => {
+            if(e == null)  return;            
+            this.selectedTab = this.tabs.findIndex( tabContent => tabContent.id == e.id );            
+            console.log("Option was", e);
+        });   
+
+        /*  Handles the case When the user refreshes the page
+        */
+        this.selectedApp$.first().subscribe( selectedApp => {
+            if(!selectedApp){ //If there is no selected app when this component inits, it is because the user when to it's url manually(e.g)
+                this.route.params.first().subscribe(params => {   
+                    console.log("Loaded after page refresh");               
+                    this.menuService.selectApp(params.appId, params.optionId);                                  
+                }) 
+            }
+
+        })        
 
     }
 
@@ -66,7 +87,8 @@ export class TabsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy() {
-     //   this.sub.unsubscribe();
+       this.sub.unsubscribe();
+       this.appSub.unsubscribe();
     }
 
 

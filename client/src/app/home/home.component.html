@@ -1,7 +1,7 @@
 <div class="home-component">
-<div *ngIf="userApps" style="height:100%">
-  <div class="grid-wrapper"  [ngStyle]="{'opacity':showApps?1:0}">
-    <div class="app-box" *ngFor="let app of userApps;let i=index;" (click)="onAppClick(i)">
+<div *ngIf="(userApps$ | async)" style="height:100%">
+  <div class="grid-wrapper"  [ngStyle]="{'opacity':(userApps$ | async) ? 1 : 0}">
+    <div class="app-box" *ngFor="let app of (userApps$ | async);let i=index;" (click)="onAppClick(i)">
       <div class="box-content">
       <mat-icon class="app-icon">{{app.icon}}</mat-icon>
       <span class="app-text">

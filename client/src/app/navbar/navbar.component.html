@@ -1,38 +1,38 @@
 <mat-toolbar class="toolbar" *ngIf="user | async" color="primary">
 
-  
-    <div class="app-area"  >
 
-      <div class="icon-wrapper" (click)="goBack()"  [ngStyle]="{'opacity':(showAppSection?1:0)}">
-        <mat-icon >keyboard_arrow_left</mat-icon>
-      </div>
+  <div class="app-area" *ngIf="showAppSection">
 
-      <span class="app-name"   [ngStyle]="{'opacity':(showAppSection?1:0)}">{{ currentApp?currentApp.name:''}}</span>
-
-      <div class="user-actions-mobile" [matMenuTriggerFor]="appMenu" >
-          <mat-icon >menu</mat-icon>
-      </div>
-
+    <div class="icon-wrapper" (click)="goBack()" [ngStyle]="{ 'opacity':( showAppSection? 1 : 0 ) }">
+      <mat-icon>keyboard_arrow_left</mat-icon>
     </div>
-    
-      <div class="user-actions" [matMenuTriggerFor]="appMenu">
-          <mat-icon class="dropdown-icon">person</mat-icon>    
-          <div class="username">
-            {{ (user | async).email }}
-          </div>    
-          <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
-        </div>
-        
-   
-      
-    
- 
+
+    <span class="app-name" [ngStyle]="{'opacity':(showAppSection? 1 :0 ) }">{{ (selectedApp$ | async).name }}</span>
+
+    <div class="user-actions-mobile" [matMenuTriggerFor]="appMenu">
+      <mat-icon>menu</mat-icon>
+    </div>
+
+  </div>
+
+  <div class="user-actions" [matMenuTriggerFor]="appMenu">
+    <mat-icon class="dropdown-icon">person</mat-icon>
+    <div class="username">
+      {{ (user | async).email }}
+    </div>
+    <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
+  </div>
 
 
-  
 
 
- 
+
+
+
+
+
+
+
 
 </mat-toolbar>
 
@@ -40,16 +40,15 @@
 <!-- User dropdown options -->
 <mat-menu #appMenu="matMenu" class="user-dropdown" [overlapTrigger]="false">
   <button mat-menu-item>
-          <mat-icon>settings</mat-icon>
-          <span>Configuracion</span>
-        </button>
+    <mat-icon>settings</mat-icon>
+    <span>Configuracion</span>
+  </button>
   <button mat-menu-item>
-          <mat-icon>help_outline</mat-icon>
-          <span>Ayuda</span>
-        </button>
+    <mat-icon>help_outline</mat-icon>
+    <span>Ayuda</span>
+  </button>
   <button mat-menu-item (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>
-      <span>Cerrar Sesión</span>
-    </button>
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Cerrar Sesión</span>
+  </button>
 </mat-menu>
-

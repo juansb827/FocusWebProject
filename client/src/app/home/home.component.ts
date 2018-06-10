@@ -1,4 +1,5 @@
 import { Component, OnInit,OnDestroy,AfterViewInit,AfterViewChecked } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { MenuService } from '../menu/menu.service';
 
 
@@ -9,30 +10,17 @@ import { MenuService } from '../menu/menu.service';
 })
 export class HomeComponent implements OnInit,OnDestroy,AfterViewChecked {
   
-  userApps=[];  
+  userApps$: Observable<any>;  
   showApps:boolean=false;
-  sub;
+  
   constructor(private menuService:MenuService) { 
-   
-
+      this.userApps$ = this.menuService.getMenu();
   };
 
-  ngOnInit() {       
-    this.sub=this.menuService.msgPublisher$.subscribe(data=>{      
-      switch(data.msg){
-       
-       
-      }
-    })
+  ngOnInit() {         
+  
 
   
-    this.menuService.getMenu().subscribe(menu=>{
-      this.userApps=menu;
-     
-      setTimeout(()=>{
-        this.showApps=true;       
-      })
-    });
    
    
   }
@@ -41,12 +29,13 @@ export class HomeComponent implements OnInit,OnDestroy,AfterViewChecked {
 
   
   }
+
   ngOnDestroy(){    
-    this.sub.unsubscribe();
+   
   }
 
   onAppClick(i:number){
-    //Wait 300ms so the user will see an animation 
+    //Wait 300ms so the user will be able to see an animation 
     setTimeout(()=>{
       this.menuService.selectApp(i)
       

@@ -14,34 +14,26 @@ import { User } from '../user/user';
 export class NavbarComponent implements OnInit, OnDestroy {
 
   user: Observable<any>;
+  selectedApp$: Observable<any>;
+
   currentApp;
   showAppSection: boolean;
   //subscription to menu service messages
-  private sub;  
+  
   constructor(private authService: AuthService, private menuService: MenuService,
     private router: Router) { }
 
   ngOnInit() {
-    this.sub = this.menuService.msgPublisher$.subscribe(data => {
-      switch (data.msg) {
-        case MenuService.messages.SELECTED_APP:
-          this.menuService.getMenu().first().subscribe(menu => {
-            
-            if(data.value!=null){
-              this.currentApp = menu[data.value];
-            }
-            //Sends the code to the bottom of the call stack
-            //so  the fade-in animation will start after the componenet is rendered
-            setTimeout(() => {
-              this.showAppSection = data.value!=null;
-            })
-          })
-          break;
-      }
-    })
+    
+   
     //gets the user after a pageReload
     this.user = this.authService.user;
-    
+    this.selectedApp$ = this.menuService.selectedApp$;
+    this.selectedApp$.subscribe( selectedApp => {
+      this.showAppSection =  !!selectedApp
+      
+    })
+  
 
 
 
@@ -49,7 +41,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    
   }
 
   onTabClick(index) {

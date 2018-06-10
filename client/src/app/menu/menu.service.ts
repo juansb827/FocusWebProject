@@ -1,4 +1,4 @@
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, BehaviorSubject } from 'rxjs';
 import 'rxjs/add/operator/pairwise';
 import 'rxjs/add/operator/first';
 
@@ -10,16 +10,16 @@ import { Injectable } from '@angular/core';
 let userMenuu = [
     {
         name: 'Contenedores', icon: 'home', options: [
-            { name: 'Creacion de Turnos', icon: 'warning', form: 'turnos_inspeccion' },
-            { name: 'Opcion2', icon: 'warning', form: 'turnos_inspeccion' },
-            { name: 'Opcion3', icon: 'warning' }
+            { id:23, name: 'Creacion de Turnos', icon: 'warning', form: 'turnos_inspeccion' },
+            { id:11, name: 'Opcion2', icon: 'warning', form: 'turnos_inspeccion' },
+            { id:21, name: 'Opcion3', icon: 'warning' }
         ]
     },
     {
         name: 'Bancos', icon: 'warning', options: [
-            { name: 'OpcionX', icon: 'warning' },
-            { name: 'OpcionY', icon: 'warning' },
-            { name: 'OpcionZ', icon: 'warning' }
+            { id:0, name: 'OpcionX', icon: 'warning' },
+            { id:1, name: 'OpcionY', icon: 'warning' },
+            { id:2, name: 'OpcionZ', icon: 'warning' }
         ]
     },
     { name: 'Ventas', icon: 'shopping_basket', options: [] },
@@ -29,38 +29,53 @@ let userMenuu = [
 
 ]
 
+interface UiState {
+    userId:number;
+    currentThreadId: number;
+    currentError?: string;
+}
 
 @Injectable()
 export class MenuService {
-    private messageSource = new Subject<any>();
-    msgPublisher$ = this.messageSource.asObservable();
+    
+    
+
 
     private userMenu;
+    private selectedApp = new BehaviorSubject<any>(null);
+    selectedApp$ = this.selectedApp.asObservable();
+    private selectedOptionId = new BehaviorSubject<any>(null);
+    selectedOptionId$: Observable<any>;
+    private selectedOption = new BehaviorSubject<any>(null);
+    selectedOption$ = this.selectedOption.asObservable();
 
+    //TODO store:
+    applicationState = {
+        uiState: {
 
+        },
+        storeData :{
 
-    static readonly messages = {       
-        SELECTED_APP: "SELECTED_APP",
-       
+        }
     }
 
   
-    currentAppIndex: number;
-    currentOptionIndex: number;
-    optionsSubject = new Subject<any>();
+    private currentAppIndex: number;
+    private currentOptionIndex: number;
 
-    routeChanges: Subscription;
+     
 
-    sendMessage(msg, content) {
-        console.log("onSendMessage", msg, "content", content);
-        this.messageSource.next({ msg: msg, value: content });
-    }
 
+
+
+    
     constructor(private router: Router, private route: ActivatedRoute) {
-        //Used for notify the Navbar after a page reload
+        //Used for notifying the Navbar after a page reload
+        /*
         this.routeChanges = this.router.events
             .filter(event => event instanceof NavigationEnd)
-            .subscribe((event) => {                    
+            .subscribe((event) => {    
+                if(true) return;                
                 let r = this.route;
                 
                 while (r.firstChild) {
@@ -70,14 +85,17 @@ export class MenuService {
                 r.params.first().subscribe(params => {
                     console.log("gotParamsinService", params);
                     if (!params.appId) return;
+                    console.log(";V ");
                     this.currentAppIndex=params.appId;
-                    this.sendMessage(MenuService.messages.SELECTED_APP,params.appId);            
+                    this.selectApp(params.appId, params.optionId);
+                   
+                    
                 });
 
 
             });
 
-            
+            */
     }
 
 
@@ -85,24 +103,45 @@ export class MenuService {
 
     goHome() {
         this.router.navigate(['/']);     
-        this.sendMessage(MenuService.messages.SELECTED_APP, null);
+        this.selectedApp.next(null);
 
     }
 
-    selectApp(i: number) {
+    selectApp(i: number, option?: number) {
         console.log("OnselectApp", i);
-        this.currentAppIndex = i;
-        this.selectAppOption(0);     
-
+        this.getMenu().subscribe( menu=> {
+            this.currentAppIndex = i;
+            this.selectedApp.next(menu[i]);
+            
+            if(option){
+                this.selectAppOption(option);     
+            }else{ //Selects the first option
+                const app = menu[i];
+                if(app.options && app.options.length>0){
+                    this.selectAppOption(app.options[0].id);     
+                }
+                
+            }
+        
+        })        
     }
 
-    selectAppOption(optionIndex: number) {
-        console.log("OnSelectAppOption");
+    selectAppOption(optionId: number) {
+        console.log("OnSelectAppOption", optionId);
 
         const appIndex = this.currentAppIndex;
         const app = this.userMenu[appIndex];
-        const option = app.options[optionIndex];
-        this.router.navigate(['/app', app.name, appIndex, 'option', option.name, optionIndex]);
+        const option = app.options.find( el => {             
+            return el.id == optionId 
+        });    
+        if(!option) {
+            console.log(`The option ${optionId} is not valid`);     
+            return;
+        }
+        this.selectedOptionId.next(option.id);
+        this.selectedOption.next(option);
+        
+        this.router.navigate(['/app', app.name, appIndex, 'option', option.name, option.id]);
        
     }
 
@@ -123,8 +162,7 @@ export class MenuService {
     }
 
     _menu;
-    getMenu(): Observable<any> {
-        console.log("get menu");
+    getMenu(): Observable<any> {        
         if (!this._menu) {
             this._menu = this.loadMenu().publishReplay(1).refCount();
         }
