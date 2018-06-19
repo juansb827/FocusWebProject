@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldBase, Autocomplete } from './field-base';
 import { DataSet, DataSetItem } from './form';
@@ -22,7 +22,7 @@ import * as moment from 'moment';
   selector: 'form-field',
   templateUrl: './dynamic-form-field.component.html',
 })
-export class DynamicFormFieldComponent implements OnInit {
+export class DynamicFormFieldComponent implements OnInit, OnChanges {
   @Input() field: FieldBase<any>;
   @Input() formGroup: FormGroup;
   /* For autocomplete */
@@ -43,13 +43,21 @@ export class DynamicFormFieldComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  ngOnChanges() {
+
     if (this.field.controlType == 'datepicker') {
       this.handleDateInput();
+    }
+    if (this.field.controlType == 'radioGroup'){
+
     }
     //TODO fix field class 
     if (this.field.controlType == 'autocomplete' && this.field.triggers
       && this.field.triggers.on == FieldBase.triggers.typing) {
-      this.initRemoteAutocomplete();
+      const searchTerms = this.formGroup.controls[this.field.id].valueChanges;
+      this.filteredOptions = this.initRemoteAutocomplete(searchTerms);
     } else if (this.field.datasetName) {
       this.loadDataset();
     } else if (this.field.dataset) {
@@ -59,7 +67,14 @@ export class DynamicFormFieldComponent implements OnInit {
 
   }
 
-  
+  onClickRadioButton(event){    
+    if(this.field.readonly){
+      event.preventDefault();
+    }
+    
+  }
+
+
 
 
   toDate(dateStr) {
@@ -78,16 +93,17 @@ export class DynamicFormFieldComponent implements OnInit {
     } else {
       this.formService.getDataSet(control.datasetName)
         .subscribe(
-        dataSet => {
-          if (!dataSet) return;
-          const options = (dataSet as DataSet).items;
-          if (this.field.controlType === 'autocomplete') {
-            this.initAutocomplete(options);
+          dataSet => {
+            if (!dataSet) return;
+            const options = (dataSet as DataSet).items;
+            if (this.field.controlType === 'autocomplete') {
+              const searchTerms = this.formGroup.controls[this.field.id].valueChanges;
+              this.filteredOptions = this.initAutocomplete(searchTerms,options);
+            }
+            else {
+              this.optionList = options;
+            }
           }
-          else {
-            this.optionList = options;
-          }
-        }
         );
 
     }
@@ -96,53 +112,61 @@ export class DynamicFormFieldComponent implements OnInit {
 
   }
   /**
+   * @param searchTerms - Stream of search terms
+   * @returns an observable of search results
    * Autocomplete over a list that is too big to be stored on the client side,
    * After each keystroke, an API call is performed. 
-   * The api will response with a list of maximum 20 results..
-   * In order to reduce the number of API calls,  once the API responds a list of  19 results or less,
-   * We store this last set of results, and perform subsequent searches over it, instead of calling the API. 
+   * The api will respond with a list of maximum API_MAX_NUM_OF_RESULTS results
+   * In order to reduce the number of API calls,  once the API responds a list of less than (API_MAX_NUM_OF_RESULTS ) ,
+   * We store  that set of results, and perform subsequent searches over it, instead of calling the API
+   *  (unless prefix of search term changes). 
    * 
    * 
-   * eg: let's say they user will type 'Item42999'
+   * eg: let's say they user will type 'Item42999' and suppose that API_MAX_NUM_OF_RESULTS is 20
    * 
    * 
-   * At a given moment, the user has typed: 'Item', suppose that the API responds with 30 results,(which is >20) 
+   * At a given moment, the user has typed: 'Item', suppose that the API responds with 20 results,(which is >=API_MAX_NUM_OF_RESULTS) 
    * so, for the next keypress we will call the api.
-   * User presses '4' (Searchterm becomes 'Item4') , suppose that he API responds with 19 results (which is <20), 
+   * User presses '4' (Searchterm becomes 'Item4') , suppose that he API responds with 19 results (which is <API_MAX_NUM_OF_RESULTS), 
    * so we know that results of subsequent searchterms will we included in this lists of 19 results 
    * we just received, 
-   * so we store this last set of results and subsequent searches will be issued using that 
+   * We store this last set of results and subsequent searches will be issued using that 
    * list instead of calling the api.
    * 
-   * Api calls will be done again, only if search terms becomes something that doesn't contain
-   *  'Item4' (the search term that made the api return less than 20 reults ) 
+   * Note: Api calls will be done again, only if search terms becomes something that doesn't start with
+   *  'Item4' (the search term that made the api return less than API_MAX_NUM_OF_RESULTS reults ) 
    *   eg : 'Item', 'Ite', 'NewWord', 'Hu3hu3'  etc.. 
    * 
    *
    */
-  initRemoteAutocomplete() {
-
-    const API_MAX_NUM_OF_RESULTS = 20;
+  initRemoteAutocomplete(searchTerms:Observable<any>): Observable<any> {
+    //todo move this constant to the right place
+    const API_MAX_NUM_OF_RESULTS = 10;
     let lastData;
     let lastTerm; //last searchTerm used to call the API
     let remote = true;
-    this.filteredOptions = this.formGroup.controls[this.field.id].valueChanges
+    console.log("Init remote autocomplete", this.field.id);
+    return searchTerms
       .debounceTime(500)
       .distinctUntilChanged()
-      .filter(item => (typeof item) == 'string')
+      .filter(term => {
+        return (typeof term) == 'string'
+      })
       .switchMap(term => {
         //  console.log("this", term, "last", '|' + lastTerm + '|');
         //console.log("inc", term.includes(lastTerm));
         //if (lastTerm) console.log("len", lastTerm.length);
-
-        if (remote || !term.includes(lastTerm)) { //does a search using the api          
+        console.log("term", term);
+        //if remote or the new term doesnt contains the last term as prefix 
+        //(only happens when the user pastes something in the textinput)
+        if (remote || term.indexOf(lastTerm) != 0) {
           remote = true;
           //ignores inputs with length <4
           if (term.length < 4) { lastTerm = null; return Observable.of([]) };
           lastTerm = term;
           return this.formService.searchData(term, this.field.triggers.query)
             .catch(err => { console.log('err', err); return Observable.of([]); })
-        } else { //does a search using the last set of items retrieved from the api       
+        } else { //does an offline-search within the last set of items retrieved from the api       
           const filtered = this.filter(term, lastData);
           return Observable.of(filtered);
         }
@@ -150,9 +174,9 @@ export class DynamicFormFieldComponent implements OnInit {
       .map(data => {
         if (remote) {
           lastData = data;
-          //Keep making API calls if we get 20 or more results 
+          //Keep making API calls if we get MAX_NUM_OF_RESULTS or more results 
           remote = (lastData.length >= API_MAX_NUM_OF_RESULTS);
-          if (!remote) console.log("changeOffLineSearch", lastData.length, "n", lastTerm);
+          if (!remote) console.log("changedToOffLineSearch", lastData.length, lastTerm);
         }
         return data;
       })
@@ -163,9 +187,9 @@ export class DynamicFormFieldComponent implements OnInit {
    *  @param options 
    */
 
-  initAutocomplete(options) {
+  initAutocomplete(searchTerms: Observable<any>,options): Observable<any> {
     //subscribes to the  value changes from the textinput
-    this.filteredOptions = this.formGroup.controls[this.field.id].valueChanges
+    return searchTerms
       .startWith(null)
       //When the user selects an option, the value of the textbox becomes and object
       .map(option => (option && typeof option === 'object') ? option.value : option)

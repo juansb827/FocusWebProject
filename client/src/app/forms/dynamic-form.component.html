@@ -1,6 +1,6 @@
 <h1>{{form.title || "sin titulo"}}</h1>
 
-<!-- GRID THAT SHOWS OVER THE FORM  ()
+<!-- GRID THAT IS SHOWN OVER THE FORM  ()
 <div style="position:absolute;top:300px;left:0px;display:grid;width:80%;height:100%;
 grid-template-columns:repeat(3,1fr);grid-gap: 0px;
 grid-template-rows:repeat(10,1fr);">
@@ -34,12 +34,12 @@ grid-template-rows:repeat(10,1fr);">
     <button mat-raised-button color="primary" style="width:50%" [disabled]="false" type="submit">Enviar</button>
     <button mat-raised-button color="warn" style="width:50%" [disabled]="formGroup.pristine" (click)="resetForm()">Limpiar</button>
   </div>
-<!--
+
   <div>
     Contenido: {{formGroup.value| json}} Estado: {{formGroup.status| json}}
-   FormStatus: {{formGroup.get('001').pristine| json}} 
+
   </div>
--->
+
 
 </form>
 

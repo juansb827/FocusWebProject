@@ -1,4 +1,6 @@
-import { Component, Input, OnInit, OnChanges,OnDestroy,AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, Input, OnInit,
+   OnChanges,OnDestroy,AfterViewInit,
+    ViewChild, ComponentFactoryResolver, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import 'rxjs/add/operator/catch'
 import { FormControlService } from './form-control.service'
@@ -19,8 +21,9 @@ import { AlertService } from './../messages/alert.service'
 export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
 
   @Input() form: Form;
+  @Input() initialData: any;
   formGroup: FormGroup;
-  initialValues: Object;
+  initialValues: Object; 
   formfields : any;
   //for the form editor
   editMode: boolean = false;
@@ -76,17 +79,32 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
 
   ngOnInit() {
     // console.log("formObject",this.form);
+    /*
     this.updateFormGroup();
     if (this.formGroup) {
       this.initialValues = this.formGroup.value;
+      console.log("initial", this.initialValues);
     }
+    console.log("initial data", this.initialData);
+   */
   }
 
-  ngOnChanges(){
-    this.updateFormGroup();
-    if (this.formGroup) {
+  ngOnChanges(changes: SimpleChanges){
+    console.log("Changes", changes);
+    //console.log("Form", this.form);
+    
+    
+    if (changes.form && changes.form.currentValue ) {
+      this.updateFormGroup();      
       this.initialValues = this.formGroup.value;
     }
+    
+    
+    if(changes.initialData && changes.initialData.currentValue){      
+        this.formGroup.patchValue(this.initialData)
+        console.log("setInitialFormData", this.formGroup.value);
+    }
+    
   }
 
   resetForm() {
@@ -97,6 +115,7 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
   }
 
   updateFormGroup() {
+    console.log("Update Form Group");
     try {
       this.formGroup = this.fcService.toFormGroup(this.form);
       this.formfields= this.fcService.getFields(this.form);

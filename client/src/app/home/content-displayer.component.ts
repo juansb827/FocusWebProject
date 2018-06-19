@@ -2,7 +2,7 @@
 import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ComponentFactoryResolver, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Form } from './../forms/form'
-
+import * as moment from 'moment';
 import { FormService } from '../forms/form.service'
 import { MenuService } from '../menu/menu.service'
 
@@ -10,7 +10,7 @@ import { MenuService } from '../menu/menu.service'
   selector: 'content-displayer',
   template:
   `<div style="text-align:center;">
-    <dynamic-form *ngIf="form" [form]="form">
+    <dynamic-form *ngIf="form" [form]="form" [initialData]="dummy">
     </dynamic-form>
     <div *ngIf="!form">Cargando formulario...</div>
   </div>`,
@@ -28,13 +28,33 @@ export class ContentDisplayerComponent implements OnInit, OnDestroy, AfterViewIn
   //private sub: any;
   form: Form;
   sub;
+
+  
   constructor(private route: ActivatedRoute,
     private componentFactoryResolver: ComponentFactoryResolver,
     private formService: FormService,
     private menuService: MenuService) { }
 
+    dummy = null;
+
   ngOnInit() {
     console.log("!!!! Init Content DIsplay",this.contentId);
+    setTimeout(()=>{
+      this.dummy = {
+        tipoDocTurno: "TB",
+        fechaTurno: moment(),
+        numTurno: 19,
+        patio: "1",
+        tipoTurno: "ENTRADA",
+        usoLogico: "EMPTY",
+        grupo: "IMPORTACION",
+        lineaNaviera: { "value": "ROT", "label": "ROTTERDAN" },
+        nitClienteCarga: { "value": "900547176", "label": "FOCUS SOFTWARE SOLUTIONS SAS" },    
+        fechaArriboPto: moment("31-12-2018",'DD-MM-YYYY') 
+      }
+  
+      
+    },2000)
 
 
 

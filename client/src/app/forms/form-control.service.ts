@@ -15,7 +15,7 @@ export class FormControlService{
     //TODO: remove Copy Paste
 
     /**
-     * Convers a Form into a angular FormGroup
+     * Convers a Form into an angular FormGroup
      * @param form 
      */
     toFormGroup(form:Form ){
@@ -59,10 +59,14 @@ export class FormControlService{
             //TODO: create more validations for the fields
             //TODO: move to a control creation method
             if(field.controlType==Form.controlTypes.datepicker){
-                if(field.value=='CURRENT_DATE'){
-                    collection[field.id]= new FormControl(moment());
+
+            }
+
+            if(field.controlType==Form.controlTypes.datepicker){
+                if(field.value==''){
+                    collection[field.id]= new FormControl('');
                 }else if(field.value){
-                    collection[field.id]= new FormControl(moment(field.value,'DD-MM-YYYY'));
+                    collection[field.id]= new FormControl('');
                 }else if(field.dateValidations){
                     let mindate;
                     if(field.dateValidations.mindate){
