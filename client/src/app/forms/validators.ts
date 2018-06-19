@@ -1,5 +1,6 @@
 import * as moment from 'moment';
 import {AbstractControl, ValidatorFn } from '@angular/forms';
+import {DataSetItem} from './form'
 export function dateValidator(dateFormat: string,minDate?,maxDate?): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       const date=moment(control.value, dateFormat,true);
@@ -26,7 +27,24 @@ export function dateValidator(dateFormat: string,minDate?,maxDate?): ValidatorFn
 
 }
 
+export function objectValidator(typeGuard: Function, canBeEmpty:boolean){
+  return (control: AbstractControl): {[key: string]: any} => {    
+
+    if( (!control.value && canBeEmpty) 
+          || (control.value && typeGuard(control.value)) ){
+      return null;
+    }
+
+    return {'error': 'not belong to the expected type'};
+
+  }
+
+}
+
+
+
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+
 
 @Directive({
   selector: '[OnlyNumber]'

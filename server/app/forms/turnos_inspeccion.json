@@ -144,7 +144,7 @@
           "id": "codContenedor",
           "label": "",
           "name": "Contenedor",
-          "required": false,
+          "required": true,
           "order": 1,
           "controlType": "textbox",
           "maxLength" : 14,

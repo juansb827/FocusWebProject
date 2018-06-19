@@ -32,6 +32,10 @@ export interface DataSetItem{
     label: string;
 }
 
+export function isDataSetItem(object: any): object is DataSetItem{
+    return object instanceof Object && 'value' in object && 'label' in object;
+}
+
 export interface DataSet{
     items: DataSetItem[];
     

@@ -4,9 +4,9 @@
 */
 import { Injectable }       from '@angular/core';
 import { FormControl, FormGroup,Validators, AbstractControl, ValidatorFn } from '@angular/forms';
-import { Form,DataSetItem,FormError } from './form';
+import { Form,DataSetItem,FormError, isDataSetItem } from './form';
 import { FieldBase,ItemGroup } from './field-base';
-import {dateValidator} from './validators'
+import {dateValidator, objectValidator} from './validators'
 import * as moment from 'moment';
 
 
@@ -50,24 +50,19 @@ export class FormControlService{
     addControl(field:FieldBase<any>, collection){
         // console.log("fieldid",field.id+"-"+field.controlType);
         if (collection[field.id]) {
-            throw new FormError('Duplicated field id');
+            throw new FormError('Duplicated field id: '+ field.id);
         };
         if(field.controlType=='empty' ) return;
             
         
         if(field.controlType!=Form.controlTypes.itemgroup ){
             //TODO: create more validations for the fields
-            //TODO: move to a control creation method
-            if(field.controlType==Form.controlTypes.datepicker){
+            //TODO: move to a control creation method          
 
-            }
+            const validations = [];            
 
-            if(field.controlType==Form.controlTypes.datepicker){
-                if(field.value==''){
-                    collection[field.id]= new FormControl('');
-                }else if(field.value){
-                    collection[field.id]= new FormControl('');
-                }else if(field.dateValidations){
+            if(field.controlType==Form.controlTypes.datepicker){           
+                if(field.dateValidations){
                     let mindate;
                     if(field.dateValidations.mindate){
                        if('CURRENT_DAY') mindate=moment().startOf('day');
@@ -77,24 +72,16 @@ export class FormControlService{
                         //moment().startOf('day').add(1,'week'))
                     } 
                     const dateVal=dateValidator('DD-MM-YYYY',mindate,maxdate);
+                    validations.push(dateVal);
+                    validations.push(Validators.required);
                     
-                    collection[field.id]= new FormControl('',[dateVal,Validators.required]);    
-                }
+                }               
                 
-                
-            }else if(field.controlType==Form.controlTypes.autocomplete){
-                if(field.value){
-                    collection[field.id]=new FormControl({value:field.value,disabled:false})    
-                }else{
-                    collection[field.id]=new FormControl(''); 
-                }
-            }else{
-                collection[field.id]=field.required? 
-                new FormControl({value:field.value,disabled:false}, Validators.required)
-                :  new FormControl(field.value);  
+            }else if(field.controlType == 'autocomplete'){
+                const objectVal = objectValidator( isDataSetItem, true );
+                validations.push( objectVal );
             }
-             
-            
+            collection[field.id] = new FormControl({ value: '' , disabled: field.readonly},validations);                       
             
         }
         

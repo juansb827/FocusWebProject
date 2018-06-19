@@ -272,6 +272,10 @@ export class DynamicFormFieldComponent implements OnInit, OnChanges {
 
   onBlurInput() {
     if (this.field.triggers && this.field.triggers.on == FieldBase.triggers.leaveField) {
+      //don't trigger the query if the field is empty
+      if( !this.controlModel.value || !this.controlModel.value.trim() ){
+        return;
+      }
       console.log("Query triggered");
       this.formService.doFieldQuery(this.field, this.formGroup.value).subscribe(data => {
         console.log("data", data);
@@ -287,25 +291,24 @@ export class DynamicFormFieldComponent implements OnInit, OnChanges {
     leaves the field.
   */
   onBlurAutoComplete() {
-    //TODo check how this behaves with chnages on autocomplete
-    if (1 == 1) return;
-    if (this.autoCompOptions) {
-      //onBlur is called when the user select an option form the autocompletelist
-      if (this.autoCompOptions.isOpen) return;
-    }
     const control = this.formGroup.get(this.field.id);
+    
+    console.log("blurauto",  control);   
+
+    
+    if (this.autoCompOptions) {
+      //onBlur is also called when the user select an option form the autocompletelist
+    //  if (this.autoCompOptions.isOpen) return;
+    }
+    
     const value = control.value;
+    console.log("Type",typeof value !== 'object');
     if (typeof value !== 'object' && this.lastFilter.length === 1) {
       //When the user leaves the field without selecting an option, 
       //but what he has typed matches one of the options exactly       
       const concat = this.displayFn(this.lastFilter[0]);
       if (value.toLowerCase() === concat.toLowerCase())
         control.setValue(this.lastFilter[0]);
-    }
-    //TODO: make the control invalid instead of deleting the field content;
-    if (typeof control.value !== 'object') {
-      control.setValue("");
-      console.log("invalidValue", control.value);
     }
 
 
