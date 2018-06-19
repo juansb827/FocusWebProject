@@ -1,5 +1,5 @@
 //TODO: automate into a real script
-find out port: -netstat -abn
+find out db port: -netstat -abn
 then run
 sequelize-auto -o "./models" -d db_pruebas2 -h 190.114.1.85 -u sa -x pass -p 51716 -e mssql
 

@@ -51,18 +51,21 @@ function getFormById(formId, removeDbInfo) {
     return new Promise(function (resolve, reject) {
         if (!forms[formId]) resolve(null);        
         const form = JSON.parse(JSON.stringify(forms[formId].form));
-
+    
+        /*
         form.fields.forEach(function (field) {
             if (defaultValues[field.id]) {
                 field.value = defaultValues[field.id];
             }
         });      
-        
+        */
         resolve(form);
 
     })
+}
 
-
+function getFormData(formId){
+    
 
 }
 

@@ -44,8 +44,8 @@ function get(req,res,next){
     if(setInfo.modelName){  
         let seqInstance = databases[req.companyDb].models[setInfo.modelName];        
         seqInstance.findAll(setInfo)
-                .then(data=>{                           
-                    res.send({items:data});                  
+                .then(data=>{                  
+                        res.send({items:data});                                                         
                 })
                .catch(err=>next(err));
     }else{

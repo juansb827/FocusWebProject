@@ -6,12 +6,20 @@ var logger = require('./../../app/utils/logger');
 var appError = require('./../../app/utils/error').appError
 var errorTypes = require('./../../app/utils/error').errorTypes;
 
+
+const swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./../../app/swagger.json');
+
 const env = process.env;
 
 
 var app = express();
 
+
 function start(callback) {
+
+    
+
     app.use(require('morgan')("dev", { stream: logger.stream }));
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
@@ -26,6 +34,9 @@ function start(callback) {
         next();
     });
 
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+    //sets up the router
     app.use('/', require('../../app/routes/index'));
 
 

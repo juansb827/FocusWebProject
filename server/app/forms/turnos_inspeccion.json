@@ -9,12 +9,13 @@
 
       "fields": [
         {
-          "value": "TB",
+          "value": "",
           "id": "tipoDocTurno",
           "label": "",
           "name": "Documento",
-          "required": false,
+          "required": false,          
           "order": 1,
+          "readonly": true,
           "controlType": "textbox",
           "placeholder": "Documento",
           "appearance": {
@@ -24,7 +25,7 @@
           }
         },
         {
-          "value": "CURRENT_DATE",
+          "value": "",
           "id": "fechaTurno",
           "label": "",
           "name": "Año-Mes-Dia",
@@ -40,7 +41,7 @@
           }
         },
         {
-          "value": "...",
+          "value": "",
           "id": "numTurno",
           "readonly" :true,
           "label": "",
@@ -56,11 +57,12 @@
           }
         },
         {
-          "value": "1",
+          "value": "",
           "id": "patio",
           "label": "",
           "name": "Patio",
           "required": false,
+          "readonly": true,
           "order": 1,
           "controlType": "textbox",
           "placeholder": "Patio",
@@ -71,11 +73,12 @@
           }
         },
         {
-          "value": "ENTRADA",
+          "value": "",
           "id": "tipoTurno",
           "label": "",
           "name": "",
           "required": false,
+          "readonly": true,
           "order": 1,
           "controlType": "radioGroup",
           "placeholder": "",
@@ -88,7 +91,7 @@
                     
         },
         {
-          "value": "EMPTY",
+          "value": "",
           "id": "usoLogico",
           "label": "",
           "name": "",
@@ -105,7 +108,7 @@
         
         },
         {
-          "value": "IMPORTACION",
+          "value": "",
           "id": "grupo",
           "label": "",
           "name": "Grupo",
@@ -176,6 +179,7 @@
               "label": "",
               "name": "Tipo",
               "required": false,
+              "readonly": true,
               "order": 1,
               "controlType": "textbox",
               "placeholder": "Tipo",
@@ -191,6 +195,7 @@
               "label": "",
               "name": "tamanoContenedor",
               "required": false,
+              "readonly": true,
               "order": 1,
               "controlType": "textbox",
               "placeholder": "Tamaño",
@@ -206,6 +211,7 @@
               "label": "",
               "name": "Codigo ISO",
               "required": false,
+              "readonly": true,
               "order": 1,
               "controlType": "textbox",
               "placeholder": "Codigo ISO",
@@ -221,6 +227,7 @@
               "label": "",
               "name": "Peso Máximo",
               "required": false,
+              "readonly": true,
               "order": 1,
               "controlType": "textbox",
               "placeholder": "Peso Máximo",
@@ -236,6 +243,7 @@
               "label": "",
               "name": "Tara",
               "required": false,
+              "readonly": true,
               "order": 1,
               "controlType": "textbox",
               "placeholder": "Tara",

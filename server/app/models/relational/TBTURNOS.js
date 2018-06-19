@@ -203,7 +203,7 @@ module.exports = function(sequelize, DataTypes) {
         const currentDate=moment();              
         this.setDataValue('Dfechalog', currentDate.toISOString());
         this.setDataValue('Nano', currentDate.year());
-        this.setDataValue('Nmes', currentDate.month()+1);  //January is 0!
+        this.setDataValue('Nmes', currentDate.month()+1);  //January is 0 
         this.setDataValue('Ndia', currentDate.date());       
         
       }
