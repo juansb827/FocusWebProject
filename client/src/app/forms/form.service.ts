@@ -104,14 +104,44 @@ export class FormService {
 
   }
 
-  doFieldQuery(field: FieldBase<any>, formData): Observable<any> {
+  doFieldQuery(field: FieldBase<any>, formData, form:Form): Observable<any> {
     const query = field.triggers.query;
     let Params = new HttpParams();
-    Params = Params.append(field.id, formData[field.id]); //91111121
 
+    Params = Params.append(field.id, formData[field.id]); //91111121    
     
-    return this.http.get<Form>(this.appConfig.apiUrl+'/queries/' + query, {
+    return this.http.get<any>(this.appConfig.apiUrl+'/queries/' + query, {
       params: Params
+    }).map( data => {      
+      if (!data )
+        return null;
+      //extracts the data that comes from the api, and 
+      //renames the keys, so they match the fieldNames of the form
+      const transformedData = {};
+      //info about then name of the field in the db model
+      const fieldsInfo = form.dbconfig.fields; 
+      //for each field that the trigger should update
+      //look-up it's value according to the retrieved data
+      field.triggers.updates.forEach( (updatedField: string) => {
+        const fieldInfo = fieldsInfo[updatedField];
+        if(!fieldInfo){
+          console.log("No field info in dbconfig for field: "+updatedField);  
+        }else{
+          if (!fieldInfo.sourceField){
+            console.log("Field info for: "+updatedField+" does not contain 'sourceField'");    
+          }else{
+            const value = data[fieldInfo.sourceField] ; 
+            transformedData[updatedField] = value;
+          }
+            
+           
+        }      
+        
+      });
+
+      return transformedData;
+      
+      
     });
     /*
     return Observable.of({

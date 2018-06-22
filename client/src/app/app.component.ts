@@ -1,4 +1,4 @@
-import { Component,OnInit, ViewChild} from '@angular/core';
+import { Component,OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import { MenuService } from './menu/menu.service';
 import {MatSidenav} from '@angular/material/sidenav';
 
@@ -6,6 +6,7 @@ import {MatSidenav} from '@angular/material/sidenav';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
+  
 })
 
 export class AppComponent implements OnInit{

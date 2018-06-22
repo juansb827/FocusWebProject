@@ -5,6 +5,7 @@ export class Form{
     columns: number;
     rows :number;
     fields: FieldBase<any>[];
+    dbconfig: { fields: any, targetTable: String };
 
     static readonly  controlTypes={
         empty : 'empty',

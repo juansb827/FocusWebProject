@@ -19,8 +19,8 @@
             <mat-hint align="end" *ngIf="field.maxLength ">
                 {{ formGroup.get(field.id).value.length || 0}}/{{field.maxLength}}
             </mat-hint>
-            <mat-error>
-                <span></span>
+            <mat-error *ngIf="controlModel.errors">
+                <span *ngIf="controlModel.errors.required;">Este campo es obligatorio</span>
             </mat-error>
         </mat-form-field>
 

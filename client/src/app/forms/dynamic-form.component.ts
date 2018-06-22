@@ -1,6 +1,8 @@
-import { Component, Input, OnInit,
-   OnChanges,OnDestroy,AfterViewInit,
-    ViewChild, ComponentFactoryResolver, SimpleChanges } from '@angular/core';
+import { 
+  Component, Input, OnInit,
+  OnChanges,OnDestroy,AfterViewInit,
+  ViewChild, ComponentFactoryResolver, 
+  SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import 'rxjs/add/operator/catch'
 import { FormControlService } from './form-control.service'
@@ -16,11 +18,12 @@ import { AlertService } from './../messages/alert.service'
   selector: 'dynamic-form',
   templateUrl: './dynamic-form.component.html',  //<ng-template ad-host></ng-template>
   styleUrls: ['./dynamic-form.component.scss'],
-  providers: [FormControlService]
+  providers: [FormControlService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
 
-  @Input() form: Form;
+  @Input() form: Form; //TODO: make inmutable
   @Input() initialData: any;
   formGroup: FormGroup;
   initialValues: Object; 

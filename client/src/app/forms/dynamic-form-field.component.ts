@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, ViewChild, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldBase, Autocomplete } from './field-base';
-import { DataSet, DataSetItem } from './form';
+import { DataSet, DataSetItem, Form } from './form';
 import { FormService } from './form.service';
 import { Observable, Subject } from 'rxjs/';
 import { DateAdapter } from '@angular/material';
@@ -21,10 +21,12 @@ import * as moment from 'moment';
 @Component({
   selector: 'form-field',
   templateUrl: './dynamic-form-field.component.html',
+  
 })
 export class DynamicFormFieldComponent implements OnInit, OnChanges {
   @Input() field: FieldBase<any>;
   @Input() formGroup: FormGroup;
+  @Input() form: Form;
   /* For autocomplete */
   filteredOptions: Observable<any[]>;
   lastFilter: DataSetItem[];
@@ -56,8 +58,9 @@ export class DynamicFormFieldComponent implements OnInit, OnChanges {
     //TODO fix field class 
     if (this.field.controlType == 'autocomplete' && this.field.triggers
       && this.field.triggers.on == FieldBase.triggers.typing) {
-      const searchTerms = this.formGroup.controls[this.field.id].valueChanges;
+      const searchTerms = this.controlModel.valueChanges;      
       this.filteredOptions = this.initRemoteAutocomplete(searchTerms);
+
     } else if (this.field.datasetName) {
       this.loadDataset();
     } else if (this.field.dataset) {
@@ -157,16 +160,17 @@ export class DynamicFormFieldComponent implements OnInit, OnChanges {
         //console.log("inc", term.includes(lastTerm));
         //if (lastTerm) console.log("len", lastTerm.length);
         console.log("term", term);
-        //if remote or the new term doesnt contains the last term as prefix 
-        //(only happens when the user pastes something in the textinput)
+        //if remote or the new term doesnt contains the last term (that triggered an api call) as prefix         
         if (remote || term.indexOf(lastTerm) != 0) {
           remote = true;
           //ignores inputs with length <4
           if (term.length < 4) { lastTerm = null; return Observable.of([]) };
           lastTerm = term;
+          console.log("SearchingOnline", term);
           return this.formService.searchData(term, this.field.triggers.query)
             .catch(err => { console.log('err', err); return Observable.of([]); })
         } else { //does an offline-search within the last set of items retrieved from the api       
+          console.log("SearchingOffline", term);
           const filtered = this.filter(term, lastData);
           return Observable.of(filtered);
         }
@@ -178,6 +182,7 @@ export class DynamicFormFieldComponent implements OnInit, OnChanges {
           remote = (lastData.length >= API_MAX_NUM_OF_RESULTS);
           if (!remote) console.log("changedToOffLineSearch", lastData.length, lastTerm);
         }
+        this.lastFilter = data;
         return data;
       })
 
@@ -192,7 +197,7 @@ export class DynamicFormFieldComponent implements OnInit, OnChanges {
     return searchTerms
       .startWith(null)
       //When the user selects an option, the value of the textbox becomes and object
-      .map(option => (option && typeof option === 'object') ? option.value : option)
+      .map(option => (option && typeof option === 'object') ? this.displayFn(option) : option)
       .map(val => {
         this.lastFilter = val ? this.filter(val, options) : options.slice();
         return this.lastFilter;
@@ -273,17 +278,30 @@ export class DynamicFormFieldComponent implements OnInit, OnChanges {
   onBlurInput() {
     if (this.field.triggers && this.field.triggers.on == FieldBase.triggers.leaveField) {
       //don't trigger the query if the field is empty
-      if( !this.controlModel.value || !this.controlModel.value.trim() ){
+      if( !this.controlModel.value || !this.controlModel.value.trim() ){        
+          this.clearFields(this.field.triggers.updates);               
         return;
       }
       console.log("Query triggered");
-      this.formService.doFieldQuery(this.field, this.formGroup.value).subscribe(data => {
-        console.log("data", data);
-        this.formGroup.patchValue(data);
-      });
+      this.formService.doFieldQuery(this.field, this.formGroup.value, this.form)        
+        .subscribe(data => {
+          //if the query retrieved no results, we must clear the updatedFields
+          console.log("data", data);
+          if(!data ){
+            this.clearFields(this.field.triggers.updates  );
+          }else{
+            this.formGroup.patchValue(data);
+          }
+          
+          
+        });
     }
 
+  }
 
+  clearFields(ids: string[] ){
+    if(!ids) return;
+    ids.forEach( id => this.formGroup.get(id).setValue(""))
   }
   /* 
     Used for AutoComplete control. 

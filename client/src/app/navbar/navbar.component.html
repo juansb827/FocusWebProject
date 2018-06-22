@@ -1,7 +1,7 @@
 <mat-toolbar class="toolbar" *ngIf="user | async" color="primary">
 
 
-  <div class="app-area" *ngIf="showAppSection">
+  <div class="app-area" *ngIf="(selectedApp$ | async) as showAppSection">
 
     <div class="icon-wrapper" (click)="goBack()" [ngStyle]="{ 'opacity':( showAppSection? 1 : 0 ) }">
       <mat-icon>keyboard_arrow_left</mat-icon>

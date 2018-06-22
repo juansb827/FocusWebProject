@@ -37,6 +37,7 @@ export class FieldBase<T>{
   triggers?:{
     on: string,
     threshold?: any,
+    updates? : [string],
     query : string
   } 
   dateValidations?:{

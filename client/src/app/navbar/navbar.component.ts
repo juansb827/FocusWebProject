@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, DoCheck, ChangeDetectionStrategy,OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../authentication/authentication.service';
 import { Observable } from 'rxjs/Observable';
@@ -9,15 +9,16 @@ import { User } from '../user/user';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit, OnDestroy, DoCheck {
 
   user: Observable<any>;
   selectedApp$: Observable<any>;
 
   currentApp;
-  showAppSection: boolean;
+  
   //subscription to menu service messages
   
   constructor(private authService: AuthService, private menuService: MenuService,
@@ -29,16 +30,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
     //gets the user after a pageReload
     this.user = this.authService.user;
     this.selectedApp$ = this.menuService.selectedApp$;
+    /*
     this.selectedApp$.subscribe( selectedApp => {
       this.showAppSection =  !!selectedApp
       
-    })
-  
-
+    }) */
 
 
 
   }
+
+  ngDoCheck(){    
+  }
+
+
 
   ngOnDestroy() {
     
