@@ -40,11 +40,11 @@ var queries = {
             "Ccodcntr": "",
         },
         "attributes": [
-            ["Ctipocntr", "tipoContenedor"],
-            ["Ctamcntr", "tamanoContenedor"],
-            ["Ccodisocntr", "codIsoContenedor"],
-            ["Npesmaxcntr", "pesoMaxContenedor"],
-            ["Ntaracntr", "taraContenedor"]
+            "Ctipocntr",
+            "Ctamcntr",
+            "Ccodisocntr",
+            "Npesmaxcntr",
+            "Ntaracntr"
         ],
         "columnMapping": {
             "Ccodcntr": "codContenedor"
@@ -86,7 +86,7 @@ function doQuery(req, res) {
     else if (!queryInfo.resultType || queryInfo.resultType == SINGLE_ROW) {
         dbCon.findOne(queryInfo)
             .then(data => {
-                if (!data) data = {};
+               // if (!data) data = {};
                 res.send(data)
             })
             .catch(err => res.send(err));

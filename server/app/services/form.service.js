@@ -51,6 +51,7 @@ function getFormById(formId, removeDbInfo) {
     return new Promise(function (resolve, reject) {
         if (!forms[formId]) resolve(null);        
         const form = JSON.parse(JSON.stringify(forms[formId].form));
+        form.dbconfig=forms[formId].dbconfig;
     
         /*
         form.fields.forEach(function (field) {

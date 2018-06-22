@@ -84,6 +84,21 @@
         },
         "fechaArriboPto": {
             "targetField" : "Dfechaarribo"
+        },
+        "tipoContenedor": {
+            "sourceField" : "Ctipocntr"
+        },
+        "tamanoContenedor": {
+            "sourceField": "Ctamcntr"
+        },
+        "codIsoContenedor": {   
+            "sourceField": "Ccodisocntr"
+        },
+        "pesoMaxContenedor": {
+            "sourceField": "Npesmaxcntr"
+        },
+        "taraContenedor": {
+            "sourceField": "Ntaracntr"
         }
           
         

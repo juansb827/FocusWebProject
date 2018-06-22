@@ -156,7 +156,14 @@
           },
           "triggers":{
             "on" : "leaveField",
-            "query": "infoContenedor"          
+            "query": "infoContenedor",
+            "updates": [
+              "tipoContenedor",
+              "tamanoContenedor",
+              "codIsoContenedor",
+              "pesoMaxContenedor",
+              "taraContenedor"
+            ]          
           }
         },
         {
