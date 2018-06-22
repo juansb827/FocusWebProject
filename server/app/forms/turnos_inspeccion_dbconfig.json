@@ -29,19 +29,24 @@
             "targetField": "Ccodcntr"
         },
         "cedulaConductor": {
-            "targetField": "Cdescedula"
+            "targetField": "Cdescedula",
+            "sourceField": "Cidcedula"
         },
         "nombreConductor": {
-            "targetField": "Cdesconductor"
+            "targetField": "Cdesconductor",
+            "sourceField": "cdesconductor"
         },
         "celularConductor": {
-            "targetField": "Ccelular"
+            "targetField": "Ccelular",
+            "sourceField": "Ccelular"
         },
         "empresaTransporte": {
-            "targetField": "Cdestranspor"
+            "targetField": "Cdestranspor",
+            "sourceField": "cdestranspor"
         },
         "placaVehiculo": {
-            "targetField": "Cplaca"
+            "targetField": "Cplaca",
+            "sourceField": "Cplaca"
         },
         "nitClienteCarga": {
             "targetField": "Cnitcliente"

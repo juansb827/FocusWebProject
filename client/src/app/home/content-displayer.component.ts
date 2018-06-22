@@ -2,15 +2,16 @@
 import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ComponentFactoryResolver, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Form } from './../forms/form'
-import * as moment from 'moment';
+
 import { FormService } from '../forms/form.service'
 import { MenuService } from '../menu/menu.service'
+import { BehaviorSubject } from 'rxjs';
 
 @Component({  //<ng-template ad-host></ng-template>
   selector: 'content-displayer',
   template:
   `<div style="text-align:center;">
-    <dynamic-form *ngIf="form" [form]="form" [initialData]="dummy">
+    <dynamic-form *ngIf="form" [form]="form" [initialData]="initialData">
     </dynamic-form>
     <div *ngIf="!form">Cargando formulario...</div>
   </div>`,
@@ -24,10 +25,13 @@ import { MenuService } from '../menu/menu.service'
 //TODO move outside of my form muodule, this componenet uses FormModule but should not be part of it
 //
 export class ContentDisplayerComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
-  @Input() contentId: String;
+  @Input() content: any;
   //private sub: any;
+
   form: Form;
   sub;
+  initialData = null;
+  
 
   
   constructor(private route: ActivatedRoute,
@@ -35,32 +39,10 @@ export class ContentDisplayerComponent implements OnInit, OnDestroy, AfterViewIn
     private formService: FormService,
     private menuService: MenuService) { }
 
-    dummy = null;
+    
 
   ngOnInit() {
-    console.log("!!!! Init Content DIsplay",this.contentId);
-    setTimeout(()=>{
-      this.dummy = {
-        tipoDocTurno: "TB",
-        fechaTurno: moment(),
-        numTurno: 19,
-        patio: "1",
-        tipoTurno: "ENTRADA",
-        usoLogico: "EMPTY",
-        grupo: "IMPORTACION",
-        lineaNaviera: { "value": "ROT", "label": "ROTTERDAN" },
-        nitClienteCarga: { "value": "900547176", "label": "FOCUS SOFTWARE SOLUTIONS SAS" },    
-        fechaArriboPto: moment("31-12-2018",'DD-MM-YYYY') 
-      }
-  
-      
-    },2000)
-
-
-
-
-
-
+    
   }
 
 
@@ -70,14 +52,35 @@ export class ContentDisplayerComponent implements OnInit, OnDestroy, AfterViewIn
   }
   
   ngOnChanges(changes){
-    console.log("changes",changes['contentId']);
-    this.formService.getForm(this.contentId).subscribe(form => {
-      this.form = form
+    console.log("ContentDisplayer-ngOnChanges",changes['contentId']);
+    let form = this.content;
+    if(!form) return;
+    const formId = typeof form == 'object'? form.id : form ;
+
+    if( form.preset ){
+      this.formService.getInitialFormState(formId, form.preset).subscribe( initialData =>{
+        this.initialData = initialData;
+        console.log("#######3", this.initialData);
+      })
+    }
+    
+
+    
+    this.formService.getForm(formId ).subscribe(form => {    
+        this.form = form;
     })
+    
+    
+    
+
+
+
+   
+    
   }
 
   ngOnDestroy() {
-    console.log("!!!! Destroy Content DIsplay",this.contentId);
+    console.log("!!!! Destroy Content DIsplay",this.content);
   //  this.sub.unsubscribe();
   }
 

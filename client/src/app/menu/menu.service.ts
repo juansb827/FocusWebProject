@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 let userMenuu = [
     {
         name: 'Contenedores', icon: 'home', options: [
-            { id:23, name: 'Creacion de Turnos', icon: 'warning', form: 'turnos_inspeccion' },
+            { id:23, name: 'Creacion de Turnos', icon: 'warning', form: { id:'turnos_inspeccion', preset: 'entrada'} },
             { id:11, name: 'Opcion2', icon: 'warning', form: 'turnos_inspeccion' },
             { id:21, name: 'Opcion3', icon: 'warning' }
         ]

@@ -81,7 +81,16 @@ export class FormControlService{
                 const objectVal = objectValidator( isDataSetItem, true );
                 validations.push( objectVal );
             }
-            collection[field.id] = new FormControl({ value: '' , disabled: field.readonly},validations);                       
+            if( field.required){
+                validations.push(Validators.required);
+            }
+            const control = new FormControl({ value: '' , disabled: false },validations);
+            if( field.readonly){
+            
+                control.disable();                
+
+            }
+            collection[field.id] =     control;                   
             
         }
         
@@ -96,7 +105,7 @@ export class FormControlService{
 
     getFormGroupData(formGroup:FormGroup,formFields){
         
-        const formModel=formGroup.value;
+        const formModel=formGroup.getRawValue();
         let formData={};
         
         Object.keys(formModel).forEach(key=>{

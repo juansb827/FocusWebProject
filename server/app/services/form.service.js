@@ -10,10 +10,12 @@ var benchmark = require('./../utils/benchmark');
 var appError = require('./../utils/error').appError
 var errorTypes = require('./../utils/error').errorTypes;
 var service = {};
+var moment = require("moment")
 
 service.getFormById = getFormById;
 service.saveFormData = saveFormData;
 service.save = save;
+service.getFormPreset = getFormPreset
 module.exports = service;
 
 var databases = require('./../database/sequelize_config_loader');
@@ -27,11 +29,15 @@ var defaultValues = {
 
 }
 
+const CURRENT_DATE = "CURRENT_DATE";
+
+
 var forms = {
     "turnos_inspeccion": {
         "fileName": "turnos_inspeccion",
         "form": null,
-        "dbconfig": null
+        "dbconfig": null,
+        "presets": null
     }
 }
 
@@ -44,7 +50,10 @@ Object.keys(forms).forEach(formName => {
     formConfig.form = require(formsPath + formConfig.fileName + '.json');   
     benchmark(start,"Loading the forms");
     formConfig.dbconfig = require(formsPath + formConfig.fileName + '_dbconfig.json');
+    formConfig.presets = require(formsPath + formConfig.fileName + '_presets.json');
 });
+
+
 
 var form = require(formsPath + 'turnos_inspeccion.json');
 function getFormById(formId, removeDbInfo) {
@@ -64,6 +73,30 @@ function getFormById(formId, removeDbInfo) {
 
     })
 }
+
+function getFormPreset( formId, presetId) {
+    return new Promise(function (resolve, reject) {
+        if (!forms[formId]) return resolve(null);        
+        let preset = forms[formId].presets[presetId];    
+        if ( !preset ) return resolve(null);
+        preset = JSON.parse(JSON.stringify(preset));
+        Object.keys( preset ).forEach( key => {
+            if( typeof preset[key] == 'object' && preset[key].type == 'DATE'  ){
+                if( preset[key].value == CURRENT_DATE ){
+                    preset[key].value = moment()   
+                }else{
+                    preset[key].value = moment( preset[key].value, "DD-MM-YYYY")
+                }
+            }
+        })
+        
+        resolve(preset);              
+
+    })
+
+}
+
+
 
 function getFormData(formId){
     

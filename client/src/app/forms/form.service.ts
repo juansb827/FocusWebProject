@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import { removeSpacesFromItems,removeSpacesFromDataSet} from './formUtils';
 import { FieldBase, Textbox, Dropdown, Autocomplete, Radiogroup, EmptySpace, TextArea, ItemGroup } from './field-base';
 import {AppConfig} from './../app.config'
+import * as moment from 'moment';
 
 
 let lineas: DataSet = {
@@ -70,6 +71,24 @@ export class FormService {
     if(!formId) return Observable.of(null);
     return this.http.get<Form>(this.appConfig.apiUrl+'/forms/'+formId);
     // return Observable.of(form4);  
+  }
+
+  getInitialFormState(formId, formPreset): Observable<any>{
+    return this.http.get<any>(this.appConfig.apiUrl+'/forms/'+formId+'/initialState/'+formPreset)
+      .map( initialData => {
+        if (!initialData) 
+          return null;
+        let transformedData = {};  
+        Object.keys(initialData).forEach( key => {
+          if ( typeof initialData[key] === 'object' && initialData[key].type === 'DATE' ){
+            transformedData[key] = moment(initialData[key].value);
+          }else{
+            transformedData[key] = initialData[key];
+          }
+        });        
+        return transformedData;
+          
+      })    
   }
 
   getDataSet(datasetName): Observable<DataSet> {

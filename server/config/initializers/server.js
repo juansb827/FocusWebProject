@@ -47,17 +47,22 @@ function start(callback) {
 
     //error handler middleware
     app.use(function (err, req, res, next) {
-        console.log("ERROR HANDLER");
+     
         /* We log the error internaly */
-        logger.error(err);
+
+        if( err.originalError ){
+            logger.error("ERROR ",err.originalError);
+        }else{
+            logger.error("ERROR ",err);
+        }
+        
 
 
         /*
          * Remove Error's `stack` property. We don't want
          * users to see this at the production env
          */
-
-        if (env !== 'development' && err.originalError) {
+        if (env !== 'DEVELOPMENT' && err.originalError) {
             delete err.originalError;
         }
 

@@ -19,7 +19,7 @@ import { AlertService } from './../messages/alert.service'
   templateUrl: './dynamic-form.component.html',  //<ng-template ad-host></ng-template>
   styleUrls: ['./dynamic-form.component.scss'],
   providers: [FormControlService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
 
@@ -98,23 +98,27 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
     
     
     if (changes.form && changes.form.currentValue ) {
-      this.updateFormGroup();      
-      this.initialValues = this.formGroup.value;
+      this.updateFormGroup();           
     }
     
     
-    if(changes.initialData && changes.initialData.currentValue){      
-        this.formGroup.patchValue(this.initialData)
-        console.log("setInitialFormData", this.formGroup.value);
+    if(this.formGroup && this.initialData){      
+        setTimeout(()=>{
+          this.formGroup.patchValue(this.initialData) 
+          console.log("setInitialFormData", this.initialData,this.formGroup.value);
+        })
+        
+        
     }
     
   }
 
   resetForm() {
-    console.log("ds");
+    console.log("ds", this.initialData);
     this.formGroup.reset(
       this.initialValues
     );
+    this.formGroup.patchValue(this.initialData);
   }
 
   updateFormGroup() {
@@ -151,10 +155,10 @@ export class DynamicFormComponent implements OnInit,OnChanges,OnDestroy {
     this.alertService.showDialog(null,null);
     
     console.log("group",this.formGroup.controls);    
-    console.log("preformData", this.formGroup.value);
+    console.log("preformData", this.formGroup.getRawValue());
     const formData = this.fcService.getFormGroupData(this.formGroup,this.formfields);
     console.log("formData",JSON.stringify (formData ));
-
+    if (1 == 1 )return; //TODO check the dialog
     this.formService.saveFormData(formData,this.form.id)
      
       //.finally(() => console.log("final2"))

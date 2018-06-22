@@ -29,6 +29,7 @@ async.series([
 		//Connects to MongoDB
 		require('./config/initializers/mongodb');
 		//Initializes Sequelize
+		return callback();
 		var seq_configs = require('./app/database/sequelize_config_loader');
 		//Checks if connections to Relational DBs are OK
 		connectionTester.testConnections(seq_configs,callback);

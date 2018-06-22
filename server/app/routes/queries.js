@@ -23,11 +23,11 @@ var queries = {
             "Cidcedula": "",
         },
         "attributes": [
-            ["Cidcedula", "cedulaConductor"],
-            ["Ccelular", "celularConductor"],
-            ["cdesconductor", "nombreConductor"],
-            ["cdestranspor", "empresaTransporte"],
-            ["Cplaca", "placaVehiculo"]
+            "Cidcedula",
+            "Ccelular",
+            "cdesconductor", 
+            "cdestranspor", 
+            "Cplaca"
         ],
         "columnMapping": {
             "Cidcedula": "cedulaConductor"

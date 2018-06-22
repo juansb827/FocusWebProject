@@ -13,9 +13,10 @@
         <mat-card *ngSwitchCase="'textcard'" style="font-weight: bold;font-size:1.5em;height:1em">TURNO 1</mat-card>
 
         <!-- Text Input-->
-        <mat-form-field *ngSwitchCase="'textbox'" style="width:100%">
-            <input matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [required]="field.required" [maxlength]="field.maxLength"
-                (blur)="onBlurInput()" [readonly]="field.readonly">
+        <mat-form-field *ngSwitchCase="'textbox'" style="width:100%" >
+            <input matInput [formControlName]="field.id" placeholder="{{field.placeholder}}"    [maxlength]="field.maxLength"
+            
+                (blur)="onBlurInput()" >
             <mat-hint align="end" *ngIf="field.maxLength ">
                 {{ formGroup.get(field.id).value.length || 0}}/{{field.maxLength}}
             </mat-hint>
@@ -36,7 +37,7 @@
         <!-- TextInput AutoComplete-->
         <div *ngSwitchCase="'autocomplete'">
             <mat-form-field style="width:100%">
-                <input type="text" matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [matAutocomplete]="auto" [required]="field.required"
+                <input type="text" matInput [formControlName]="field.id" placeholder="{{field.placeholder}}" [matAutocomplete]="auto" 
                     (blur)="onBlurAutoComplete()">
                     <mat-error *ngIf="controlModel.errors">
                             <span>Debe seleccionar un elemento valido</span>                

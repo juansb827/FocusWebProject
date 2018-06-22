@@ -5,6 +5,7 @@ var fs = require("fs");
 var Promise = require('bluebird');
 Promise.promisifyAll(fs);
 var Q = require('q');
+
 var logger = require('./../utils/logger');
 
 
@@ -14,6 +15,7 @@ var errorTypes= require('./../utils/error').errorTypes;
 // routes
 router.post('/:_id', saveForm);
 router.get('/:_id', getForm);
+router.get('/:_id/initialState/:stateId', getFormInitialState);
 
 
 
@@ -52,9 +54,24 @@ function getForm(req, res,next) {
         })
         .catch(err => 
             next (new appError(errorTypes.SERVER_ERROR,'Error getting the form',true,err))
-        );
-        
+        );       
 
 
+}
+
+function getFormInitialState(req, res, next) {
+    let formId = req.params._id;
+    let stateId = req.params.stateId;
+    formService.getFormPreset(formId, "entrada")
+        .then(form => {
+            if(!form) 
+                return next (new appError(errorTypes.NOT_FOUND,`no such form:${formId}`,true));
+            res.send(form);
+        })
+        .catch(err => 
+            next (new appError(errorTypes.SERVER_ERROR,'Error getting the form',true,err))
+        );  
+    
+    
 }
 

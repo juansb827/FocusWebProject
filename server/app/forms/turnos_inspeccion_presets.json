@@ -1,0 +1,21 @@
+{
+    "entrada": {                
+                    "tipoDocTurno": "TB",
+                    "fechaTurno": {
+                        "type": "DATE",
+                        "value": "CURRENT_DATE"
+                    },
+                    "numTurno" : 19,
+                    "patio": "1",
+                    "tipoTurno": "ENTRADA",
+                    "usoLogico": "EMPTY",
+                    "grupo": "IMPORTACION",
+                    "lineaNaviera": { "value": "ROT", "label": "ROTTERDAN" },
+                    "nitClienteCarga": { "value": "900547176", "label": "FOCUS SOFTWARE SOLUTIONS SAS" },    
+                    "fechaArriboPto": {
+                        "type": "DATE",
+                        "value": "31-12-2018" 
+                    
+                  }
+            }
+}

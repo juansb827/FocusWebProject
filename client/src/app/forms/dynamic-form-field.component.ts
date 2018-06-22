@@ -38,17 +38,18 @@ export class DynamicFormFieldComponent implements OnInit, OnChanges {
   ) {
     //     this.dateAdapter.setLocale('es-CO');
     ;
+    
   }
 
   get isValid() { return this.formGroup.controls[this.field.id].valid; }
   get controlModel() { return this.formGroup.get(this.field.id) }
 
   ngOnInit() {
-
+    
   }
 
   ngOnChanges() {
-
+    
     if (this.field.controlType == 'datepicker') {
       this.handleDateInput();
     }

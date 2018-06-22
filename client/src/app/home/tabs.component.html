@@ -1,7 +1,7 @@
 <mat-tab-group [@.disabled]="true" *ngIf="(selectedApp$ | async)" [selectedIndex]="selectedTab" (selectedIndexChange)="onTabChange($event)"
       #tabGroup>
       <mat-tab [label]="option.name" *ngFor="let option of (selectedApp$ | async).options;let i = index;">
-            <content-displayer *ngIf="selectedTab == i" [contentId]="(selectedOption$ | async).form">
+            <content-displayer *ngIf="selectedTab == i" [content]="(selectedOption$ | async).form">
             </content-displayer>
       </mat-tab>
 </mat-tab-group>

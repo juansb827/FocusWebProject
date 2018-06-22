@@ -1,6 +1,6 @@
 http://localhost:3000/queries/infoConductor/?cedulaConductor=7528558
 
-http://localhost:3000/queries/infoContenedor/?cedulaConductor=7528558
+http://localhost:3000/queries/infoConductor/?cedulaConductor=7528558
 http://localhost:3000/queries/infoContenedor/?codContenedor=KOSU4975271
 
 http://localhost:3000/datasets/gruposMovContenedores

@@ -278,7 +278,14 @@
           },
           "triggers":{
             "on" : "leaveField",
-            "query": "infoConductor"          
+            "query": "infoConductor",
+            "updates": [
+              "cedulaConductor",
+              "celularConductor",
+              "nombreConductor",
+              "empresaTransporte",
+              "placaVehiculo"
+            ]           
           }
         },
         {
