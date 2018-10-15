@@ -6,6 +6,6 @@ https://focusweb.herokuapp.com/
 
 **credenciales de prueba**
 
- - company: testCompany
+ - company: a
  - email: example
  - password: password
