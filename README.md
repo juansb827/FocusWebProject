@@ -4,3 +4,8 @@ Permite el registro y la visualización de información por parte de los operari
 
 Desplegado en instancias de Heroku Free Plan, por lo cual puede tardar en cargar. 
 https://focusweb.herokuapp.com/
+
+credenciales de prueba:
+company: testCompany
+email: example
+password: password
